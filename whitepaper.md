@@ -187,7 +187,7 @@ This formula ensures both mechanisms contribute to the network's security assess
 
 ### 5.1 Overview
 
-The X25X framework is WATTx's multi-algorithm mining system, activated at block 100,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.
+The X25X framework is WATTx's multi-algorithm mining system, activated at block 210,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.
 
 ### 5.2 Supported Algorithms
 
@@ -685,9 +685,9 @@ WATTx is not just another cryptocurrency — it is a unified platform for mining
 | Token Standards | QRC-20 (fungible), QRC-721 (NFT) |
 | P2P Port | 3888 |
 | RPC Port | 3889 |
-| PoW to Hybrid | Block 5,000 |
+| PoW to Hybrid | Block 500 |
 | AuxPoW Activation | Block 210,000 |
-| X25X Activation | Block 100,000 |
+| X25X Activation | Block 210,000 |
 
 ## Appendix B: Glossary
 
