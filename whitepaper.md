@@ -143,9 +143,9 @@ WATTx is built on a QTUM Core foundation with the following enhancements:
 | Milestone | Block Height |
 |-----------|-------------|
 | Genesis (Pure PoW) | Block 0 |
-| PoW to Hybrid PoW/PoS Transition | Block 5,000 |
+| PoW to Hybrid PoW/PoS Transition | Block 500 |
 | AuxPoW Merged Mining Activation | Block 210,000 |
-| X25X Multi-Algorithm Activation | Block 100,000 |
+| X25X Multi-Algorithm Activation | Block 210,000 |
 
 ---
 
@@ -194,11 +194,11 @@ The X25X framework is WATTx's multi-algorithm mining system, activated at block 
 | Algorithm | Target Hardware | Type | Compatible Chains |
 |-----------|----------------|------|-------------------|
 | **SHA256d** | ASIC | Hash | Bitcoin, Bitcoin Cash, and other SHA256d chains |
-| **Scrypt** | ASIC / GPU | Memory-hard | Litecoin, Dogecoin, and other Scrypt chains |
-| **Ethash** | GPU | Memory-hard | Ethereum Classic and other Ethash chains |
-| **RandomX** | CPU | CPU-optimized | Monero and other RandomX chains |
-| **Equihash** | GPU / ASIC | Memory-hard | Zcash, Horizen, and other Equihash chains |
-| **X11** | ASIC / GPU | Chained hash | Dash and other X11 chains |
+| **Scrypt** | ASIC / GPU | Memory-hard | Litecoin, Dogecoin, Flopcoin, Trollcoin and other Scrypt chains |
+| **Ethash** | GPU | Memory-hard | Ethereum Classic, Altcoinchain, EGAZ, Octaspace and other Ethash chains |
+| **RandomX** | CPU | CPU-optimized | Monero, WATTx, Etica and other RandomX chains |
+| **Equihash** | GPU / ASIC | Memory-hard | Zcash, Horizen, bitcoinZ, and other Equihash chains |
+| **X11** | ASIC / GPU | Chained hash | Dash, DGB, HTH and other X11 chains |
 | **kHeavyHash** | GPU / ASIC | Matrix-heavy | Kaspa and other kHeavyHash chains |
 
 ### 5.3 Design Philosophy
