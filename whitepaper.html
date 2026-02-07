@@ -660,9 +660,9 @@
 
       <p>WATTx is a hybrid Proof-of-Work and Proof-of-Stake blockchain that combines the security of multi-algorithm mining with the energy efficiency of staking consensus. Built on a QTUM-derived foundation with significant enhancements, WATTx introduces the X25X multi-algorithm framework supporting seven distinct mining algorithms across ASIC, GPU, and CPU hardware, enabling the broadest possible miner participation.</p>
 
-      <p>The network features a novel dual-halving mechanism that progressively reduces both block rewards and staking maturity requirements, a Trust Tier system that rewards validator uptime with multiplied staking returns, AuxPoW merged mining with Bitcoin, Monero, Litecoin, and Kaspa, full EVM-compatible smart contracts, and built-in privacy features including cross-chain privacy pools, stealth addresses, and encrypted messaging.</p>
+      <p>The network features a novel dual-halving mechanism that progressively reduces both block rewards and staking maturity requirements, a Trust Tier system that rewards validator uptime with multiplied staking returns, AuxPoW merged mining across all seven supported algorithms, full EVM-compatible smart contracts, and built-in privacy features including cross-chain privacy pools, stealth addresses, and encrypted messaging.</p>
 
-      <p>Central to the WATTx vision is the decentralization of mining hash power and electricity across all PoW and PoS blockchains. Through AuxPoW merged mining, miners on any supported algorithm — whether mining Bitcoin, Monero, Litecoin, Kaspa, Zcash, Dash, or Ethereum Classic — can simultaneously earn WATTx rewards while supporting the network of their choice. A 1% pool fee from merged mining flows into the Mining Game NFT mining pools, creating a self-sustaining circular economy where miners, stakers, gamers, and cross-chain participants all benefit from a unified ecosystem.</p>
+      <p>Central to the WATTx vision is the decentralization of mining hash power and electricity across all PoW and PoS blockchains. Through AuxPoW merged mining, miners on any supported algorithm — SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, or kHeavyHash — can simultaneously earn WATTx rewards while supporting the network and algorithm of their choice. A 1% pool fee from merged mining flows into the Mining Game NFT mining pools, creating a self-sustaining circular economy where miners, stakers, gamers, and cross-chain participants all benefit from a unified ecosystem.</p>
 
       <p>WATTx aims to be a truly decentralized, multi-chain-connected cryptocurrency where miners of all hardware types, stakers of all sizes, and developers building decentralized applications can participate in a unified, secure ecosystem.</p>
 
@@ -691,7 +691,7 @@
       <ul>
         <li><strong>X25X Multi-Algorithm Mining:</strong> 7 algorithms supporting ASICs, GPUs, and CPUs</li>
         <li><strong>Hybrid PoW/PoS Consensus:</strong> Dual security from both miners and stakers</li>
-        <li><strong>AuxPoW Merged Mining:</strong> Mine WATTx simultaneously with Bitcoin, Monero, Litecoin, and Kaspa</li>
+        <li><strong>AuxPoW Merged Mining:</strong> Mine WATTx simultaneously with any SHA256d, Scrypt, RandomX, or kHeavyHash chain</li>
         <li><strong>Trust Tier System:</strong> Progressive validator rewards based on uptime commitment</li>
         <li><strong>EVM Smart Contracts:</strong> Full Solidity compatibility for dApps and tokens</li>
         <li><strong>Built-in Privacy:</strong> Cross-chain privacy pools, stealth addresses, and encrypted messaging</li>
@@ -800,7 +800,7 @@
           <tbody>
             <tr><td>Genesis (Pure PoW)</td><td>Block 0</td></tr>
             <tr><td>PoW to Hybrid PoW/PoS Transition</td><td>Block 5,000</td></tr>
-            <tr><td>AuxPoW Merged Mining Activation</td><td>Block 50,000</td></tr>
+            <tr><td>AuxPoW Merged Mining Activation</td><td>Block 210,000</td></tr>
             <tr><td>X25X Multi-Algorithm Activation</td><td>Block 100,000</td></tr>
           </tbody>
         </table>
@@ -860,19 +860,19 @@ Where:
           <thead>
             <tr>
               <th>Algorithm</th>
-              <th>Origin</th>
               <th>Target Hardware</th>
               <th>Type</th>
+              <th>Compatible Chains</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>SHA256d</strong></td><td>Bitcoin</td><td>ASIC</td><td>Hash</td></tr>
-            <tr><td><strong>Scrypt</strong></td><td>Litecoin</td><td>ASIC / GPU</td><td>Memory-hard</td></tr>
-            <tr><td><strong>Ethash</strong></td><td>Ethereum Classic</td><td>GPU</td><td>Memory-hard</td></tr>
-            <tr><td><strong>RandomX</strong></td><td>Monero</td><td>CPU</td><td>CPU-optimized</td></tr>
-            <tr><td><strong>Equihash</strong></td><td>Zcash</td><td>GPU / ASIC</td><td>Memory-hard</td></tr>
-            <tr><td><strong>X11</strong></td><td>Dash</td><td>ASIC / GPU</td><td>Chained hash</td></tr>
-            <tr><td><strong>kHeavyHash</strong></td><td>Kaspa</td><td>GPU / ASIC</td><td>Matrix-heavy</td></tr>
+            <tr><td><strong>SHA256d</strong></td><td>ASIC</td><td>Hash</td><td>Bitcoin, Bitcoin Cash, and other SHA256d chains</td></tr>
+            <tr><td><strong>Scrypt</strong></td><td>ASIC / GPU</td><td>Memory-hard</td><td>Litecoin, Dogecoin, and other Scrypt chains</td></tr>
+            <tr><td><strong>Ethash</strong></td><td>GPU</td><td>Memory-hard</td><td>Ethereum Classic and other Ethash chains</td></tr>
+            <tr><td><strong>RandomX</strong></td><td>CPU</td><td>CPU-optimized</td><td>Monero and other RandomX chains</td></tr>
+            <tr><td><strong>Equihash</strong></td><td>GPU / ASIC</td><td>Memory-hard</td><td>Zcash, Horizen, and other Equihash chains</td></tr>
+            <tr><td><strong>X11</strong></td><td>ASIC / GPU</td><td>Chained hash</td><td>Dash and other X11 chains</td></tr>
+            <tr><td><strong>kHeavyHash</strong></td><td>GPU / ASIC</td><td>Matrix-heavy</td><td>Kaspa and other kHeavyHash chains</td></tr>
           </tbody>
         </table>
       </div>
@@ -882,16 +882,16 @@ Where:
       <p><strong>Hardware Inclusivity:</strong> By supporting seven algorithms across three hardware classes (ASIC, GPU, CPU), WATTx ensures:</p>
 
       <ul>
-        <li>Bitcoin miners can mine WATTx with SHA256d ASICs</li>
-        <li>Ethereum Classic miners can mine with Ethash GPUs</li>
-        <li>Monero miners can mine with RandomX CPUs</li>
-        <li>Litecoin miners can mine with Scrypt hardware</li>
-        <li>Zcash miners can mine with Equihash hardware</li>
-        <li>Dash miners can mine with X11 hardware</li>
-        <li>Kaspa miners can mine with kHeavyHash hardware</li>
+        <li><strong>SHA256d</strong> miners can contribute with ASICs — compatible with any SHA256d chain</li>
+        <li><strong>Scrypt</strong> miners can contribute with ASICs or GPUs — compatible with any Scrypt chain</li>
+        <li><strong>Ethash</strong> miners can contribute with GPUs — compatible with any Ethash chain</li>
+        <li><strong>RandomX</strong> miners can contribute with CPUs — compatible with any RandomX chain</li>
+        <li><strong>Equihash</strong> miners can contribute with GPUs or ASICs — compatible with any Equihash chain</li>
+        <li><strong>X11</strong> miners can contribute with ASICs or GPUs — compatible with any X11 chain</li>
+        <li><strong>kHeavyHash</strong> miners can contribute with GPUs or ASICs — compatible with any kHeavyHash chain</li>
       </ul>
 
-      <p>This approach maximizes network hash power by tapping into existing mining infrastructure across the cryptocurrency ecosystem.</p>
+      <p>This approach maximizes network hash power by tapping into existing mining infrastructure across the entire cryptocurrency ecosystem — not limited to any single chain, but welcoming miners from every chain that shares a supported algorithm.</p>
 
       <p><strong>Difficulty Isolation:</strong> Each algorithm maintains its own independent difficulty adjustment, preventing hashrate fluctuations on one algorithm from affecting others. This ensures stable block production regardless of miner migration patterns.</p>
 
@@ -904,32 +904,37 @@ Where:
 
       <h3 id="sec-6-1">6.1 What is Merged Mining?</h3>
 
-      <p>Auxiliary Proof-of-Work (AuxPoW) allows miners to submit work done on parent chains (Bitcoin, Monero, Litecoin, Kaspa) as valid proof-of-work on WATTx simultaneously. Miners earn rewards on both chains with no additional energy cost.</p>
+      <p>Auxiliary Proof-of-Work (AuxPoW) allows miners to submit work done on any parent chain using a supported algorithm as valid proof-of-work on WATTx simultaneously. Miners earn rewards on both chains with no additional energy cost.</p>
 
-      <h3 id="sec-6-2">6.2 Supported Parent Chains</h3>
+      <h3 id="sec-6-2">6.2 Supported Merge-Mining Algorithms</h3>
 
       <div class="wp-table-wrap">
         <table>
           <thead>
             <tr>
-              <th>Parent Chain</th>
               <th>Algorithm</th>
+              <th>Target Hardware</th>
               <th>Activation</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Bitcoin</td><td>SHA256d</td><td>Block 50,000</td></tr>
-            <tr><td>Monero</td><td>RandomX</td><td>Block 50,000</td></tr>
-            <tr><td>Litecoin</td><td>Scrypt</td><td>Block 50,000</td></tr>
-            <tr><td>Kaspa</td><td>kHeavyHash</td><td>Block 50,000</td></tr>
+            <tr><td>SHA256d</td><td>ASIC</td><td>Block 210,000</td></tr>
+            <tr><td>Scrypt</td><td>ASIC / GPU</td><td>Block 210,000</td></tr>
+            <tr><td>Ethash</td><td>GPU</td><td>Block 210,000</td></tr>
+            <tr><td>RandomX</td><td>CPU</td><td>Block 210,000</td></tr>
+            <tr><td>Equihash</td><td>GPU / ASIC</td><td>Block 210,000</td></tr>
+            <tr><td>X11</td><td>ASIC / GPU</td><td>Block 210,000</td></tr>
+            <tr><td>kHeavyHash</td><td>GPU / ASIC</td><td>Block 210,000</td></tr>
           </tbody>
         </table>
       </div>
 
+      <p>All seven X25X algorithms support AuxPoW merged mining from activation. Miners on <strong>any</strong> chain that shares a supported algorithm can merge-mine WATTx — this is not limited to specific parent chains.</p>
+
       <h3 id="sec-6-3">6.3 How It Works</h3>
 
       <ol>
-        <li>Miner constructs a parent chain block (e.g., Bitcoin) that includes a WATTx block hash commitment in its coinbase transaction</li>
+        <li>Miner constructs a parent chain block using any supported algorithm that includes a WATTx block hash commitment in its coinbase transaction</li>
         <li>Upon finding a valid parent chain solution, the miner extracts the AuxPoW proof</li>
         <li>The AuxPoW proof is submitted to WATTx, demonstrating that sufficient work was performed</li>
         <li>WATTx validates the proof and accepts the block, rewarding the miner on both chains</li>
@@ -938,10 +943,11 @@ Where:
       <h3 id="sec-6-4">6.4 Benefits</h3>
 
       <ul>
-        <li><strong>Free Security:</strong> WATTx inherits hash power from major chains at no marginal energy cost</li>
+        <li><strong>Free Security:</strong> WATTx inherits hash power from any chain sharing a supported algorithm at no marginal energy cost</li>
         <li><strong>Miner Incentive:</strong> Miners earn additional revenue without additional hardware or electricity</li>
-        <li><strong>Network Effect:</strong> As more miners opt in, WATTx security scales with parent chain growth</li>
-        <li><strong>Decentralization:</strong> No need for dedicated WATTx mining infrastructure — any Bitcoin, Monero, Litecoin, or Kaspa miner can participate</li>
+        <li><strong>Network Effect:</strong> As more miners opt in, WATTx security scales with total hash power across all compatible chains</li>
+        <li><strong>Decentralization:</strong> No need for dedicated WATTx mining infrastructure — any miner on any chain using SHA256d, Scrypt, RandomX, or kHeavyHash can participate</li>
+        <li><strong>Algorithm Breadth:</strong> Seven algorithms mean WATTx can tap into the hash power of virtually every major PoW chain in existence</li>
       </ul>
 
       <hr>
@@ -957,25 +963,25 @@ Where:
 
       <h3 id="sec-7-2">7.2 The WATTx Vision: One Hash, Many Chains</h3>
 
-      <p>WATTx's multi-algorithm AuxPoW merged mining fundamentally changes this equation. A miner running <strong>any</strong> of the seven supported algorithms on <strong>any</strong> parent chain can simultaneously earn WATTx rewards:</p>
+      <p>WATTx's multi-algorithm AuxPoW merged mining fundamentally changes this equation. A miner running <strong>any</strong> of the seven supported algorithms on <strong>any</strong> compatible chain can simultaneously earn WATTx rewards:</p>
 
       <ul>
-        <li>A <strong>Bitcoin miner</strong> using SHA256d ASICs earns BTC + WTX</li>
-        <li>A <strong>Monero miner</strong> using RandomX CPUs earns XMR + WTX</li>
-        <li>A <strong>Litecoin miner</strong> using Scrypt rigs earns LTC + WTX</li>
-        <li>A <strong>Kaspa miner</strong> using kHeavyHash GPUs earns KAS + WTX</li>
-        <li>An <strong>Ethereum Classic miner</strong> using Ethash GPUs earns ETC + WTX</li>
-        <li>A <strong>Zcash miner</strong> using Equihash hardware earns ZEC + WTX</li>
-        <li>A <strong>Dash miner</strong> using X11 hardware earns DASH + WTX</li>
+        <li><strong>SHA256d</strong> miners earn parent chain rewards + WTX — works with any SHA256d chain</li>
+        <li><strong>RandomX</strong> miners earn parent chain rewards + WTX — works with any RandomX chain</li>
+        <li><strong>Scrypt</strong> miners earn parent chain rewards + WTX — works with any Scrypt chain</li>
+        <li><strong>kHeavyHash</strong> miners earn parent chain rewards + WTX — works with any kHeavyHash chain</li>
+        <li><strong>Ethash</strong> miners earn parent chain rewards + WTX — works with any Ethash chain</li>
+        <li><strong>Equihash</strong> miners earn parent chain rewards + WTX — works with any Equihash chain</li>
+        <li><strong>X11</strong> miners earn parent chain rewards + WTX — works with any X11 chain</li>
       </ul>
 
-      <p>Every watt of electricity spent mining any of these chains can now <strong>also</strong> secure the WATTx network at zero additional energy cost. This is the core innovation: <strong>decentralizing hash power and electricity across all PoW blockchains.</strong></p>
+      <p>Every watt of electricity spent mining on any chain that uses a supported algorithm can now <strong>also</strong> secure the WATTx network at zero additional energy cost. This is the core innovation: <strong>decentralizing hash power and electricity across all PoW blockchains, regardless of which specific chain a miner supports.</strong></p>
 
       <h3 id="sec-7-3">7.3 Supporting Smaller Networks</h3>
 
-      <p>Merged mining works both ways. WATTx doesn't just absorb security from large chains — it creates incentive for miners on large chains to pay attention to smaller networks. A Bitcoin miner who merge-mines WATTx is now economically connected to the WATTx ecosystem. This cross-chain mining participation strengthens the entire cryptocurrency landscape by distributing security more broadly.</p>
+      <p>Merged mining works both ways. WATTx doesn't just absorb security from large chains — it creates incentive for miners on large chains to pay attention to smaller networks. A SHA256d miner who merge-mines WATTx is now economically connected to the WATTx ecosystem, and so is every Scrypt, RandomX, Ethash, Equihash, X11, or kHeavyHash miner. This cross-chain mining participation strengthens the entire cryptocurrency landscape by distributing security more broadly.</p>
 
-      <p>Miners can choose to support the network of their choice — whether it's the largest chain with the most hashrate or the smallest chain that needs the most help. WATTx's multi-algorithm design means no chain is left out.</p>
+      <p>Miners can choose to support the network and algorithm of their choice — whether it's the largest chain with the most hashrate or the smallest chain that needs the most help. Because WATTx supports seven algorithms, virtually every PoW chain in existence shares at least one algorithm with WATTx, meaning no mining community is left out.</p>
 
       <h3 id="sec-7-4">7.4 The 1% Pool Fee and the Mining Game Economy</h3>
 
@@ -1403,7 +1409,7 @@ A UTXO is mature when:
 
       <ul class="checklist">
         <li class="check">X25X multi-algorithm framework (7 algorithms)</li>
-        <li class="check">AuxPoW merged mining (Bitcoin, Monero, Litecoin, Kaspa)</li>
+        <li class="check">AuxPoW merged mining (SHA256d, RandomX, Scrypt, kHeavyHash)</li>
         <li class="check">Dynamic stake maturity with dual-halving</li>
         <li class="check">Trust Tier validator reward system</li>
         <li class="check">Enhanced block explorer with contract interaction</li>
@@ -1452,7 +1458,7 @@ A UTXO is mature when:
 
       <ol>
         <li><strong>X25X Multi-Algorithm Mining:</strong> Seven algorithms ensure any miner, regardless of hardware, can participate in securing the network</li>
-        <li><strong>AuxPoW Merged Mining:</strong> Inherited security from Bitcoin, Monero, Litecoin, and Kaspa at zero marginal energy cost</li>
+        <li><strong>AuxPoW Merged Mining:</strong> Inherited security from any chain sharing a supported algorithm at zero marginal energy cost</li>
         <li><strong>Trust Tier System:</strong> Economic incentives for reliable validator infrastructure</li>
         <li><strong>Dual-Halving Mechanism:</strong> Simultaneously reduces emission and barriers to participation</li>
         <li><strong>Built-in Privacy:</strong> Cross-chain privacy pools, stealth addresses, and encrypted messaging as first-class features</li>
@@ -1499,7 +1505,7 @@ A UTXO is mature when:
             <tr><td><strong>P2P Port</strong></td><td>3888</td></tr>
             <tr><td><strong>RPC Port</strong></td><td>3889</td></tr>
             <tr><td><strong>PoW to Hybrid</strong></td><td>Block 5,000</td></tr>
-            <tr><td><strong>AuxPoW Activation</strong></td><td>Block 50,000</td></tr>
+            <tr><td><strong>AuxPoW Activation</strong></td><td>Block 210,000</td></tr>
             <tr><td><strong>X25X Activation</strong></td><td>Block 100,000</td></tr>
           </tbody>
         </table>
