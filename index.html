@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="WATTx — Hybrid PoW/PoS blockchain with multi-algorithm mining, smart contracts, and privacy features.">
+  <title>WATTx — Hybrid PoW/PoS Blockchain</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-brand">
+        <img src="assets/logo.png" alt="WATTx Logo" class="nav-logo">
+        <span class="nav-wordmark">WATTx</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#algorithms">Algorithms</a></li>
+        <li><a href="#specifications">Specifications</a></li>
+        <li><a href="#ecosystem">Ecosystem</a></li>
+        <li><a href="#downloads">Downloads</a></li>
+        <li><a href="#getting-started">Docs</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+      <div class="hero-logo-wrap">
+        <svg class="electricity" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="elec-glow">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <g filter="url(#elec-glow)">
+            <polyline class="bolt bolt-1" points=""/>
+            <polyline class="bolt bolt-2" points=""/>
+            <polyline class="bolt bolt-3" points=""/>
+            <polyline class="bolt bolt-4" points=""/>
+            <polyline class="bolt bolt-5" points=""/>
+            <polyline class="bolt bolt-6" points=""/>
+          </g>
+        </svg>
+        <img src="assets/logo.png" alt="WATTx" class="hero-logo">
+      </div>
+      <h1>Hybrid PoW/PoS Blockchain</h1>
+      <p class="hero-sub">Multi-algorithm mining, smart contracts, and privacy &mdash; all in one chain.</p>
+      <div class="hero-actions">
+        <a href="https://github.com/The-Mining-Game/WATTx/releases" target="_blank" rel="noopener" class="btn btn-primary">Download Wallet</a>
+        <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener" class="btn btn-secondary">View Explorer</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="section" id="features">
+    <div class="container">
+      <h2 class="section-title">Features</h2>
+      <p class="section-sub">Everything you need in a modern blockchain, unified in a single network.</p>
+      <div class="card-grid">
+
+        <div class="card">
+          <div class="card-icon-img">
+            <img src="assets/icon-mining.svg" alt="Mining" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>Multi-Algorithm Mining</h3>
+          <p>7 algorithms — SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, kHeavyHash. Mine with ASICs, GPUs, or CPUs.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon-img">
+            <img src="assets/icon-privacy.svg" alt="Privacy" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>Privacy Built In</h3>
+          <p>Cross-chain privacy pools, stealth addresses, shielded commitments, and encrypted messaging for true financial privacy.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon-img">
+            <img src="assets/icon-contracts.svg" alt="Smart Contracts" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>Smart Contracts</h3>
+          <p>Full EVM/Solidity compatibility with a built-in compiler. Deploy, verify, and interact with contracts on-chain.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon-img">
+            <img src="assets/icon-consensus.svg" alt="Hybrid Consensus" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>Hybrid Consensus</h3>
+          <p>PoW mining + PoS staking + AuxPoW merged mining with Monero, Bitcoin, Litecoin, and Kaspa for maximum security.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Mining Algorithms Section -->
+  <section class="section section-alt" id="algorithms">
+    <div class="container">
+      <h2 class="section-title">Mining Algorithms</h2>
+      <p class="section-sub">X25X multi-algorithm framework — choose the hardware you already have.</p>
+      <div class="table-wrap">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Origin</th>
+              <th>Target Hardware</th>
+              <th>Type</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Algorithm"><strong>SHA256d</strong></td>
+              <td data-label="Origin">Bitcoin</td>
+              <td data-label="Hardware">ASIC</td>
+              <td data-label="Type">Hash</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>Scrypt</strong></td>
+              <td data-label="Origin">Litecoin</td>
+              <td data-label="Hardware">ASIC / GPU</td>
+              <td data-label="Type">Memory-hard</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>Ethash</strong></td>
+              <td data-label="Origin">Ethereum Classic</td>
+              <td data-label="Hardware">GPU</td>
+              <td data-label="Type">Memory-hard</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>RandomX</strong></td>
+              <td data-label="Origin">Monero</td>
+              <td data-label="Hardware">CPU</td>
+              <td data-label="Type">CPU-optimized</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>Equihash</strong></td>
+              <td data-label="Origin">Zcash</td>
+              <td data-label="Hardware">GPU / ASIC</td>
+              <td data-label="Type">Memory-hard</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>X11</strong></td>
+              <td data-label="Origin">Dash</td>
+              <td data-label="Hardware">ASIC / GPU</td>
+              <td data-label="Type">Chained hash</td>
+            </tr>
+            <tr>
+              <td data-label="Algorithm"><strong>kHeavyHash</strong></td>
+              <td data-label="Origin">Kaspa</td>
+              <td data-label="Hardware">GPU / ASIC</td>
+              <td data-label="Type">Matrix-heavy</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Specifications Section -->
+  <section class="section" id="specifications">
+    <div class="container">
+      <h2 class="section-title">Network Specifications</h2>
+      <p class="section-sub">Core parameters of the WATTx blockchain.</p>
+      <div class="specs-grid">
+        <div class="spec-card">
+          <span class="spec-label">Block Time</span>
+          <span class="spec-value">2 minutes</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Block Reward</span>
+          <span class="spec-value">10 WTX</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Reward Split</span>
+          <span class="spec-value">50% PoW / 50% PoS</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Halving Interval</span>
+          <span class="spec-value">~4 years (1,051,200 blocks)</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Coinbase Maturity</span>
+          <span class="spec-value">1 block</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Stake Maturity</span>
+          <span class="spec-value">500 blocks (dynamic)</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">Super Staker Minimum</span>
+          <span class="spec-value">20,000 WTX</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">PoW → Hybrid Transition</span>
+          <span class="spec-value">Block 5,000</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">AuxPoW Activation</span>
+          <span class="spec-value">Block 50,000</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">X25X Activation</span>
+          <span class="spec-value">Block 100,000</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">P2P Port</span>
+          <span class="spec-value">3888</span>
+        </div>
+        <div class="spec-card">
+          <span class="spec-label">RPC Port</span>
+          <span class="spec-value">3889</span>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">Trust Tier System</h3>
+      <p class="section-sub">Validator rewards scale with uptime consistency.</p>
+      <div class="table-wrap">
+        <table class="spec-table">
+          <thead>
+            <tr>
+              <th>Tier</th>
+              <th>Uptime Requirement</th>
+              <th>Reward Multiplier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td data-label="Tier"><span class="shield shield-bronze">&#x1F6E1;</span> Bronze</td><td data-label="Uptime">95%</td><td data-label="Multiplier">1.0x</td></tr>
+            <tr><td data-label="Tier"><span class="shield shield-silver">&#x1F6E1;</span> Silver</td><td data-label="Uptime">97%</td><td data-label="Multiplier">1.25x</td></tr>
+            <tr><td data-label="Tier"><span class="shield shield-gold">&#x1F6E1;</span> Gold</td><td data-label="Uptime">99%</td><td data-label="Multiplier">1.5x</td></tr>
+            <tr><td data-label="Tier"><span class="shield shield-platinum">&#x1F6E1;</span> Platinum</td><td data-label="Uptime">99.9%</td><td data-label="Multiplier">2.0x</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ecosystem Section -->
+  <section class="section section-alt" id="ecosystem">
+    <div class="container">
+      <h2 class="section-title">Ecosystem</h2>
+      <p class="section-sub">Tools and dApps built around the WATTx network.</p>
+      <div class="card-grid card-grid-4">
+
+        <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener" class="card card-link">
+          <div class="card-icon-img">
+            <img src="assets/explorer-logo.svg" alt="Block Explorer" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>Block Explorer</h3>
+          <p>Browse blocks, transactions, addresses, and smart contracts on the WATTx blockchain in real time.</p>
+        </a>
+
+        <a href="secret/index.html" class="card card-link">
+          <div class="card-icon-img">
+            <img src="assets/secret-logo.svg" alt="WATTxSecret" class="ecosystem-logo gold-shine">
+          </div>
+          <h3>WATTxSecret</h3>
+          <p>Encrypted self-destructing messages. AES-256-GCM client-side encryption — no server, no tracking.</p>
+        </a>
+
+        <div class="card card-disabled">
+          <div class="card-icon-img">
+            <img src="assets/bridge-logo.png" alt="Cross-Chain Bridge" class="ecosystem-logo ecosystem-logo-bridge gold-shine">
+          </div>
+          <h3>Cross-Chain Bridge</h3>
+          <p>LayerZero-powered bridge between WATTx, Ethereum, BSC, and Polygon for seamless asset transfers.</p>
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+
+        <div class="card card-disabled">
+          <div class="card-icon-img">
+            <img src="assets/mining-game-logo.png" alt="Mining Game" class="ecosystem-logo ecosystem-logo-wide gold-shine">
+          </div>
+          <h3>Mining Game</h3>
+          <p>NFT Mining Rig Builder dApp — collect component NFTs, build rigs, and earn WATT rewards on Polygon.</p>
+          <span class="coming-soon-badge">Coming Soon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Downloads Section -->
+  <section class="section" id="downloads">
+    <div class="container">
+      <h2 class="section-title">Downloads</h2>
+      <p class="section-sub">Get the latest WATTx binaries for your platform.</p>
+      <div class="download-grid">
+
+        <div class="download-card">
+          <img src="assets/linux.svg" alt="Linux" class="download-logo gold-shine">
+          <h3>Linux</h3>
+          <p>wattxd, wattx-cli, wattx-qt</p>
+          <a href="https://github.com/The-Mining-Game/WATTx/releases" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download</a>
+        </div>
+
+        <div class="download-card">
+          <img src="assets/windows.svg" alt="Windows" class="download-logo gold-shine">
+          <h3>Windows</h3>
+          <p>wattx-qt.exe with bundled DLLs</p>
+          <a href="https://github.com/The-Mining-Game/WATTx/releases" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download</a>
+        </div>
+
+        <div class="download-card">
+          <img src="assets/apple.svg" alt="macOS" class="download-logo gold-shine">
+          <h3>macOS</h3>
+          <p>wattxd, wattx-cli, wattx-qt</p>
+          <a href="https://github.com/The-Mining-Game/WATTx/releases" target="_blank" rel="noopener" class="btn btn-primary btn-sm">Download</a>
+        </div>
+
+        <div class="download-card">
+          <img src="assets/android.svg" alt="Android" class="download-logo gold-shine">
+          <h3>Android</h3>
+          <p>WATTx Mobile Wallet</p>
+          <span class="btn btn-secondary btn-sm btn-disabled">Coming Soon</span>
+        </div>
+
+        <div class="download-card">
+          <img src="assets/ios.svg" alt="iOS" class="download-logo gold-shine">
+          <h3>iOS</h3>
+          <p>WATTx Mobile Wallet</p>
+          <span class="btn btn-secondary btn-sm btn-disabled">Coming Soon</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Getting Started Section -->
+  <section class="section section-alt" id="getting-started">
+    <div class="container">
+      <h2 class="section-title">Getting Started</h2>
+      <p class="section-sub">Quick start guides to get you up and running.</p>
+      <div class="accordion">
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>Running a Node</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+          <div class="accordion-body">
+<pre><code># Start WATTx daemon
+./wattxd -daemon
+
+# Check sync status
+./wattx-cli getblockchaininfo
+
+# Check connections
+./wattx-cli getconnectioncount</code></pre>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>Mining</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+          <div class="accordion-body">
+<pre><code># Generate a mining address
+./wattx-cli getnewaddress "mining"
+
+# Start solo mining (CPU)
+./wattx-cli generatetoaddress 1 "YOUR_ADDRESS"
+
+# Check hashrate
+./wattx-cli getmininginfo</code></pre>
+            <p>For pool mining, point your miner at a WATTx-compatible stratum pool using the algorithm of your choice.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>Staking</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+          <div class="accordion-body">
+<pre><code># Unlock wallet for staking only
+./wattx-cli walletpassphrase "YOUR_PASSPHRASE" 99999999 true
+
+# Check staking status
+./wattx-cli getstakinginfo
+
+# For super staking (requires 20,000+ WTX):
+./wattx-cli setsuperstaker "YOUR_ADDRESS" true</code></pre>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-header" aria-expanded="false">
+            <span>Smart Contracts</span>
+            <span class="accordion-chevron">&#9662;</span>
+          </button>
+          <div class="accordion-body">
+<pre><code># Deploy a contract (from compiled bytecode)
+./wattx-cli createcontract "BYTECODE"
+
+# Call a contract method
+./wattx-cli callcontract "CONTRACT_ADDR" "DATA"
+
+# Send to a contract
+./wattx-cli sendtocontract "CONTRACT_ADDR" "DATA" 0</code></pre>
+            <p>WATTx supports Solidity up to version 0.8.x. Use the built-in compiler in wattx-qt or compile with solc and deploy via CLI.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="WATTx" class="footer-logo">
+        <span class="footer-wordmark">WATTx</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/The-Mining-Game/WATTx" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener">Explorer</a>
+        <a href="secret/index.html">WATTxSecret</a>
+        <span class="footer-coming-soon">Bridge — Coming Soon</span>
+        <span class="footer-coming-soon">Mining Game — Coming Soon</span>
+      </div>
+      <p class="footer-copy">&copy; 2026 WATTx Contributors. Released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

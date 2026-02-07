@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
+  <!-- Tux body -->
+  <ellipse cx="48" cy="58" rx="22" ry="26" fill="#161B22" stroke="#E8D44D" stroke-width="2"/>
+  <!-- Belly -->
+  <ellipse cx="48" cy="62" rx="14" ry="17" fill="#E8D44D" opacity="0.15"/>
+  <!-- Head -->
+  <circle cx="48" cy="28" r="14" fill="#161B22" stroke="#E8D44D" stroke-width="2"/>
+  <!-- Eyes -->
+  <circle cx="43" cy="26" r="3" fill="#E8D44D"/>
+  <circle cx="53" cy="26" r="3" fill="#E8D44D"/>
+  <circle cx="43.8" cy="25.5" r="1.2" fill="#0D1117"/>
+  <circle cx="53.8" cy="25.5" r="1.2" fill="#0D1117"/>
+  <!-- Beak -->
+  <path d="M45 31l3 4 3-4z" fill="#E8D44D" opacity="0.8"/>
+  <!-- Feet -->
+  <ellipse cx="38" cy="84" rx="8" ry="4" fill="#E8D44D" opacity="0.7"/>
+  <ellipse cx="58" cy="84" rx="8" ry="4" fill="#E8D44D" opacity="0.7"/>
+  <!-- Flippers -->
+  <path d="M26 52c-4 6-6 14-4 18" stroke="#E8D44D" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <path d="M70 52c4 6 6 14 4 18" stroke="#E8D44D" stroke-width="2" stroke-linecap="round" fill="none"/>
+</svg>
