@@ -144,7 +144,7 @@ WATTx is built on a QTUM Core foundation with the following enhancements:
 |-----------|-------------|
 | Genesis (Pure PoW) | Block 0 |
 | PoW to Hybrid PoW/PoS Transition | Block 5,000 |
-| AuxPoW Merged Mining Activation | Block 50,000 |
+| AuxPoW Merged Mining Activation | Block 210,000 |
 | X25X Multi-Algorithm Activation | Block 100,000 |
 
 ---
@@ -229,14 +229,17 @@ Auxiliary Proof-of-Work (AuxPoW) allows miners to submit work done on any parent
 
 ### 6.2 Supported Merge-Mining Algorithms
 
-| Algorithm | Target Hardware | Activation | Compatible Parent Chains |
-|-----------|----------------|------------|--------------------------|
-| SHA256d | ASIC | Block 50,000 | Any SHA256d PoW chain |
-| RandomX | CPU | Block 50,000 | Any RandomX PoW chain |
-| Scrypt | ASIC / GPU | Block 50,000 | Any Scrypt PoW chain |
-| kHeavyHash | GPU / ASIC | Block 50,000 | Any kHeavyHash PoW chain |
+| Algorithm | Target Hardware | Activation |
+|-----------|----------------|------------|
+| SHA256d | ASIC | Block 210,000 |
+| Scrypt | ASIC / GPU | Block 210,000 |
+| Ethash | GPU | Block 210,000 |
+| RandomX | CPU | Block 210,000 |
+| Equihash | GPU / ASIC | Block 210,000 |
+| X11 | ASIC / GPU | Block 210,000 |
+| kHeavyHash | GPU / ASIC | Block 210,000 |
 
-Additional algorithms (Ethash, Equihash, X11) are supported through the X25X framework for direct mining and can be enabled for AuxPoW merge-mining as the network matures.
+All seven X25X algorithms support AuxPoW merged mining from activation. Miners on **any** chain that shares a supported algorithm can merge-mine WATTx — this is not limited to specific parent chains.
 
 ### 6.3 How It Works
 
@@ -683,7 +686,7 @@ WATTx is not just another cryptocurrency — it is a unified platform for mining
 | P2P Port | 3888 |
 | RPC Port | 3889 |
 | PoW to Hybrid | Block 5,000 |
-| AuxPoW Activation | Block 50,000 |
+| AuxPoW Activation | Block 210,000 |
 | X25X Activation | Block 100,000 |
 
 ## Appendix B: Glossary
