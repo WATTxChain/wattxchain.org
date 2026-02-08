@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96" fill="none">
   <!-- Pickaxe handle -->
-  <line x1="20" y1="76" x2="58" y2="38" stroke="#E8D44D" stroke-width="3.5" stroke-linecap="round"/>
+  <line x1="20" y1="76" x2="56" y2="40" stroke="#E8D44D" stroke-width="5" stroke-linecap="round"/>
   <!-- Pickaxe head -->
-  <path d="M52 38L68 16C70 13 74 12 76 14L82 20C84 22 83 26 80 28L58 44" stroke="#E8D44D" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="#161B22"/>
-  <!-- Hash marks (algorithms) -->
-  <text x="14" y="24" font-family="monospace" font-size="9" fill="#E8D44D" opacity="0.5">#7</text>
+  <path d="M50 40L66 18C68 15 72 14 74 16L82 22C84 24 83 28 80 30L58 46Z" fill="#E8D44D"/>
+  <!-- Hash marks (7 algorithms) -->
+  <text x="12" y="22" font-family="monospace" font-size="11" fill="#E8D44D" font-weight="bold">#7</text>
   <!-- Sparkle bits -->
-  <circle cx="72" cy="12" r="1.5" fill="#E8D44D" opacity="0.6"/>
-  <circle cx="84" cy="24" r="1" fill="#E8D44D" opacity="0.4"/>
-  <circle cx="38" cy="28" r="1.5" fill="#E8D44D" opacity="0.5"/>
+  <circle cx="72" cy="12" r="2.5" fill="#E8D44D"/>
+  <circle cx="86" cy="26" r="2" fill="#E8D44D" opacity="0.7"/>
+  <circle cx="38" cy="28" r="2" fill="#E8D44D" opacity="0.7"/>
   <!-- Block being mined -->
-  <rect x="10" y="52" width="18" height="18" rx="3" fill="#161B22" stroke="#E8D44D" stroke-width="1.5" opacity="0.6"/>
-  <rect x="14" y="56" width="10" height="3" rx="1" fill="#E8D44D" opacity="0.3"/>
-  <rect x="14" y="62" width="7" height="3" rx="1" fill="#E8D44D" opacity="0.3"/>
+  <rect x="8" y="52" width="22" height="22" rx="3" fill="#E8D44D" opacity="0.25"/>
+  <rect x="13" y="58" width="12" height="4" rx="2" fill="#E8D44D" opacity="0.6"/>
+  <rect x="13" y="65" width="8" height="4" rx="2" fill="#E8D44D" opacity="0.6"/>
 </svg>
