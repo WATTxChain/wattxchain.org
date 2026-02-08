@@ -7,8 +7,8 @@
   --gold-dim: #E8D44D99;
   --gold-glow: #E8D44D33;
   --gold-hover: #F0DC5A;
-  --bg: #0D1117;
-  --bg-alt: #0A0E14;
+  --bg: #000000;
+  --bg-alt: #060608;
   --surface: #161B22;
   --surface-hover: #1C2230;
   --border: #21262D;
@@ -21,6 +21,75 @@
   --radius-sm: 8px;
   --max-width: 1140px;
   --nav-height: 64px;
+}
+
+/* ============================================
+   Video Intro Overlay
+   ============================================ */
+#videoIntro {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.8s ease;
+}
+
+#videoIntro.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+#videoIntro.hidden {
+  display: none;
+}
+
+#introVideo {
+  max-width: 560px;
+  max-height: 560px;
+  width: 80vmin;
+  height: 80vmin;
+  object-fit: contain;
+  display: none;
+}
+
+#introVideo.playing {
+  display: block;
+}
+
+.intro-prompt {
+  color: var(--gold);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  animation: pulse-glow 2s ease-in-out infinite;
+  margin-top: 24px;
+}
+
+.intro-prompt.hidden {
+  display: none;
+}
+
+.intro-logo-preview {
+  width: 120px;
+  height: 120px;
+  filter: drop-shadow(0 0 30px rgba(232, 212, 77, 0.5));
+  animation: float 3s ease-in-out infinite;
+  margin-bottom: 24px;
+}
+
+.intro-logo-preview.hidden {
+  display: none;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.6; text-shadow: 0 0 10px rgba(232, 212, 77, 0.3); }
+  50% { opacity: 1; text-shadow: 0 0 20px rgba(232, 212, 77, 0.6); }
 }
 
 /* Reset */
@@ -76,7 +145,7 @@ img {
   left: 0;
   right: 0;
   height: var(--nav-height);
-  background: rgba(13, 17, 23, 0.85);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
@@ -794,7 +863,7 @@ img {
     top: var(--nav-height);
     left: 0;
     right: 0;
-    background: rgba(13, 17, 23, 0.97);
+    background: rgba(0, 0, 0, 0.97);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     flex-direction: column;

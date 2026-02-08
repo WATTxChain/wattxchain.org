@@ -2,6 +2,45 @@
    WATTx Project Website — Interactions
    ============================================ */
 
+// --- Video Intro ---
+(function () {
+  'use strict';
+
+  var overlay = document.getElementById('videoIntro');
+  var video = document.getElementById('introVideo');
+  var prompt = overlay.querySelector('.intro-prompt');
+  var logoPreview = overlay.querySelector('.intro-logo-preview');
+
+  function endIntro() {
+    overlay.classList.add('fade-out');
+    setTimeout(function () {
+      overlay.classList.add('hidden');
+    }, 800);
+  }
+
+  overlay.addEventListener('click', function () {
+    logoPreview.classList.add('hidden');
+    prompt.classList.add('hidden');
+    video.classList.add('playing');
+    video.muted = false;
+    video.volume = 1;
+    video.play().catch(function () {
+      // If play fails, just show the site
+      endIntro();
+    });
+  });
+
+  video.addEventListener('ended', endIntro);
+
+  // Skip intro on Escape key
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && !overlay.classList.contains('hidden')) {
+      video.pause();
+      endIntro();
+    }
+  });
+})();
+
 (function () {
   'use strict';
 
