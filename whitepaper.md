@@ -91,10 +91,11 @@ To create a sustainable, decentralized blockchain that empowers individuals worl
 | **Consensus** | Hybrid PoW/PoS |
 | **Mining Framework** | X25X (7 algorithms) |
 | **Block Time** | 120 seconds (2 minutes) |
-| **Block Reward** | 10 WTX |
-| **Reward Split** | 50% PoW / 50% PoS |
+| **Block Reward** | 50 WTX |
+| **Reward Split** | None within a block — the full subsidy goes to whichever produced it |
+| **Halving Interval** | 210,000 blocks (~9.7 months at 120s) |
 | **Maximum Supply** | 21,000,000 WTX |
-| **Coinbase Maturity** | 1 block |
+| **Coinbase Maturity** | 100 blocks |
 | **Stake Maturity** | 500 blocks (dynamic, halves with reward) |
 | **Super Staker Minimum** | 20,000 WTX |
 | **Smart Contracts** | EVM / Solidity (up to 0.8.x) |
@@ -143,9 +144,11 @@ WATTx is built on a QTUM Core foundation with the following enhancements:
 | Milestone | Block Height |
 |-----------|-------------|
 | Genesis (Pure PoW) | Block 0 |
-| PoW to Hybrid PoW/PoS Transition | Block 500 |
+| PoW to Hybrid PoW/PoS Transition | Block 5,000 |
+| X25X Multi-Algorithm Activation | Block 2,000 — active |
+| Proof-of-Stake Difficulty Fix | Block 2,000 — active |
 | AuxPoW Merged Mining Activation | Block 210,000 |
-| X25X Multi-Algorithm Activation | Block 210,000 |
+| FCMP Privacy Activation | Block 210,000 (shielded coinbase 210,100) |
 
 ---
 
@@ -153,7 +156,7 @@ WATTx is built on a QTUM Core foundation with the following enhancements:
 
 ### 4.1 Hybrid PoW/PoS Overview
 
-WATTx employs a hybrid consensus where blocks can be produced by either Proof-of-Work miners or Proof-of-Stake validators. Every block reward of 10 WTX is split evenly: 5 WTX to miners and 5 WTX to stakers.
+WATTx employs a hybrid consensus where blocks can be produced by either Proof-of-Work miners or Proof-of-Stake validators. A block carries a subsidy of 50 WTX, and it is not split: the whole amount goes to whichever produced that block. Because miners and validators compete for the same block slots, emission divides between Proof-of-Work and Proof-of-Stake in proportion to the blocks each side wins.
 
 This dual approach provides:
 
@@ -187,7 +190,7 @@ This formula ensures both mechanisms contribute to the network's security assess
 
 ### 5.1 Overview
 
-The X25X framework is WATTx's multi-algorithm mining system, activated at block 210,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.
+The X25X framework is WATTx's multi-algorithm mining system, active on mainnet since block 2,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.
 
 ### 5.2 Supported Algorithms
 
@@ -231,13 +234,13 @@ Auxiliary Proof-of-Work (AuxPoW) allows miners to submit work done on any parent
 
 | Algorithm | Target Hardware | Activation |
 |-----------|----------------|------------|
-| SHA256d | ASIC | Block 210,000 |
-| Scrypt | ASIC / GPU | Block 210,000 |
-| Ethash | GPU | Block 210,000 |
-| RandomX | CPU | Block 210,000 |
-| Equihash | GPU / ASIC | Block 210,000 |
-| X11 | ASIC / GPU | Block 210,000 |
-| kHeavyHash | GPU / ASIC | Block 210,000 |
+| SHA256d | ASIC | Block 2,000 |
+| Scrypt | ASIC / GPU | Block 2,000 |
+| Ethash | GPU | Block 2,000 |
+| RandomX | CPU | Block 2,000 |
+| Equihash | GPU / ASIC | Block 2,000 |
+| X11 | ASIC / GPU | Block 2,000 |
+| kHeavyHash | GPU / ASIC | Block 2,000 |
 
 All seven X25X algorithms support AuxPoW merged mining from activation. Miners on **any** chain that shares a supported algorithm can merge-mine WATTx — this is not limited to specific parent chains.
 
@@ -424,9 +427,10 @@ The Trust Tier system solves the "lazy validator" problem in PoS networks:
 
 WATTx follows a deflationary emission model with a maximum supply of **21,000,000 WTX**.
 
-- **Block Reward:** 10 WTX (5 PoW + 5 PoS)
-- **Halving Interval:** Every 1,051,200 blocks (~4 years at 2-minute blocks)
-- **Coinbase Maturity:** 1 block (newly mined coins available almost immediately)
+- **Block Reward:** 50 WTX, paid in full to the producer of each block
+- **Halving Interval:** Every 210,000 blocks (~9.7 months at 2-minute blocks)
+- **Coinbase Maturity:** 100 blocks (~3.3 hours)
+- **Emission:** 50 WTX x 210,000 blocks x 2 = 21,000,000 WTX, the same geometric schedule Bitcoin uses
 
 ### 10.2 Dual-Halving Mechanism
 
@@ -437,12 +441,12 @@ WATTx implements a novel dual-halving where each halving event simultaneously:
 
 | Era | Block Reward | Maturity | Approx. Timeline |
 |-----|-------------|----------|-------------------|
-| 0 | 10 WTX | 500 blocks (~16.7 hrs) | Launch |
-| 1 | 5 WTX | 250 blocks (~8.3 hrs) | ~Year 4 |
-| 2 | 2.5 WTX | 125 blocks (~4.2 hrs) | ~Year 8 |
-| 3 | 1.25 WTX | 62 blocks (~2.1 hrs) | ~Year 12 |
-| 4 | 0.625 WTX | 31 blocks (~1 hr) | ~Year 16 |
-| 5 | 0.3125 WTX | 15 blocks (~30 min) | ~Year 20 |
+| 0 | 50 WTX | 500 blocks (~16.7 hrs) | Launch — block 0 |
+| 1 | 25 WTX | 250 blocks (~8.3 hrs) | Block 210,000 — ~0.8 yr |
+| 2 | 12.5 WTX | 125 blocks (~4.2 hrs) | Block 420,000 — ~1.6 yr |
+| 3 | 6.25 WTX | 62 blocks (~2.1 hrs) | Block 630,000 — ~2.4 yr |
+| 4 | 3.125 WTX | 31 blocks (~1 hr) | Block 840,000 — ~3.2 yr |
+| 5 | 1.5625 WTX | 15 blocks (~30 min) | Block 1,050,000 — ~4.0 yr |
 
 ### 10.3 Progressive Accessibility
 
@@ -676,8 +680,9 @@ WATTx is not just another cryptocurrency — it is a unified platform for mining
 | Consensus | Hybrid PoW/PoS |
 | Mining Framework | X25X (SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, kHeavyHash) |
 | Block Time | 120 seconds |
-| Block Reward | 10 WTX (5 PoW + 5 PoS) |
-| Coinbase Maturity | 1 block |
+| Block Reward | 50 WTX to the block producer |
+| Halving Interval | 210,000 blocks |
+| Coinbase Maturity | 100 blocks |
 | Stake Maturity | 500 blocks (halves with reward) |
 | Max Supply | 21,000,000 WTX |
 | Super Staker Minimum | 20,000 WTX |
@@ -685,16 +690,17 @@ WATTx is not just another cryptocurrency — it is a unified platform for mining
 | Token Standards | QRC-20 (fungible), QRC-721 (NFT) |
 | P2P Port | 3888 |
 | RPC Port | 3889 |
-| PoW to Hybrid | Block 500 |
+| PoW to Hybrid | Block 5,000 |
+| X25X Activation | Block 2,000 |
 | AuxPoW Activation | Block 210,000 |
-| X25X Activation | Block 210,000 |
+| FCMP Privacy Activation | Block 210,000 |
 
 ## Appendix B: Glossary
 
 | Term | Definition |
 |------|------------|
 | **AuxPoW** | Auxiliary Proof-of-Work; merged mining proof from a parent chain |
-| **Block Reward** | New coins created with each block (currently 10 WTX) |
+| **Block Reward** | New coins created with each block (currently 50 WTX) |
 | **Coinstake** | A PoS block's special transaction proving stake ownership |
 | **Delegator / Super Staker** | A node accepting staking delegations (min 20,000 WTX) |
 | **Era** | Period between halvings with constant block reward and maturity |

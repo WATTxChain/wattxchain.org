@@ -737,10 +737,11 @@
             <tr><td><strong>Consensus</strong></td><td>Hybrid PoW/PoS</td></tr>
             <tr><td><strong>Mining Framework</strong></td><td>X25X (7 algorithms)</td></tr>
             <tr><td><strong>Block Time</strong></td><td>120 seconds (2 minutes)</td></tr>
-            <tr><td><strong>Block Reward</strong></td><td>10 WTX</td></tr>
-            <tr><td><strong>Reward Split</strong></td><td>50% PoW / 50% PoS</td></tr>
+            <tr><td><strong>Block Reward</strong></td><td>50 WTX</td></tr>
+            <tr><td><strong>Reward Split</strong></td><td>None within a block &mdash; the full subsidy goes to whichever produced it</td></tr>
+            <tr><td><strong>Halving Interval</strong></td><td>210,000 blocks (~9.7 months at 120s)</td></tr>
             <tr><td><strong>Maximum Supply</strong></td><td>21,000,000 WTX</td></tr>
-            <tr><td><strong>Coinbase Maturity</strong></td><td>1 block</td></tr>
+            <tr><td><strong>Coinbase Maturity</strong></td><td>100 blocks</td></tr>
             <tr><td><strong>Stake Maturity</strong></td><td>500 blocks (dynamic, halves with reward)</td></tr>
             <tr><td><strong>Super Staker Minimum</strong></td><td>20,000 WTX</td></tr>
             <tr><td><strong>Smart Contracts</strong></td><td>EVM / Solidity (up to 0.8.x)</td></tr>
@@ -799,9 +800,11 @@
           </thead>
           <tbody>
             <tr><td>Genesis (Pure PoW)</td><td>Block 0</td></tr>
-            <tr><td>PoW to Hybrid PoW/PoS Transition</td><td>Block 500</td></tr>
+            <tr><td>PoW to Hybrid PoW/PoS Transition</td><td>Block 5,000</td></tr>
+            <tr><td>X25X Multi-Algorithm Activation</td><td>Block 2,000 &mdash; active</td></tr>
+            <tr><td>Proof-of-Stake Difficulty Fix</td><td>Block 2,000 &mdash; active</td></tr>
             <tr><td>AuxPoW Merged Mining Activation</td><td>Block 210,000</td></tr>
-            <tr><td>X25X Multi-Algorithm Activation</td><td>Block 210,000</td></tr>
+            <tr><td>FCMP Privacy Activation</td><td>Block 210,000 (shielded coinbase 210,100)</td></tr>
           </tbody>
         </table>
       </div>
@@ -813,7 +816,7 @@
 
       <h3 id="sec-4-1">4.1 Hybrid PoW/PoS Overview</h3>
 
-      <p>WATTx employs a hybrid consensus where blocks can be produced by either Proof-of-Work miners or Proof-of-Stake validators. Every block reward of 10 WTX is split evenly: 5 WTX to miners and 5 WTX to stakers.</p>
+      <p>WATTx employs a hybrid consensus where blocks can be produced by either Proof-of-Work miners or Proof-of-Stake validators. A block carries a subsidy of 50 WTX, and it is not split: the whole amount goes to whichever produced that block. Because miners and validators compete for the same block slots, emission divides between Proof-of-Work and Proof-of-Stake in proportion to the blocks each side wins.</p>
 
       <p>This dual approach provides:</p>
 
@@ -851,7 +854,7 @@ Where:
 
       <h3 id="sec-5-1">5.1 Overview</h3>
 
-      <p>The X25X framework is WATTx's multi-algorithm mining system, activated at block 210,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.</p>
+      <p>The X25X framework is WATTx's multi-algorithm mining system, active on mainnet since block 2,000. It supports seven distinct algorithms, each targeting different hardware classes, ensuring that no single hardware type can monopolize block production.</p>
 
       <h3 id="sec-5-2">5.2 Supported Algorithms</h3>
 
@@ -918,13 +921,13 @@ Where:
             </tr>
           </thead>
           <tbody>
-            <tr><td>SHA256d</td><td>ASIC</td><td>Block 210,000</td></tr>
-            <tr><td>Scrypt</td><td>ASIC / GPU</td><td>Block 210,000</td></tr>
-            <tr><td>Ethash</td><td>GPU</td><td>Block 210,000</td></tr>
-            <tr><td>RandomX</td><td>CPU</td><td>Block 210,000</td></tr>
-            <tr><td>Equihash</td><td>GPU / ASIC</td><td>Block 210,000</td></tr>
-            <tr><td>X11</td><td>ASIC / GPU</td><td>Block 210,000</td></tr>
-            <tr><td>kHeavyHash</td><td>GPU / ASIC</td><td>Block 210,000</td></tr>
+            <tr><td>SHA256d</td><td>ASIC</td><td>Block 2,000</td></tr>
+            <tr><td>Scrypt</td><td>ASIC / GPU</td><td>Block 2,000</td></tr>
+            <tr><td>Ethash</td><td>GPU</td><td>Block 2,000</td></tr>
+            <tr><td>RandomX</td><td>CPU</td><td>Block 2,000</td></tr>
+            <tr><td>Equihash</td><td>GPU / ASIC</td><td>Block 2,000</td></tr>
+            <tr><td>X11</td><td>ASIC / GPU</td><td>Block 2,000</td></tr>
+            <tr><td>kHeavyHash</td><td>GPU / ASIC</td><td>Block 2,000</td></tr>
           </tbody>
         </table>
       </div>
@@ -1053,7 +1056,7 @@ Where:
         <li>Hold WTX in a wallet you control</li>
         <li>Wait for coins to mature (current threshold: 500 blocks, ~16.7 hours)</li>
         <li>Keep wallet online and unlocked for staking</li>
-        <li>Earn the PoS share of block rewards (5 WTX per block)</li>
+        <li>Earn the full 50 WTX subsidy for every block your stake produces</li>
       </ol>
 
       <p><strong>Stake Weight Calculation:</strong></p>
@@ -1154,9 +1157,10 @@ A UTXO is mature when:
       <p>WATTx follows a deflationary emission model with a maximum supply of <strong>21,000,000 WTX</strong>.</p>
 
       <ul>
-        <li><strong>Block Reward:</strong> 10 WTX (5 PoW + 5 PoS)</li>
-        <li><strong>Halving Interval:</strong> Every 1,051,200 blocks (~4 years at 2-minute blocks)</li>
-        <li><strong>Coinbase Maturity:</strong> 1 block (newly mined coins available almost immediately)</li>
+        <li><strong>Block Reward:</strong> 50 WTX, paid in full to the producer of each block</li>
+        <li><strong>Halving Interval:</strong> Every 210,000 blocks (~9.7 months at 2-minute blocks)</li>
+        <li><strong>Coinbase Maturity:</strong> 100 blocks (~3.3 hours)</li>
+        <li><strong>Emission:</strong> 50 WTX &times; 210,000 blocks &times; 2 = 21,000,000 WTX, the same geometric schedule Bitcoin uses</li>
       </ul>
 
       <h3 id="sec-10-2">10.2 Dual-Halving Mechanism</h3>
@@ -1179,12 +1183,12 @@ A UTXO is mature when:
             </tr>
           </thead>
           <tbody>
-            <tr><td><strong>0</strong></td><td>10 WTX</td><td>500 blocks (~16.7 hrs)</td><td>Launch</td></tr>
-            <tr><td><strong>1</strong></td><td>5 WTX</td><td>250 blocks (~8.3 hrs)</td><td>~Year 4</td></tr>
-            <tr><td><strong>2</strong></td><td>2.5 WTX</td><td>125 blocks (~4.2 hrs)</td><td>~Year 8</td></tr>
-            <tr><td><strong>3</strong></td><td>1.25 WTX</td><td>62 blocks (~2.1 hrs)</td><td>~Year 12</td></tr>
-            <tr><td><strong>4</strong></td><td>0.625 WTX</td><td>31 blocks (~1 hr)</td><td>~Year 16</td></tr>
-            <tr><td><strong>5</strong></td><td>0.3125 WTX</td><td>15 blocks (~30 min)</td><td>~Year 20</td></tr>
+            <tr><td><strong>0</strong></td><td>50 WTX</td><td>500 blocks (~16.7 hrs)</td><td>Launch &mdash; block 0</td></tr>
+            <tr><td><strong>1</strong></td><td>25 WTX</td><td>250 blocks (~8.3 hrs)</td><td>Block 210,000 &mdash; ~0.8 yr</td></tr>
+            <tr><td><strong>2</strong></td><td>12.5 WTX</td><td>125 blocks (~4.2 hrs)</td><td>Block 420,000 &mdash; ~1.6 yr</td></tr>
+            <tr><td><strong>3</strong></td><td>6.25 WTX</td><td>62 blocks (~2.1 hrs)</td><td>Block 630,000 &mdash; ~2.4 yr</td></tr>
+            <tr><td><strong>4</strong></td><td>3.125 WTX</td><td>31 blocks (~1 hr)</td><td>Block 840,000 &mdash; ~3.2 yr</td></tr>
+            <tr><td><strong>5</strong></td><td>1.5625 WTX</td><td>15 blocks (~30 min)</td><td>Block 1,050,000 &mdash; ~4.0 yr</td></tr>
           </tbody>
         </table>
       </div>
@@ -1497,8 +1501,9 @@ A UTXO is mature when:
             <tr><td><strong>Consensus</strong></td><td>Hybrid PoW/PoS</td></tr>
             <tr><td><strong>Mining Framework</strong></td><td>X25X (SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, kHeavyHash)</td></tr>
             <tr><td><strong>Block Time</strong></td><td>120 seconds</td></tr>
-            <tr><td><strong>Block Reward</strong></td><td>10 WTX (5 PoW + 5 PoS)</td></tr>
-            <tr><td><strong>Coinbase Maturity</strong></td><td>1 block</td></tr>
+            <tr><td><strong>Block Reward</strong></td><td>50 WTX to the block producer</td></tr>
+            <tr><td><strong>Halving Interval</strong></td><td>210,000 blocks</td></tr>
+            <tr><td><strong>Coinbase Maturity</strong></td><td>100 blocks</td></tr>
             <tr><td><strong>Stake Maturity</strong></td><td>500 blocks (halves with reward)</td></tr>
             <tr><td><strong>Max Supply</strong></td><td>21,000,000 WTX</td></tr>
             <tr><td><strong>Super Staker Minimum</strong></td><td>20,000 WTX</td></tr>
@@ -1506,9 +1511,10 @@ A UTXO is mature when:
             <tr><td><strong>Token Standards</strong></td><td>QRC-20 (fungible), QRC-721 (NFT)</td></tr>
             <tr><td><strong>P2P Port</strong></td><td>3888</td></tr>
             <tr><td><strong>RPC Port</strong></td><td>3889</td></tr>
-            <tr><td><strong>PoW to Hybrid</strong></td><td>Block 500</td></tr>
+            <tr><td><strong>PoW to Hybrid</strong></td><td>Block 5,000</td></tr>
+            <tr><td><strong>X25X Activation</strong></td><td>Block 2,000</td></tr>
             <tr><td><strong>AuxPoW Activation</strong></td><td>Block 210,000</td></tr>
-            <tr><td><strong>X25X Activation</strong></td><td>Block 210,000</td></tr>
+            <tr><td><strong>FCMP Privacy Activation</strong></td><td>Block 210,000</td></tr>
           </tbody>
         </table>
       </div>
@@ -1526,7 +1532,7 @@ A UTXO is mature when:
           </thead>
           <tbody>
             <tr><td><strong>AuxPoW</strong></td><td>Auxiliary Proof-of-Work; merged mining proof from a parent chain</td></tr>
-            <tr><td><strong>Block Reward</strong></td><td>New coins created with each block (currently 10 WTX)</td></tr>
+            <tr><td><strong>Block Reward</strong></td><td>New coins created with each block (currently 50 WTX)</td></tr>
             <tr><td><strong>Coinstake</strong></td><td>A PoS block's special transaction proving stake ownership</td></tr>
             <tr><td><strong>Delegator / Super Staker</strong></td><td>A node accepting staking delegations (min 20,000 WTX)</td></tr>
             <tr><td><strong>Era</strong></td><td>Period between halvings with constant block reward and maturity</td></tr>
