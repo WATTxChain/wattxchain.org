@@ -1,0 +1,1304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Docs — WATTx</title>
+<meta name="description" content="The WATTx operator manual: running a node, X25X multi-algorithm mining, AuxPoW merged mining, staking and delegation, super stakers and trust tiers, EVM smart contracts, wallets, ordinals, privacy, and the full RPC reference.">
+<link rel="icon" href="https://wattxchain.org/assets/favicon.ico">
+<style>
+  :root{
+    --gold:#E8D44D; --gold-dim:#E8D44D99; --gold-glow:#E8D44D33; --gold-hover:#F0DC5A;
+    --bg:#000000; --bg-alt:#060608; --surface:#161B22; --surface-hover:#1C2230;
+    --border:#21262D; --border2:#30363D;
+    --text:#E6EDF3; --muted:#8B949E; --dim:#6E7681;
+    --ok:#3fb950; --warn:#d29922; --bad:#f85149; --info:#58a6ff;
+    --font:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    --mono:'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+    --radius:12px; --nav:270px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:80px}
+  body{margin:0;background:
+    radial-gradient(1100px 500px at 82% -8%, rgba(232,212,77,.07), transparent 62%),
+    var(--bg);
+    color:var(--text);font-family:var(--font);font-size:15px;line-height:1.68;-webkit-text-size-adjust:100%}
+  a{color:var(--gold);text-decoration:none}
+  a:hover{color:var(--gold-hover);text-decoration:underline}
+
+  .top{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;
+       padding:11px 20px;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);
+       border-bottom:1px solid var(--border)}
+  .top .brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--text)}
+  .top img{height:30px;width:auto}
+  .top .wm{font-weight:800;letter-spacing:.5px;font-size:17px}
+  .top .tag{font:700 10.5px/1 var(--mono);letter-spacing:.18em;color:var(--gold);text-transform:uppercase;
+            border:1px solid var(--gold-glow);background:rgba(232,212,77,.06);border-radius:999px;padding:5px 10px}
+  .top .grow{flex:1}
+  .top .links{display:flex;gap:16px;font-size:13.5px;font-weight:600}
+  .top .links a{color:var(--muted)}
+  .top .links a:hover{color:var(--gold);text-decoration:none}
+  .burger{display:none;background:var(--surface);border:1px solid var(--border2);color:var(--text);
+          border-radius:8px;width:40px;height:36px;font-size:16px;cursor:pointer}
+
+  .shell{display:grid;grid-template-columns:var(--nav) minmax(0,1fr);gap:36px;
+         max-width:1240px;margin:0 auto;padding:28px 22px 90px}
+  nav.toc{position:sticky;top:68px;align-self:start;max-height:calc(100vh - 88px);overflow:auto;
+          padding-right:8px;font-size:13.5px}
+  nav.toc::-webkit-scrollbar{width:8px}
+  nav.toc::-webkit-scrollbar-thumb{background:var(--border2);border-radius:8px}
+  nav.toc .grp{font:700 10.5px/1 var(--mono);letter-spacing:.17em;text-transform:uppercase;
+               color:var(--dim);margin:22px 0 8px;padding-left:11px}
+  nav.toc .grp:first-child{margin-top:0}
+  nav.toc a{display:block;color:var(--muted);padding:5px 11px;border-left:2px solid transparent;border-radius:0 8px 8px 0}
+  nav.toc a:hover{color:var(--text);background:rgba(232,212,77,.05);text-decoration:none}
+  nav.toc a.on{color:var(--gold);border-left-color:var(--gold);background:rgba(232,212,77,.08);font-weight:600}
+  main{min-width:0}
+
+  .hero{border:1px solid var(--border);border-radius:18px;padding:28px 26px;margin:0 0 36px;
+        background:linear-gradient(180deg,var(--surface),var(--bg-alt))}
+  .hero h1{font-size:32px;line-height:1.14;margin:0 0 10px;letter-spacing:-.5px}
+  .hero p{color:var(--muted);margin:0 0 8px;max-width:66ch}
+  .hero .stamp{font:700 11px var(--mono);letter-spacing:.14em;color:var(--dim);text-transform:uppercase;margin-top:16px}
+
+  section{scroll-margin-top:80px}
+  h2{font-size:23px;margin:48px 0 6px;letter-spacing:-.2px;padding-top:16px;border-top:1px solid var(--border)}
+  h2:first-of-type{margin-top:0;border-top:0;padding-top:0}
+  h3{font-size:17px;margin:30px 0 6px}
+  h4{font-size:14.5px;margin:22px 0 4px;color:var(--gold);font-family:var(--mono);font-weight:700}
+  p{margin:10px 0;max-width:74ch}
+  .lead{color:var(--muted);font-size:15.5px;max-width:70ch}
+  ul,ol{margin:10px 0;padding-left:22px;max-width:74ch}
+  li{margin:6px 0}
+  code{font-family:var(--mono);font-size:.88em;background:var(--surface);border:1px solid var(--border);
+       border-radius:6px;padding:1.5px 5px;color:#f0e6a8;word-break:break-word}
+  pre{background:var(--bg-alt);border:1px solid var(--border);border-radius:12px;padding:14px 16px;
+      overflow:auto;margin:14px 0;font:12.8px/1.7 var(--mono);color:#cfd8e3}
+  pre code{background:none;border:0;padding:0;color:inherit;font-size:inherit}
+  b,strong{color:#fff}
+  .note{border:1px solid;border-radius:12px;padding:12px 15px;margin:16px 0;font-size:14px;line-height:1.62;max-width:74ch}
+  .note .t{font:700 10.5px/1 var(--mono);letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px}
+  .note p:first-child{margin-top:0}.note p:last-child{margin-bottom:0}
+  .note.tip{border-color:rgba(63,185,80,.35);background:rgba(63,185,80,.06)} .note.tip .t{color:var(--ok)}
+  .note.warn{border-color:rgba(210,153,34,.4);background:rgba(210,153,34,.07)} .note.warn .t{color:var(--warn)}
+  .note.bad{border-color:rgba(248,81,73,.38);background:rgba(248,81,73,.07)} .note.bad .t{color:var(--bad)}
+  .note.info{border-color:var(--border2);background:var(--surface)} .note.info .t{color:var(--muted)}
+
+  .tw{overflow-x:auto;margin:16px 0;border:1px solid var(--border);border-radius:12px;background:var(--bg-alt)}
+  table{border-collapse:collapse;width:100%;font-size:13.4px;min-width:520px}
+  th,td{text-align:left;padding:10px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+  thead th{background:var(--surface);color:var(--muted);font:700 10.5px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:0}
+  tbody tr:hover{background:rgba(232,212,77,.035)}
+  .addr{font-family:var(--mono);font-size:11.8px;color:#e0d9a6;word-break:break-all}
+
+  ol.steps{list-style:none;padding:0;counter-reset:s;max-width:74ch}
+  ol.steps>li{counter-increment:s;position:relative;padding:2px 0 16px 42px;margin:0}
+  ol.steps>li::before{content:counter(s);position:absolute;left:0;top:2px;width:27px;height:27px;border-radius:50%;
+      background:var(--surface);border:1px solid var(--border2);color:var(--gold);display:grid;place-items:center;
+      font:700 12px var(--mono)}
+  ol.steps>li>b:first-child{display:block;color:#fff;margin-bottom:2px}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(232px,1fr));gap:12px;margin:18px 0}
+  .cardl{display:block;background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px 15px;color:var(--text)}
+  .cardl:hover{background:var(--surface-hover);border-color:var(--border2);text-decoration:none}
+  .cardl .k{font:700 10.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--dim);display:block;margin-bottom:5px}
+  .cardl .n{font-weight:700;font-size:14.5px;display:block}
+  .cardl .d{color:var(--muted);font-size:12.8px;margin-top:4px;display:block;line-height:1.5}
+
+  .kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:1px;background:var(--border);
+      border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:16px 0}
+  .kv>div{background:var(--bg-alt);padding:12px 14px}
+  .kv .k{font:700 10px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
+  .kv .v{font-size:17px;font-weight:700;margin-top:3px;color:var(--gold);font-variant-numeric:tabular-nums}
+
+  .pill{display:inline-block;font:700 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;
+        border-radius:999px;padding:4px 9px;border:1px solid var(--border2);color:var(--muted);margin-left:7px;vertical-align:middle}
+  .pill.live{color:var(--ok);border-color:rgba(63,185,80,.4);background:rgba(63,185,80,.08)}
+  .pill.soon{color:var(--warn);border-color:rgba(210,153,34,.35);background:rgba(210,153,34,.07)}
+
+  footer{border-top:1px solid var(--border);margin-top:62px;padding:26px 0 0;color:var(--dim);font-size:12.5px}
+  footer a{color:var(--muted)}
+
+  @media (max-width:900px){
+    .shell{grid-template-columns:1fr;gap:0;padding:18px 16px 70px}
+    nav.toc{position:fixed;inset:54px 0 auto 0;max-height:calc(100vh - 54px);background:var(--bg);
+            border-bottom:1px solid var(--border);padding:14px 18px 22px;display:none;z-index:39}
+    nav.toc.open{display:block}
+    .burger{display:block}
+    .top .links{display:none}
+    .hero h1{font-size:26px} h2{font-size:20px} body{font-size:14.6px}
+  }
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="brand" href="#top">
+    <img src="https://wattxchain.org/assets/logo.png" alt="WATTx" onerror="this.style.display='none'">
+    <span class="wm">WATTx</span>
+    <span class="tag">Docs</span>
+  </a>
+  <div class="grow"></div>
+  <div class="links">
+    <a href="https://wattxchain.org/">Home</a>
+    <a href="https://wattxchain.org/whitepaper.html">Whitepaper</a>
+    <a href="https://wtx-explorer.wattxchange.app">Explorer</a>
+    <a href="https://github.com/WATTxChain/WATTx/releases">Download</a>
+    <a href="https://mining-game.wattxchange.app/">Mining Game</a>
+  </div>
+  <button class="burger" id="burger" aria-label="Menu">☰</button>
+</div>
+
+<div class="shell" id="top">
+<nav class="toc" id="toc">
+  <div class="grp">Overview</div>
+  <a href="#what">What WATTx is</a>
+  <a href="#specs">Network specifications</a>
+  <a href="#activation">Activation schedule</a>
+  <a href="#endpoints">Public endpoints</a>
+
+  <div class="grp">Run it</div>
+  <a href="#node">Running a node</a>
+  <a href="#config">Configuration</a>
+  <a href="#addresses">Addresses &amp; wallets</a>
+
+  <div class="grp">Consensus</div>
+  <a href="#consensus">Hybrid PoW/PoS</a>
+  <a href="#x25x">X25X — seven algorithms</a>
+  <a href="#mining">Mining</a>
+  <a href="#auxpow">AuxPoW merged mining</a>
+  <a href="#mergedpool">Running a merged pool</a>
+
+  <div class="grp">Staking</div>
+  <a href="#staking">Solo staking</a>
+  <a href="#delegation">Delegation &amp; super stakers</a>
+  <a href="#trusttiers">Trust tiers</a>
+  <a href="#tokenomics">Tokenomics</a>
+
+  <div class="grp">Build</div>
+  <a href="#evm">Smart contracts (EVM)</a>
+  <a href="#evm-browser">EVM from the browser</a>
+  <a href="#ordinals">Ordinals &amp; the UTXO API</a>
+  <a href="#privacy">Privacy</a>
+
+  <div class="grp">Ecosystem</div>
+  <a href="#ecosystem">Apps &amp; services</a>
+  <a href="#bridge">Bridges</a>
+  <a href="#mininggame">The Mining Game</a>
+
+  <div class="grp">Reference</div>
+  <a href="#rpc">RPC reference</a>
+  <a href="#trouble">Troubleshooting</a>
+  <a href="#glossary">Glossary</a>
+</nav>
+
+<main>
+<div class="hero">
+  <h1>WATTx documentation</h1>
+  <p class="lead">The operator manual. How to run a node, mine on any of seven algorithms, merge-mine WATTx
+  alongside the chain you already mine, stake and delegate, deploy contracts to the EVM, inscribe ordinals,
+  and talk to every public endpoint.</p>
+  <p class="lead">The <a href="https://wattxchain.org/whitepaper.html">whitepaper</a> explains why WATTx is
+  built this way. This explains how to use it.</p>
+  <div class="stamp">Hybrid PoW/PoS · X25X seven-algorithm mining · AuxPoW · EVM · UTXO</div>
+</div>
+
+<section id="what">
+<h2>What WATTx is</h2>
+
+<p><b>WATTx</b> is a hybrid Proof-of-Work / Proof-of-Stake blockchain with a UTXO ledger and a full Ethereum
+Virtual Machine layered over it, built on a QTUM Core foundation. Three things make it unusual:</p>
+
+<ul>
+  <li><b>Seven mining algorithms in one chain.</b> SHA256d, Scrypt, Ethash, RandomX, Equihash, X11 and
+      kHeavyHash all produce valid WATTx blocks, each with its own independent difficulty. Whatever hardware
+      you own — ASIC, GPU or CPU — there is a lane for it.</li>
+  <li><b>Merged mining with every one of them.</b> If you already mine Bitcoin, Litecoin, Monero, Dash,
+      Zcash, Kaspa, Ethereum Classic or Altcoinchain, you can point the same work at WATTx and earn on both
+      chains for no additional energy.</li>
+  <li><b>PoW and PoS compete for the same blocks.</b> There is no fixed split. The 50 WTX subsidy goes
+      whole to whoever produced the block, so emission divides between mining and staking exactly in
+      proportion to how much each side actually contributes.</li>
+</ul>
+
+<p>On top of that sit an EVM for Solidity contracts, a UTXO layer that carries ordinal inscriptions, offline
+staking with delegation, and a trust-tier system that pays reliable validators more.</p>
+
+<div class="note info">
+  <span class="t">Two ledgers, one chain</span>
+  <p>WATTx has a UTXO layer (coins, staking, ordinals) <i>and</i> an EVM account layer (contracts, tokens).
+  A contract call is a UTXO transaction carrying a special output that the EVM executes. This is inherited
+  from QTUM's Account Abstraction Layer, and it is the single most important thing to understand before you
+  write tooling — see <a href="#evm">Smart contracts</a>.</p>
+</div>
+</section>
+
+<section id="specs">
+<h2>Network specifications</h2>
+
+<div class="kv">
+  <div><div class="k">Ticker</div><div class="v">WTX</div></div>
+  <div><div class="k">Block time</div><div class="v">120 s</div></div>
+  <div><div class="k">Block reward</div><div class="v">50 WTX</div></div>
+  <div><div class="k">Max supply</div><div class="v">21,000,000</div></div>
+  <div><div class="k">Halving</div><div class="v">210,000 blocks</div></div>
+  <div><div class="k">Super staker min</div><div class="v">20,000 WTX</div></div>
+</div>
+
+<div class="tw"><table>
+<thead><tr><th>Parameter</th><th>Value</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>Consensus</td><td>Hybrid PoW / PoS</td><td>Both produce blocks; no split within a block</td></tr>
+<tr><td>Mining framework</td><td>X25X</td><td>7 algorithms, independent difficulty each</td></tr>
+<tr><td>Block time</td><td>120 seconds</td><td><code>nPowTargetSpacing = 120</code></td></tr>
+<tr><td>Block subsidy</td><td>50 WTX</td><td>Paid whole to the block's producer</td></tr>
+<tr><td>Halving interval</td><td>210,000 blocks</td><td>≈ 9.7 months at 120 s</td></tr>
+<tr><td>Maximum supply</td><td>21,000,000 WTX</td><td>50 × 210,000 × 2 — Bitcoin's geometric schedule</td></tr>
+<tr><td>Coinbase maturity</td><td>100 blocks</td><td>≈ 3.3 hours</td></tr>
+<tr><td>Stake maturity</td><td>500 blocks</td><td>Dynamic — halves with every reward halving</td></tr>
+<tr><td>Super staker minimum</td><td>20,000 WTX</td><td><code>nMinValidatorStake</code></td></tr>
+<tr><td>Offline staking</td><td>From block 1</td><td>Delegation available since genesis</td></tr>
+<tr><td>Smart contracts</td><td>EVM / Solidity ≤ 0.8.x</td><td>London, Shanghai, Cancun and Pectra all active from genesis</td></tr>
+<tr><td>Token standards</td><td>QRC-20, QRC-721</td><td>Byte-compatible with ERC-20 / ERC-721</td></tr>
+<tr><td>P2P port</td><td>3888</td><td></td></tr>
+<tr><td>RPC port</td><td>3889</td><td></td></tr>
+<tr><td>Premine</td><td>None</td><td>No ICO, no founder allocation, fair launch from block 0</td></tr>
+</tbody></table></div>
+
+<div class="note warn">
+  <span class="t">If you have seen different numbers</span>
+  <p>Some older material quotes a 10 WTX reward, a 1,051,200-block halving and a 1-block coinbase maturity.
+  Those are testnet or pre-launch values. The figures above were read out of
+  <code>src/kernel/chainparams.cpp</code> on the mainnet build and cross-checked against a live node.</p>
+</div>
+</section>
+
+<section id="activation">
+<h2>Activation schedule</h2>
+
+<div class="tw"><table>
+<thead><tr><th>Milestone</th><th>Height</th><th>Status</th></tr></thead>
+<tbody>
+<tr><td>Genesis — pure PoW</td><td>0</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>Offline staking / delegation</td><td>1</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>X25X multi-algorithm activation</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>Per-algorithm difficulty retarget</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>PoS difficulty fix (16-second stake mask, 4× convergence)</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>Coinbase maturity v2</td><td>2,500</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>PoW → hybrid PoW/PoS transition</td><td>5,000</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>AuxPoW merged mining</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
+<tr><td>RandomX native activation</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
+<tr><td>FCMP privacy</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
+<tr><td>Shielded coinbase</td><td>210,100</td><td><span class="pill soon">Scheduled</span></td></tr>
+</tbody></table></div>
+<p>Ethereum hard forks — Muir Glacier, London, Shanghai, Cancun and Pectra — plus every QIP and the standard
+BIPs are all active from genesis, so the EVM is current from block 0.</p>
+</section>
+
+<section id="endpoints">
+<h2>Public endpoints</h2>
+
+<div class="grid">
+  <a class="cardl" href="https://wtx-explorer.wattxchange.app"><span class="k">Explorer</span><span class="n">wtx-explorer.wattxchange.app</span><span class="d">Blocks, transactions, addresses, QRC-20 tokens, contract read/write and verification.</span></a>
+  <a class="cardl" href="https://ord-api.wattxchange.app/health"><span class="k">UTXO / ordinals API</span><span class="n">ord-api.wattxchange.app</span><span class="d">Balances, UTXOs, raw transactions, inscription content and ownership. CORS open.</span></a>
+  <a class="cardl" href="https://secret.wattxchain.org"><span class="k">Messaging</span><span class="n">secret.wattxchain.org</span><span class="d">WATTxSecret — AES-256-GCM self-destructing messages, entirely client-side.</span></a>
+  <a class="cardl" href="https://nft.wattxchange.app"><span class="k">NFTs &amp; ordinals</span><span class="n">nft.wattxchange.app</span><span class="d">The marketplace, the ordinal gallery and inscription minting.</span></a>
+  <a class="cardl" href="https://bridge.wattxchange.app"><span class="k">Bridge desk</span><span class="n">bridge.wattxchange.app</span><span class="d">WTX ⇄ WATT, cross-EVM WATT, live quotes and multi-hop routing.</span></a>
+  <a class="cardl" href="https://mining-game.wattxchange.app/"><span class="k">Mining Game</span><span class="n">mining-game.wattxchange.app</span><span class="d">The NFT rig builder that turns real node income into a game economy.</span></a>
+</div>
+
+<div class="tw"><table>
+<thead><tr><th>Service</th><th>Endpoint</th><th>Protocol</th></tr></thead>
+<tbody>
+<tr><td>EVM JSON-RPC</td><td><code>https://rpc-wtx.wattxchange.app</code></td><td>Ethereum JSON-RPC over an adapter. Read-only for external callers — see <a href="#evm">Smart contracts</a>.</td></tr>
+<tr><td>UTXO &amp; ordinals API</td><td><code>https://ord-api.wattxchange.app</code></td><td>REST, CORS open</td></tr>
+<tr><td>Public merged-mining stratum</td><td><code>pools.wattxchange.app:3333</code></td><td>Stratum, RandomX lane</td></tr>
+<tr><td>Explorer</td><td><code>https://wtx-explorer.wattxchange.app</code></td><td>Web</td></tr>
+</tbody></table></div>
+
+<div class="note info">
+  <span class="t">Only the RandomX stratum port is public</span>
+  <p>The public pool advertises RandomX on <b>3333</b> only. The other six algorithm ports were closed
+  after a real incident: an algorithm with no sustained hashrate drifts to the difficulty floor, and at the
+  floor a phone can sweep full-reward blocks for almost no work — one did, for about 224 WTX on the SHA256d
+  lane. The block subsidy is not coupled to difficulty, so this is a fairness and cheap-reorg problem rather
+  than an inflation one. A port is re-opened when its algorithm has committed baseline hashrate behind it.
+  Run your own merged pool (below) if you want the other six now.</p>
+</div>
+</section>
+<section id="node">
+<h2>Running a node</h2>
+
+<p><a href="https://github.com/WATTxChain/WATTx/releases">Download</a> the release for your platform. The
+Linux and macOS archives contain <code>wattxd</code> (daemon), <code>wattx-cli</code> (RPC client) and
+<code>wattx-qt</code> (graphical wallet); Windows ships <code>wattx-qt.exe</code> with its DLLs. Android has
+an APK; iOS is in progress.</p>
+
+<pre><code># start the daemon
+./wattxd -daemon
+
+# follow the sync
+./wattx-cli getblockchaininfo
+./wattx-cli getconnectioncount
+
+# stop cleanly — always do this rather than killing the process
+./wattx-cli stop</code></pre>
+
+<div class="note warn">
+  <span class="t">The release binary needs its bundled library path</span>
+  <p>RandomX ships as a shared object next to the binary, so run the daemon from its own directory with
+  <code>LD_LIBRARY_PATH=.</code> if you started it from elsewhere:
+  <code>LD_LIBRARY_PATH=. ./wattxd -daemon</code>. A daemon that exits immediately with a missing
+  <code>librandomx.so</code> is this and nothing else.</p>
+</div>
+
+<h3>What good looks like</h3>
+<pre><code>$ ./wattx-cli getblockchaininfo
+{
+  "chain": "main",
+  "blocks": 20136,
+  "headers": 20136,
+  "difficulty": 110063.59,
+  "moneysupply": 914595,
+  "verificationprogress": 1,
+  "initialblockdownload": false,
+  "pruned": false
+}</code></pre>
+<p><code>blocks == headers</code> and <code>initialblockdownload: false</code> means you are synced.
+<code>moneysupply</code> is the circulating WTX.</p>
+
+<div class="note info">
+  <span class="t">Reorgs are normal here</span>
+  <p>Seven algorithms racing for the same block slots means WATTx reorganises far more often than a
+  single-algorithm chain — typically every 50 to 150 blocks, and usually one block deep. Anything that
+  indexes WATTx must handle reorgs by finding the real common ancestor and replaying from there. An indexer
+  that assumes a linear chain will silently lose data; ours did exactly that until it was fixed.</p>
+</div>
+</section>
+
+<section id="config">
+<h2>Configuration</h2>
+
+<p><code>~/.wattx/wattx.conf</code> on Linux, <code>%APPDATA%\WATTx\wattx.conf</code> on Windows,
+<code>~/Library/Application Support/WATTx/wattx.conf</code> on macOS.</p>
+
+<pre><code># --- rpc ---
+server=1
+rpcuser=wattxrpc
+rpcpassword=&lt;long random string&gt;
+rpcport=3889
+rpcbind=127.0.0.1
+rpcallowip=127.0.0.1
+
+# --- network ---
+listen=1
+port=3888
+
+# --- staking ---
+staking=1
+# reservebalance=0
+
+# --- optional indexes (needed by explorers and some APIs) ---
+# txindex=1
+# addressindex=1
+# logevents=1        # EVM logs — required for eth_getLogs style queries</code></pre>
+
+<div class="tw"><table>
+<thead><tr><th>Flag</th><th>Use it when</th></tr></thead>
+<tbody>
+<tr><td><code>-daemon</code></td><td>Running headless</td></tr>
+<tr><td><code>-datadir=&lt;path&gt;</code></td><td>Keeping several chains or wallets side by side</td></tr>
+<tr><td><code>-txindex=1</code></td><td>You need <code>getrawtransaction</code> for arbitrary transactions</td></tr>
+<tr><td><code>-logevents=1</code></td><td>You need EVM event logs — <b>required for contract log queries</b></td></tr>
+<tr><td><code>-reindex</code></td><td>One-shot repair after a corrupt block index. The chain is small, so this takes seconds, not hours</td></tr>
+<tr><td><code>-rpcwallet=&lt;name&gt;</code></td><td>Several wallets loaded; every wallet RPC needs to be told which</td></tr>
+</tbody></table></div>
+
+<div class="note warn">
+  <span class="t"><code>addressindex=1</code> is not enough on its own</span>
+  <p>Setting it in the config does not retroactively populate it, so <code>getaddressbalance</code> and
+  <code>getaddressutxos</code> answer <i>"No information available"</i> on a node that was not reindexed
+  with it. Either reindex, or use <code>scantxoutset</code>, which works for any address with no index at
+  all. Our public UTXO API takes the second route.</p>
+</div>
+</section>
+
+<section id="addresses">
+<h2>Addresses and wallets</h2>
+
+<h3>Address formats</h3>
+<div class="tw"><table>
+<thead><tr><th>Form</th><th>Looks like</th><th>Derivation</th><th>Used for</th></tr></thead>
+<tbody>
+<tr><td>Legacy P2PKH</td><td><code>W…</code> (base58, version 73)</td><td><code>m/44'/22356'/0'/0/0</code></td><td>Coins, staking, delegation, <b>contract calls</b></td></tr>
+<tr><td>SegWit</td><td><code>wx1q…</code></td><td>bech32, hrp <code>wx</code></td><td>Coins, ordinal funding</td></tr>
+<tr><td>Taproot</td><td><code>wx1p…</code></td><td><code>m/86'/22356'/0'/0/0</code></td><td>Ordinal inscriptions</td></tr>
+<tr><td>EVM</td><td><code>0x…</code> (20 bytes)</td><td><code>HASH160(pubkey)</code> of your legacy key</td><td>Contract identity</td></tr>
+</tbody></table></div>
+
+<div class="note bad">
+  <span class="t">The single most important thing on this page</span>
+  <p>A WATTx EVM address is <code>HASH160(pubkey)</code> — the same 20 bytes as your legacy <code>W…</code>
+  address. It is <b>not</b> <code>keccak(pubkey)[12:]</code>, which is what Ethereum and MetaMask use. So an
+  Ethereum-derived address is a syntactically valid recipient on WATTx and utterly unspendable: it has no
+  UTXO-layer counterpart, no key that can sign for it, and no rescue path. An ERC-721 minted to a MetaMask
+  address on WATTx is frozen forever. We learned this by freezing a badge.</p>
+  <p><b>Always derive your WATTx EVM address from a WATTx key</b> — the desktop wallet, the browser
+  extension and the Mining Game's HD wallet all do this correctly. <code>fromhexaddress</code> /
+  <code>gethexaddress</code> convert between the two forms.</p>
+</div>
+
+<h3>Wallets</h3>
+<div class="tw"><table>
+<thead><tr><th>Wallet</th><th>Platform</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><b>wattx-qt</b></td><td>Linux, Windows, macOS</td><td>Full node, built-in miner, staking and delegation UI, contract deploy and call, built-in Solidity compiler</td></tr>
+<tr><td><b>WATTx Mobile</b></td><td>Android (iOS soon)</td><td>Light client, sending, delegation, QR</td></tr>
+<tr><td><b>WATTx Wallet extension</b></td><td>Chrome (MV3)</td><td>Self-custody WTX, ordinal inscription, <code>window.wattx</code> provider for dApps, <b>and contract transactions from the browser</b></td></tr>
+<tr><td><b>Mining Game HD wallet</b></td><td>In-game</td><td>One BIP-39 seed → payout addresses for WTX, HTH, BITN, BSV and EVM</td></tr>
+</tbody></table></div>
+
+<p>All of them derive WTX at <code>m/44'/22356'/0'/0/0</code> with base58 version 73, so one seed opens the
+same wallet everywhere.</p>
+
+<pre><code># create an address
+./wattx-cli getnewaddress "label"
+
+# what is its EVM form?
+./wattx-cli gethexaddress "WYourAddress…"
+
+# and back
+./wattx-cli fromhexaddress "0x…"
+
+# is this address mine?
+./wattx-cli validateaddress "WYourAddress…"</code></pre>
+
+<h3>Backups</h3>
+<pre><code>./wattx-cli backupwallet "/path/to/wallet-backup.dat"
+./wattx-cli walletpassphrasechange "old" "new"   # encrypt first if you have not</code></pre>
+<p>A staking node has to hold its wallet unlocked, so it is a hot wallet by definition. Keep the bulk of
+your coins in cold storage and <a href="#delegation">delegate</a> — delegation never moves your coins.</p>
+</section>
+
+<section id="consensus">
+<h2>Hybrid PoW/PoS consensus</h2>
+
+<p class="lead">Blocks can be produced by a miner <i>or</i> by a staker. They compete for the same slots and
+the subsidy is not split — the whole 50 WTX goes to whoever produced that block.</p>
+
+<p>That design choice matters: it means the PoW/PoS emission ratio is not a governance parameter anybody
+chose, it is an emergent measurement of how much each side actually contributes. If staking participation
+collapses, miners produce more blocks and earn more; if hashrate leaves, stakers do.</p>
+
+<h3>Combined difficulty</h3>
+<pre><code>Combined = PoW_Difficulty^0.6 × PoS_Difficulty^0.4
+           where PoS_Difficulty = 100 / staking participation rate</code></pre>
+<p>Both mechanisms feed the network's security number, with PoW weighted slightly higher to keep mining
+worthwhile.</p>
+
+<h3>What an attacker has to do</h3>
+<p>Compromise both sides at once. Renting hashrate is not enough while stakers keep producing blocks, and
+acquiring stake is not enough while miners keep producing them. Add seven independent algorithm difficulties
+and there is no single hardware market deep enough to rent a majority from.</p>
+
+<h3>Block selection</h3>
+<p>When a PoW and a PoS solution appear together, the first valid block a majority of nodes receives wins.
+Ordinary nakamoto tie-breaking — but combined with seven algorithms it is also why
+<a href="#node">reorgs are frequent</a> on WATTx.</p>
+</section>
+
+<section id="x25x">
+<h2>X25X — seven algorithms, one chain</h2>
+
+<p class="lead">Active since block 2,000. Each algorithm keeps its own independent difficulty, so hashrate
+arriving or leaving on one lane never disturbs the others.</p>
+
+<div class="tw"><table>
+<thead><tr><th>#</th><th>Algorithm</th><th>Hardware</th><th>Type</th><th>Chains you may already be mining</th></tr></thead>
+<tbody>
+<tr><td>0</td><td><b>SHA256d</b></td><td>ASIC</td><td>Hash</td><td>Bitcoin, Bitcoin Cash, Bitnet, any SHA256d chain</td></tr>
+<tr><td>1</td><td><b>Scrypt</b></td><td>ASIC / GPU</td><td>Memory-hard</td><td>Litecoin, Dogecoin, Flopcoin, Trollcoin</td></tr>
+<tr><td>2</td><td><b>Ethash</b></td><td>GPU</td><td>Memory-hard</td><td>Ethereum Classic, Altcoinchain, EGAZ, Octaspace</td></tr>
+<tr><td>3</td><td><b>RandomX</b></td><td>CPU</td><td>CPU-optimised</td><td>Monero, Etica</td></tr>
+<tr><td>4</td><td><b>Equihash</b></td><td>GPU / ASIC</td><td>Memory-hard</td><td>Zcash, Horizen, BitcoinZ</td></tr>
+<tr><td>5</td><td><b>X11</b></td><td>ASIC / GPU</td><td>Chained hash</td><td>Dash, DigiByte, Help The Homeless</td></tr>
+<tr><td>6</td><td><b>kHeavyHash</b></td><td>GPU / ASIC</td><td>Matrix-heavy</td><td>Kaspa</td></tr>
+</tbody></table></div>
+
+<h3>Why seven</h3>
+<ul>
+  <li><b>Hardware inclusivity.</b> Three hardware classes, seven lanes — no one hardware type can
+      monopolise block production, and a CPU owner is not competing against an ASIC farm.</li>
+  <li><b>Difficulty isolation.</b> Per-algorithm retargeting means a hashrate migration on one lane cannot
+      stall the chain on another.</li>
+  <li><b>Merged-mining reach.</b> Seven algorithms covers virtually every major PoW chain in existence,
+      which is what makes <a href="#auxpow">AuxPoW</a> more than a nice idea.</li>
+</ul>
+
+<div class="note warn">
+  <span class="t">The empty-lane problem, stated openly</span>
+  <p>Per-algorithm difficulty is the right design and it has one sharp edge: an algorithm with no miners
+  retargets down to the floor, and because the block subsidy is fixed rather than proportional to work, a
+  trivial amount of hashing on an empty lane earns a full-reward block. That has happened. The durable fixes
+  are a per-algorithm minimum difficulty floor, or coupling reward to work — both consensus changes. Until
+  one ships, the operational mitigation is not to publish a lane with no baseline hashrate behind it.</p>
+</div>
+</section>
+<section id="mining">
+<h2>Mining</h2>
+
+<h3>Solo, from the node</h3>
+<pre><code>./wattx-cli getnewaddress "mining"
+./wattx-cli generatetoaddress 1 "WYourAddress…"
+./wattx-cli getmininginfo</code></pre>
+<p><code>wattx-qt</code> has the same thing behind a button. Solo CPU mining will find blocks on a young
+chain and essentially never on a mature one — use a pool or merge-mine.</p>
+
+<h3>Pool mining</h3>
+<p>Point any miner that speaks the algorithm's usual stratum dialect at a WATTx-compatible pool. The public
+pool runs the RandomX lane:</p>
+<pre><code># RandomX, e.g. xmrig
+xmrig -o pools.wattxchange.app:3333 -u WYourWTXAddress -p x -a rx/0
+
+# generic stratum form
+stratum+tcp://pools.wattxchange.app:3333</code></pre>
+<p>The stratum speaks the wire protocol each algorithm's miners expect — the XMRig login/job/submit dialect
+on RandomX, Bitcoin's <code>mining.subscribe</code> / <code>mining.authorize</code> /
+<code>mining.submit</code> on SHA256d, Scrypt and X11, <code>eth_getWork</code> / <code>eth_submitWork</code>
+on Ethash, and the nheqminer Zcash-stratum format on Equihash. Existing miners work unmodified.</p>
+
+<div class="note tip">
+  <span class="t">Your login is your payout address</span>
+  <p>Use your WATTx <code>W…</code> address as the stratum username. There is no account to register.</p>
+</div>
+
+<h3>Which lane should you mine?</h3>
+<div class="tw"><table>
+<thead><tr><th>You own</th><th>Lane</th><th>Realistic outcome</th></tr></thead>
+<tbody>
+<tr><td>A CPU</td><td>RandomX</td><td>The only lane with sustained public hashrate. Real competition, real difficulty.</td></tr>
+<tr><td>A SHA256d ASIC</td><td>SHA256d, merged with Bitcoin or Bitnet</td><td>Best return per watt in the system — you were mining anyway.</td></tr>
+<tr><td>A GPU</td><td>Ethash or Equihash, merged with ETC/Altcoinchain or BitcoinZ</td><td>Dual-earning proven on both.</td></tr>
+<tr><td>A Scrypt / X11 / kHeavyHash ASIC</td><td>That lane, merged with Litecoin / Dash / Kaspa</td><td>Dual-earning proven on all three.</td></tr>
+</tbody></table></div>
+<p>If you already mine <i>anything</i> on a supported algorithm, merged mining is strictly better than
+mining WATTx directly — same hardware, same power, two payouts.</p>
+</section>
+
+<section id="auxpow">
+<h2>AuxPoW merged mining</h2>
+
+<p class="lead">Do the work once, get paid on two chains. All seven X25X algorithms support merged mining,
+and it has been proven end-to-end on real parent chains for every one of them.</p>
+
+<h3>How it works</h3>
+<ol class="steps">
+  <li><b>Commit.</b> You build a parent-chain block whose coinbase (or, for chains without a spendable
+      coinbase, whose designated commitment field) contains a hash commitment to the WATTx block you want
+      to produce.</li>
+  <li><b>Mine it normally.</b> Nothing about the parent chain's mining changes. Your hardware, your pool
+      software, your usual work.</li>
+  <li><b>Find a solution.</b> When you find one good enough for the parent chain, you have also — for free
+      — found one good enough for WATTx, because WATTx's difficulty is lower.</li>
+  <li><b>Submit both.</b> The parent solution goes to the parent chain. The AuxPoW proof — the parent
+      header, the commitment and the merkle branch linking them — goes to WATTx.</li>
+  <li><b>WATTx verifies it canonically.</b> It recomputes the parent chain's own proof-of-work with the
+      real algorithm, and checks that the parent block commits to the exact WATTx block being submitted.
+      One share, two blocks.</li>
+</ol>
+
+<h3>Proven parent chains</h3>
+<div class="tw"><table>
+<thead><tr><th>Algorithm</th><th>Parent proven</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td>SHA256d</td><td>Bitcoin, Bitnet</td><td>Real bitcoind-accepted parent blocks alongside WATTx AuxPoW blocks</td></tr>
+<tr><td>Scrypt</td><td>Litecoin</td><td>Real litecoind-accepted parent blocks</td></tr>
+<tr><td>RandomX</td><td>Monero</td><td>Real keccak and CryptoNote tree hashing, monerod-accepted</td></tr>
+<tr><td>X11</td><td>Dash</td><td>Canonical X11 vendored into consensus</td></tr>
+<tr><td>Ethash</td><td>Altcoinchain, Ethereum Classic</td><td>Trustless: the parent's <code>extraData</code> must commit to the exact WATTx block</td></tr>
+<tr><td>Equihash</td><td>BitcoinZ (Zhash 144,5 and 48,5)</td><td>Consensus verifies the Wagner solution canonically</td></tr>
+<tr><td>kHeavyHash</td><td>Kaspa</td><td>Canonical cSHAKE256 + matrix PoW with keyed-blake2b, cross-validated against kaspad byte for byte</td></tr>
+</tbody></table></div>
+
+<div class="note tip">
+  <span class="t">Verification is canonical, not cosmetic</span>
+  <p>Each algorithm's proof is checked by recomputing that chain's actual proof-of-work inside WATTx
+  consensus, and by verifying that the parent block's commitment binds to the specific WATTx block. There
+  is no path where a parent header that did not really commit to your WATTx block is accepted, and a
+  zero-hash or malformed proof fails closed rather than open. This was not free — earlier builds had
+  fail-open holes on the Ethash, RandomX and Equihash paths, and each one was a free-block vulnerability
+  until it was closed.</p>
+</div>
+
+<h3>The point of it</h3>
+<p>WATTx does not want its own dedicated hashrate. It wants a slice of the hashrate that already exists.
+Every ASIC pointed at Bitcoin, every GPU on Ethereum Classic, every CPU on Monero can add its work to WATTx
+for zero marginal energy — and in return WATTx pays those miners to keep smaller networks alive rather than
+concentrating on the largest chain. A miner who merge-mines does not have to choose between the big chain
+and the small one.</p>
+</section>
+
+<section id="mergedpool">
+<h2>Running a merged-mining pool</h2>
+
+<p>The daemon has a merged stratum built in. It polls each configured parent chain for work, builds a
+combined job, serves it on that algorithm's port in that algorithm's native wire protocol, and submits
+solutions to both chains.</p>
+
+<pre><code>./wattx-cli startmultimergedstratum '&lt;json config&gt;'
+./wattx-cli getmergeminingdashboard
+./wattx-cli stopmultimergedstratum</code></pre>
+
+<p>Ports are assigned from a base in algorithm order:</p>
+<div class="tw"><table>
+<thead><tr><th>Offset</th><th>Algorithm</th><th>Miner protocol</th></tr></thead>
+<tbody>
+<tr><td>base + 0</td><td>RandomX</td><td>XMRig — <code>login</code> / <code>job</code> / <code>submit</code></td></tr>
+<tr><td>base + 1</td><td>SHA256d</td><td>Bitcoin stratum</td></tr>
+<tr><td>base + 2</td><td>Scrypt</td><td>Bitcoin stratum</td></tr>
+<tr><td>base + 3</td><td>Ethash</td><td><code>eth_getWork</code> / <code>eth_submitWork</code></td></tr>
+<tr><td>base + 4</td><td>Equihash</td><td>Zcash stratum (nheqminer)</td></tr>
+<tr><td>base + 5</td><td>X11</td><td>Bitcoin stratum</td></tr>
+<tr><td>base + 6</td><td>kHeavyHash</td><td>Kaspa</td></tr>
+</tbody></table></div>
+
+<h3>Per-chain share gates</h3>
+<p>One share difficulty cannot serve a SHA256d ASIC and a RandomX CPU at the same time, so each parent-chain
+entry takes its own optional <code>share_nbits</code> or <code>share_difficulty</code> overriding the
+pool-wide value. Set them per lane or your CPU miners will never submit anything and your ASICs will drown
+you.</p>
+
+<div class="note warn">
+  <span class="t">Three operational facts that will cost you an evening</span>
+  <p><b>Configuration applies at daemon start.</b> Stopping and restarting the stratum does not reload it —
+  restart the daemon.</p>
+  <p><b>Kaspa timestamps are milliseconds.</b> Divide by 1000 before the aux time-window check, or every
+  kHeavyHash proof is rejected as out of range.</p>
+  <p><b>Equihash needs <code>equihash_n</code> and <code>equihash_k</code> per chain.</b> BitcoinZ mainnet
+  is 144,5; the 48,5 parameters are a different chain entirely.</p>
+</div>
+
+<div class="note info">
+  <span class="t">Ethash needs a committed-header cache</span>
+  <p>Ethash merged mining is trustless — the parent's <code>extraData</code> must commit to the exact WATTx
+  block — which means the parent node must seal a header byte-identical to the one the stratum job was
+  built from. Because the parent's sealing header churns on every recommit, the stratum keeps a job per
+  seal-hash rather than per parent height. Even done correctly there is a structural ceiling around 70–80 %:
+  the parent commits to the WATTx tip as of its last recommit, and if the WATTx tip advances before the
+  parent seals, that committed block is stale. That is inherent to trustlessly merge-mining a chain whose
+  blocks are faster than the parent's recommit interval.</p>
+</div>
+
+<h3>The 1 % pool fee</h3>
+<p>Merged-mining pools in the WATTx ecosystem contribute a 1 % fee that funds
+<a href="#mininggame">the Mining Game</a> economy. That is what makes the game's rewards backed by real
+mining revenue rather than by token emission — and it is why the game exists at all.</p>
+</section>
+
+<section id="staking">
+<h2>Solo staking</h2>
+
+<ol class="steps">
+  <li><b>Hold WTX in a wallet you control.</b> Any amount stakes; more stakes proportionally more often.</li>
+  <li><b>Wait for maturity.</b> A UTXO must have 500 confirmations and must not have moved during that
+      window. At 120-second blocks that is about 16.7 hours. The threshold halves at every reward
+      halving.</li>
+  <li><b>Unlock for staking only.</b>
+      <pre><code>./wattx-cli walletpassphrase "YOUR_PASSPHRASE" 99999999 true</code></pre>
+      The trailing <code>true</code> is what makes it staking-only: the wallet can sign coinstakes but
+      cannot <code>sendtoaddress</code>. That is the flag you want on an always-on node.</li>
+  <li><b>Check it is working.</b>
+      <pre><code>./wattx-cli getstakinginfo</code></pre>
+      Look for <code>staking: true</code> and a non-zero <code>weight</code>. Compare
+      <code>weight</code> to <code>netstakeweight</code> — that ratio is roughly your share of PoS
+      blocks.</li>
+  <li><b>Stay online.</b> A staking node that is offline when its coin's turn comes simply misses it.</li>
+</ol>
+
+<pre><code>Stake weight = Σ (mature UTXO values)
+A UTXO is mature when confirmations ≥ 500 and it has not moved in that window.</code></pre>
+
+<div class="note bad">
+  <span class="t">"staking: false" with the wallet unlocked</span>
+  <p>Almost always the wallet is locked, or locked <i>without</i> the staking-only flag. Note also that a
+  staking-only unlock cannot send — so if a service on that node needs to pay out, it needs a full unlock at
+  send time. Plan for that before you arm anything automated.</p>
+</div>
+</section>
+
+<section id="delegation">
+<h2>Delegation and super stakers</h2>
+
+<p class="lead">Offline staking has been active since block 1. You delegate your <i>staking rights</i> to a
+super staker; your coins never move and never leave your wallet.</p>
+
+<h3>As a delegator</h3>
+<pre><code># delegate to a super staker, agreeing to their fee (percent)
+./wattx-cli setdelegateforaddress "&lt;superStakerAddress&gt;" &lt;fee&gt; "&lt;yourAddress&gt;" &lt;gasLimit&gt; &lt;gasPrice&gt;
+
+# check it landed
+./wattx-cli getdelegationinfoforaddress "&lt;yourAddress&gt;"
+
+# undo it
+./wattx-cli removedelegationforaddress "&lt;yourAddress&gt;" &lt;gasLimit&gt; &lt;gasPrice&gt;</code></pre>
+<ul>
+  <li><b>Non-custodial.</b> The delegation is a contract record, not a transfer. Nobody can spend your coins.</li>
+  <li><b>Any amount.</b> There is no delegator minimum.</li>
+  <li><b>Cold-storage compatible.</b> Your keys can stay air-gapped; only the hot super staker node is online.</li>
+  <li><b>Rewards land on your address</b>, minus the super staker's fee.</li>
+</ul>
+
+<h3>As a super staker</h3>
+<pre><code>./wattx-cli setsuperstaker "&lt;yourAddress&gt;" true
+./wattx-cli listsuperstakercustomconfig
+./wattx-cli getstakinginfo</code></pre>
+<ul>
+  <li><b>20,000 WTX minimum self-stake</b> (<code>nMinValidatorStake</code>).</li>
+  <li><b>Run 24/7.</b> Uptime is what your <a href="#trusttiers">trust tier</a> — and therefore your
+      multiplier — is measured on.</li>
+  <li><b>Publish your fee</b> and keep it stable. Delegators can leave in one transaction.</li>
+</ul>
+
+<div class="note warn">
+  <span class="t">Superstaking versus plain staking</span>
+  <p>Accepting delegations requires the address index, which on some builds triggers a full reindex. Plain
+  solo staking needs no index at all. If you only want to stake your own coins, do not turn on
+  superstaking.</p>
+</div>
+</section>
+
+<section id="trusttiers">
+<h2>Trust tiers</h2>
+
+<p>PoS networks have a lazy-validator problem: a node that is offline half the time still earns roughly in
+proportion to its stake, so there is no economic pressure to be reliable. Trust tiers add that pressure.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Tier</th><th>Uptime</th><th>Multiplier</th></tr></thead>
+<tbody>
+<tr><td>Bronze</td><td>95 %</td><td>1.0×</td></tr>
+<tr><td>Silver</td><td>97 %</td><td>1.25×</td></tr>
+<tr><td>Gold</td><td>99 %</td><td>1.5×</td></tr>
+<tr><td>Platinum</td><td>99.9 %</td><td>2.0×</td></tr>
+</tbody></table></div>
+
+<p>Uptime is measured over rolling windows and tiers move dynamically — this is a continuously earned status,
+not a badge you keep. A Platinum validator earns <b>double</b> a Bronze one on the same stake, which is a
+large enough gap to justify real infrastructure: a UPS, a monitored host, an automatic restart. That is
+exactly the intent.</p>
+</section>
+
+<section id="tokenomics">
+<h2>Tokenomics</h2>
+
+<div class="kv">
+  <div><div class="k">Max supply</div><div class="v">21,000,000</div></div>
+  <div><div class="k">Block reward</div><div class="v">50 WTX</div></div>
+  <div><div class="k">Halving</div><div class="v">210,000 blocks</div></div>
+  <div><div class="k">Premine</div><div class="v">None</div></div>
+</div>
+
+<h3>The dual halving</h3>
+<p>Every halving does two things at once. It halves the block reward, controlling inflation — and it halves
+the <i>staking maturity requirement</i>, widening access.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Era</th><th>Height</th><th>Reward</th><th>Stake maturity</th><th>≈</th></tr></thead>
+<tbody>
+<tr><td>0</td><td>0</td><td>50 WTX</td><td>500 blocks</td><td>16.7 hours</td></tr>
+<tr><td>1</td><td>210,000</td><td>25 WTX</td><td>250 blocks</td><td>8.3 hours</td></tr>
+<tr><td>2</td><td>420,000</td><td>12.5 WTX</td><td>125 blocks</td><td>4.2 hours</td></tr>
+<tr><td>3</td><td>630,000</td><td>6.25 WTX</td><td>62 blocks</td><td>2.1 hours</td></tr>
+<tr><td>4</td><td>840,000</td><td>3.125 WTX</td><td>31 blocks</td><td>1 hour</td></tr>
+<tr><td>5</td><td>1,050,000</td><td>1.5625 WTX</td><td>15 blocks</td><td>30 minutes</td></tr>
+</tbody></table></div>
+
+<p>The reasoning is progressive decentralisation. Early on, a high barrier selects for committed stakers and
+gives the young chain its security. Later, as the reward per block shrinks, the barrier shrinks with it and
+security comes from breadth of participation instead of depth of individual commitment. In the final eras
+maturity is near-instant.</p>
+
+<h3>Fair launch</h3>
+<p>Zero premine. No ICO, IEO or IDO. No founder allocation. Every WTX in existence was mined or staked,
+starting at block 0.</p>
+</section>
+<section id="evm">
+<h2>Smart contracts (EVM)</h2>
+
+<p class="lead">Full EVM, Solidity up to 0.8.x, QRC-20 and QRC-721 tokens that are byte-compatible with
+ERC-20 and ERC-721. Every Ethereum hard fork through Pectra is active from genesis. What is different is
+<i>how a transaction reaches the EVM</i>.</p>
+
+<h3>The Account Abstraction Layer</h3>
+<p>A WATTx contract transaction is a UTXO transaction carrying a special output script. Three opcodes carry
+the EVM payload:</p>
+<div class="tw"><table>
+<thead><tr><th>Opcode</th><th>Byte</th><th>Script shape</th></tr></thead>
+<tbody>
+<tr><td><code>OP_CREATE</code></td><td><code>0xc1</code></td><td><code>OP_4 &lt;gasLimit&gt; &lt;gasPrice&gt; &lt;bytecode&gt; OP_CREATE</code></td></tr>
+<tr><td><code>OP_CALL</code></td><td><code>0xc2</code></td><td><code>OP_4 &lt;gasLimit&gt; &lt;gasPrice&gt; &lt;data&gt; &lt;address20&gt; OP_CALL</code></td></tr>
+<tr><td><code>OP_SPEND</code></td><td><code>0xc3</code></td><td>Contract spending its own funds</td></tr>
+</tbody></table></div>
+<p>The sender is <b>recovered from the input <code>scriptSig</code></b>, which is why contract calls must
+spend legacy P2PKH inputs — and why the contract's view of "who called me" is
+<code>HASH160(pubkey)</code>, your legacy address as 20 bytes.</p>
+
+<h3>From the CLI</h3>
+<pre><code># deploy
+./wattx-cli createcontract "&lt;bytecode-hex&gt;" [gasLimit] [gasPrice] [senderAddress]
+
+# read-only call — free, no transaction
+./wattx-cli callcontract "&lt;contractAddr&gt;" "&lt;data-hex&gt;"
+
+# state-changing call, optionally sending WTX
+./wattx-cli sendtocontract "&lt;contractAddr&gt;" "&lt;data-hex&gt;" &lt;amount&gt; [gasLimit] [gasPrice] [senderAddress]
+
+# what happened?
+./wattx-cli gettransactionreceipt "&lt;txid&gt;"
+./wattx-cli searchlogs &lt;fromBlock&gt; &lt;toBlock&gt;      # needs -logevents=1</code></pre>
+
+<p><code>wattx-qt</code> has a built-in Solidity compiler and a contract UI; you can also compile with
+<code>solc</code> and deploy the bytecode from the CLI.</p>
+
+<div class="note bad">
+  <span class="t">MetaMask cannot sign a WATTx contract transaction</span>
+  <p>MetaMask, Rabby and every other Ethereum wallet produce Ethereum-style signatures over an Ethereum
+  transaction. WATTx needs a UTXO transaction with an AAL output, signed with the UTXO key. An adapter can
+  present an Ethereum JSON-RPC surface and re-sign through a node wallet, which is how
+  <code>rpc-wtx.wattxchange.app</code> serves reads — but it cannot sign for <i>your</i> key. Anything that
+  needs a user to sign a contract transaction must go through
+  <a href="#evm-browser">the WATTx wallet extension</a> or the node wallet.</p>
+</div>
+
+<div class="note warn">
+  <span class="t">Debugging a reverted contract transaction</span>
+  <p>The EVM adapter's <code>eth_call</code> does <b>not</b> faithfully simulate <code>msg.value</code> or
+  reverts, so a simulation that looks fine can still revert on chain. Use the UTXO-side
+  <code>gettransactionreceipt</code> instead — it carries <code>excepted</code> and
+  <code>exceptedMessage</code> with the actual revert string.</p>
+</div>
+
+<div class="note bad">
+  <span class="t"><code>block.chainid</code> is 81, not 22356</span>
+  <p>The RPC adapter reports chain id <b>22356</b> so wallets and tooling can distinguish WATTx, but the
+  <b>EVM's own <code>block.chainid</code> is 81</b>. Anything that has to agree with on-chain state — most
+  importantly <b>EIP-712 signatures</b> — must use <b>81</b>. Signing a typed-data domain with 22356
+  produces a signature that every contract on WATTx will reject. Read a contract's real domain with
+  <code>eip712Domain()</code> (<code>0x84b0196e</code>) rather than assuming. This cost us one reverted
+  100,000-WTX mint before we found it.</p>
+</div>
+
+<div class="note info">
+  <span class="t">Two more adapter facts worth knowing</span>
+  <p><b><code>eth_accounts</code> returns null</b>, so <code>provider.getSigner()</code> throws "accounts is
+  not iterable". Construct the signer explicitly against a known address instead
+  (<code>new JsonRpcSigner(provider, address)</code> in ethers v6).</p>
+  <p><b><code>tx.wait()</code> is unreliable</b> — the adapter re-hashes transactions and can synthesise
+  phantom replacement transactions from UTXO change outputs. To confirm a deploy, scan blocks for your exact
+  creation calldata rather than waiting on a hash.</p>
+  <p>Receipts can also carry a <b>badly checksummed</b> address. Always re-checksum with
+  <code>getAddress(addr.toLowerCase())</code> before using it, or ethers throws.</p>
+</div>
+</section>
+
+<section id="evm-browser">
+<h2>EVM from the browser</h2>
+
+<p class="lead">The WATTx Wallet extension is the answer to "MetaMask cannot do WATTx". It already holds
+UTXO keys and signs UTXO transactions, so it can build the AAL output itself.</p>
+
+<p>It injects a <code>window.wattx</code> provider. Install it, then:</p>
+
+<pre><code>// connect — returns UTXO addresses and the derived EVM address
+const acct = await window.wattx.connect();
+//  { addresses: {...}, evm: "0x…" }
+
+// the caller identity a contract will see
+const from = await window.wattx.getEvmAddress();
+
+// a state-changing contract call
+const txid = await window.wattx.sendToContract({
+  to:       "0xContractAddress",
+  data:     "0xa9059cbb…",       // abi-encoded calldata
+  value:    0,                    // WTX in satoshi
+  gasLimit: 250000,               // default
+  gasPrice: 40                    // satoshi, default
+});
+
+// deploy
+const { txid, address } = await window.wattx.deployContract({ bytecode: "0x60806040…" });
+
+// ordinals
+await window.wattx.inscribe({ contentType: "image/png", dataBase64, toAddress });
+
+// plain coins
+await window.wattx.sendWTX({ to: "wx1q…", amount: 100000000 });</code></pre>
+
+<h3>Security model</h3>
+<ul>
+  <li><b>Per-origin connect grants</b> are persisted; every <i>inscription</i> raises a fresh confirmation
+      window showing content type, size and estimated cost.</li>
+  <li><b>Every contract transaction</b> raises its own approval screen.</li>
+  <li><code>createWallet</code>, <code>importWallet</code> and <code>exportBackup</code> are locked to
+      <code>chrome-extension://</code> senders — a web page can never call them.</li>
+  <li>The origin is taken from the browser's <code>sender</code>, never from the page's claim about itself.</li>
+  <li>Keys are BIP-39; the create flow forces you through writing the phrase down before it shows you the
+      wallet. Encryption at rest is still on the list.</li>
+</ul>
+</section>
+
+<section id="ordinals">
+<h2>Ordinals and the UTXO API</h2>
+
+<p>WATTx carries ordinal inscriptions on its UTXO layer, using the same commit/reveal envelope shape as
+Bitcoin ordinals. Inscribe from the wallet extension, from
+<a href="https://nft.wattxchange.app">nft.wattxchange.app</a>, or from the <code>wattx-ord</code> CLI.</p>
+
+<h3>The public API</h3>
+<pre><code>GET  https://ord-api.wattxchange.app/health
+GET  /address/:addr/utxo          # works for W…, wx1q… and wx1p…
+GET  /address/:addr/balance
+GET  /tx/:txid                    # includes raw hex (needed for nonWitnessUtxo)
+POST /tx            {"hex":"…"}   # broadcast
+
+GET  /inscription/:id             # raw content, served with its own content-type
+GET  /inscriptions                # block-scan discovery
+GET  /ord/inscriptions            # rich index: owner, transfers, size
+GET  /ord/inscription/:id
+GET  /ord/address/:addr
+GET  /ord/content/:id
+GET  /ord/status</code></pre>
+<p>CORS is open, so a browser dApp can call it directly. It uses <code>scantxoutset</code> rather than the
+address index, which means it works against any node with no reindex — at the cost of scanning the UTXO set
+per query, which is fine on a chain this young.</p>
+
+<div class="note warn">
+  <span class="t">Envelope encodings differ between builders</span>
+  <p>The <code>wattx-ord</code> CLI and the wallet extension emit the content-type tag as <code>OP_1</code>
+  (<code>0x51</code>) with the body tag as a pushed <code>0x00</code>; some other builders emit
+  <code>01 01</code> plus a bare <code>OP_0</code>. An indexer that parses only one form silently finds
+  zero inscriptions on a chain that has them. Accept both.</p>
+</div>
+
+<div class="note bad">
+  <span class="t">Reorg handling is not optional here</span>
+  <p>WATTx reorganises every 50–150 blocks. An indexer whose reorg path wipes its state but rewinds only a
+  few blocks will erase the very range that held the data and never rescan it — and it will look perfectly
+  healthy, reporting <code>indexedHeight</code> at tip with zero results. Keep a rolling window of block
+  hashes, find the true common ancestor, and replay from there. A full rescan of the chain takes about 25
+  seconds, so there is no reason to cut corners.</p>
+</div>
+</section>
+
+<section id="privacy">
+<h2>Privacy</h2>
+
+<h3>FCMP privacy transactions <span class="pill soon">Block 210,000</span></h3>
+<p>Full-chain membership proofs bring shielded transactions to the base layer, with shielded coinbase
+following at block 210,100. Shielded outputs mature after 10 blocks; shielded coinbase outputs after 100.</p>
+
+<h3>Stealth addresses</h3>
+<p>The sender derives a one-time address from the recipient's public key. Only the recipient can detect and
+spend it, and every payment lands on a distinct, unlinked address — so a published address never becomes a
+public transaction history.</p>
+
+<h3>Cross-chain privacy pools</h3>
+<p>Deposit USDT on Ethereum, BSC or Polygon in fixed denominations (100, 1K, 10K, 100K). The deposit locks
+in that chain's pool contract; a LayerZero message creates a shielded commitment on WATTx in a 20-level
+incremental merkle tree. You generate a zero-knowledge proof off-chain and withdraw to <i>any</i> supported
+chain. Fixed denominations defeat amount correlation, the proof establishes validity without revealing the
+deposit, and withdrawing on a different chain breaks single-chain analysis outright.</p>
+
+<h3>WATTxSecret <span class="pill live">Live</span></h3>
+<p><a href="https://secret.wattxchain.org">secret.wattxchain.org</a> — AES-256-GCM encryption performed
+entirely in your browser, self-destructing messages with configurable expiry (1–30 days) and view limits
+(1–10 views), no server-side storage, no cookies, no analytics. The key never leaves your machine, which
+means we could not read your messages even if we were asked to.</p>
+</section>
+
+<section id="ecosystem">
+<h2>Ecosystem</h2>
+
+<div class="grid">
+  <a class="cardl" href="https://wtx-explorer.wattxchange.app"><span class="k">Explorer</span><span class="n">Block explorer</span><span class="d">Blocks, transactions, addresses, QRC-20 holders and transfers, contract read/write, source verification, staking metrics.</span></a>
+  <a class="cardl" href="https://nft.wattxchange.app"><span class="k">Marketplace</span><span class="n">NFTs &amp; ordinals</span><span class="d">Ordinal gallery with ownership and transfer history, in-browser inscription minting, and the 100k WATT Club badge.</span></a>
+  <a class="cardl" href="https://secret.wattxchain.org"><span class="k">Messaging</span><span class="n">WATTxSecret</span><span class="d">Client-side encrypted, self-destructing messages. Zero-knowledge by construction.</span></a>
+  <a class="cardl" href="https://bridge.wattxchange.app"><span class="k">Bridge</span><span class="n">Cross-chain desk</span><span class="d">WTX ⇄ WATT, WATT across EVM chains, live quotes, multi-hop routing.</span></a>
+  <a class="cardl" href="https://mining-game.wattxchange.app/"><span class="k">Game</span><span class="n">The Mining Game</span><span class="d">NFT mining-rig builder funded by real pool revenue. Build rigs, mine real coins.</span></a>
+  <a class="cardl" href="https://docs.mining-game.wattxchange.app/"><span class="k">Docs</span><span class="n">Mining Game manual</span><span class="d">The complete Mining Game documentation — claims, migration, mining, pool hosting, bridges.</span></a>
+</div>
+
+<h3>ANS — WATTx Name Service <span class="pill soon">Planned</span></h3>
+<p>Human-readable <code>.wtx</code> names mapping to addresses, contracts and IPFS content, resolved natively
+in wallets and dApps.</p>
+</section>
+
+<section id="bridge">
+<h2>Bridges</h2>
+
+<p class="lead">WTX moves to and from the EVM world through a bridge desk, and WATT — the Mining Game's token
+— moves between EVM chains over a self-hosted LayerZero mesh.</p>
+
+<div class="tw"><table>
+<thead><tr><th>Rail</th><th>Moves</th><th>Between</th><th>Mechanism</th></tr></thead>
+<tbody>
+<tr><td><b>WTX ⇄ WATT desk</b></td><td>native WTX ⇄ WATT v2</td><td>WATTx ⇄ Altcoinchain / Polygon</td><td>HTLC in-leg on the EVM side, watched deposits on the WTX side. Priced by a virtual AMM over real reserves, or minted at the circulating-supply ratio.</td></tr>
+<tr><td><b>WATT omnichain</b></td><td>WATT v2</td><td>Altcoinchain ⇄ Polygon</td><td>LayerZero OFT — burn on source, mint on destination, one supply</td></tr>
+<tr><td><b>ALT omnichain</b></td><td>native ALT</td><td>Altcoinchain ⇄ Polygon</td><td>Native lockbox on ALT, mint/burn OFT on Polygon</td></tr>
+<tr><td><b>Privacy pools</b></td><td>USDT</td><td>Ethereum / BSC / Polygon ⇄ WATTx</td><td>LayerZero message + ZK withdrawal proof</td></tr>
+</tbody></table></div>
+
+<p>Use them at <a href="https://bridge.wattxchange.app">bridge.wattxchange.app</a>. The desk publishes live
+quotes and a route finder:</p>
+<pre><code>GET https://bridge.wattxchange.app/api/info
+GET https://bridge.wattxchange.app/api/prices
+GET https://bridge.wattxchange.app/api/quote?direction=WTX_TO_WATT&amp;amount=100&amp;dest=0x…
+GET https://bridge.wattxchange.app/api/route?from=WTX&amp;to=POL&amp;amount=100</code></pre>
+
+<div class="note warn">
+  <span class="t">Why the WTX side is a desk, not an atomic swap</span>
+  <p>Users cannot sign transactions on the WATTx EVM — the compatibility layer re-signs through the node
+  wallet — so WTX has to move on the UTXO layer, and the two legs cannot be atomically linked. The design
+  compensates where it can: the EVM leg is a real HTLC with your refund path always intact, the desk pays the
+  WTX side <i>first</i> and only then claims your lock, and it refuses to touch a lock with less than six
+  hours left on it.</p>
+</div>
+
+<div class="note info">
+  <span class="t">If a swap sits at "waiting for your deposit"</span>
+  <p>The desk needs three confirmations. If WATTx has stopped producing blocks, the deposit cannot reach
+  them and the desk waits rather than paying. It publishes the chain tip age and shows a banner when the tip
+  is more than fifteen minutes old, so a mining stall reads as a network pause rather than a stuck swap.
+  Funds are refundable throughout, and it pays automatically once blocks resume.</p>
+</div>
+
+<p>Full bridge documentation, including every contract address, lives in the
+<a href="https://docs.mining-game.wattxchange.app/#bridges">Mining Game docs</a>.</p>
+</section>
+
+<section id="mininggame">
+<h2>The Mining Game</h2>
+
+<p class="lead">The Mining Game is where WATTx's mining economy becomes something you can hold. It is an NFT
+mining-rig builder whose rewards are funded by <b>real node income</b> — including the 1 % fee from merged
+mining pools.</p>
+
+<ul>
+  <li>Collect component NFTs — cases, processors, GPUs, ASICs, frames — and assemble them into rigs.</li>
+  <li>Point a rig at a pool. The pool is backed by a real validator, masternode or staking node; whatever
+      that node earns is split among the pool's miners by effective power and paid out on-chain.</li>
+  <li>Components you are not mining with can be staked powered-off to mint WATT; rigs that <i>are</i> mining
+      burn WATT as fuel, 99 % destroyed and 1 % to the pool host.</li>
+  <li>Lock 100,000 WATT and you can host your own pool, turning your node's income into a game economy —
+      and your own rigs then mine for free.</li>
+  <li>WTX is a first-class payout coin (target id 1), and WTX bridges to WATT through the desk.</li>
+</ul>
+
+<div class="grid">
+  <a class="cardl" href="https://mining-game.wattxchange.app/"><span class="k">Play</span><span class="n">mining-game.wattxchange.app</span><span class="d">The 3D game. Installable as a PWA.</span></a>
+  <a class="cardl" href="https://docs.mining-game.wattxchange.app/"><span class="k">Manual</span><span class="n">docs.mining-game.wattxchange.app</span><span class="d">Claims, migration, gameplay, mining, pool hosting and every bridge.</span></a>
+  <a class="cardl" href="https://stake.mining-game.wattxchange.app/"><span class="k">Stake</span><span class="n">stake.mining-game.wattxchange.app</span><span class="d">Stake components, claim WATT, buy parts, host a pool.</span></a>
+</div>
+</section>
+<section id="rpc">
+<h2>RPC reference</h2>
+
+<p>Everything below is <code>wattx-cli &lt;command&gt;</code>, or a JSON-RPC POST to
+<code>http://127.0.0.1:3889</code> with your <code>rpcuser</code> / <code>rpcpassword</code>.</p>
+
+<pre><code>curl -s --user "$RPCUSER:$RPCPASS" -H 'content-type: application/json' \
+  http://127.0.0.1:3889/ \
+  --data '{"jsonrpc":"2.0","id":1,"method":"getblockchaininfo","params":[]}'</code></pre>
+
+<h4>Chain and blocks</h4>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>getblockchaininfo</code></td><td>Height, difficulty, money supply, sync state</td></tr>
+<tr><td><code>getblockcount</code> · <code>getbestblockhash</code></td><td>Tip height and hash</td></tr>
+<tr><td><code>getblock &lt;hash&gt; [verbosity]</code></td><td>A block. Verbosity 2 includes full transactions</td></tr>
+<tr><td><code>getblockhash &lt;height&gt;</code></td><td>Hash at a height</td></tr>
+<tr><td><code>getrawtransaction &lt;txid&gt; [verbose]</code></td><td>Needs <code>-txindex=1</code> for arbitrary transactions</td></tr>
+<tr><td><code>sendrawtransaction &lt;hex&gt;</code></td><td>Broadcast</td></tr>
+<tr><td><code>scantxoutset start '[…]'</code></td><td>UTXOs for any descriptor — no index required</td></tr>
+<tr><td><code>getconnectioncount</code> · <code>getpeerinfo</code></td><td>Network health</td></tr>
+</tbody></table></div>
+
+<h4>Mining</h4>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>getmininginfo</code></td><td>Difficulty, hashrate, block template state</td></tr>
+<tr><td><code>generatetoaddress &lt;n&gt; &lt;addr&gt;</code></td><td>Solo-mine n blocks</td></tr>
+<tr><td><code>getblocktemplate</code></td><td>Work for external miners</td></tr>
+<tr><td><code>startmultimergedstratum '&lt;json&gt;'</code></td><td>Start the built-in merged-mining stratum on all configured algorithms</td></tr>
+<tr><td><code>stopmultimergedstratum</code></td><td>Stop it. <b>Configuration changes need a daemon restart, not a stratum restart.</b></td></tr>
+<tr><td><code>getmergeminingdashboard</code></td><td>Per-algorithm port, parent chain, job and share state</td></tr>
+</tbody></table></div>
+
+<h4>Staking and delegation</h4>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>getstakinginfo</code></td><td><code>staking</code>, <code>weight</code>, <code>netstakeweight</code>, expected time</td></tr>
+<tr><td><code>walletpassphrase "&lt;pass&gt;" &lt;seconds&gt; true</code></td><td>Unlock <b>for staking only</b> — cannot send</td></tr>
+<tr><td><code>setsuperstaker &lt;addr&gt; true</code></td><td>Accept delegations at that address</td></tr>
+<tr><td><code>listsuperstakercustomconfig</code></td><td>Your super staker configuration</td></tr>
+<tr><td><code>setdelegateforaddress &lt;staker&gt; &lt;fee&gt; &lt;you&gt; &lt;gasLimit&gt; &lt;gasPrice&gt;</code></td><td>Delegate. Your coins never move</td></tr>
+<tr><td><code>getdelegationinfoforaddress &lt;addr&gt;</code></td><td>Who you delegate to, and at what fee</td></tr>
+<tr><td><code>removedelegationforaddress &lt;addr&gt; &lt;gasLimit&gt; &lt;gasPrice&gt;</code></td><td>Undelegate</td></tr>
+<tr><td><code>listsinceblock &lt;hash&gt;</code></td><td>New wallet activity, including matured coinstakes</td></tr>
+</tbody></table></div>
+
+<h4>Smart contracts</h4>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>createcontract &lt;bytecode&gt; [gasLimit] [gasPrice] [sender]</code></td><td>Deploy</td></tr>
+<tr><td><code>callcontract &lt;addr&gt; &lt;data&gt;</code></td><td>Read-only, free</td></tr>
+<tr><td><code>sendtocontract &lt;addr&gt; &lt;data&gt; &lt;value&gt; [gasLimit] [gasPrice] [sender]</code></td><td>State-changing</td></tr>
+<tr><td><code>gettransactionreceipt &lt;txid&gt;</code></td><td>Receipt with <code>excepted</code> / <code>exceptedMessage</code> — <b>the way to debug a revert</b></td></tr>
+<tr><td><code>searchlogs &lt;from&gt; &lt;to&gt; [addresses] [topics]</code></td><td>EVM logs — needs <code>-logevents=1</code></td></tr>
+<tr><td><code>getaccountinfo &lt;addr&gt;</code></td><td>Contract balance, storage and code</td></tr>
+<tr><td><code>gethexaddress</code> · <code>fromhexaddress</code></td><td>Convert between <code>W…</code> and <code>0x…</code></td></tr>
+</tbody></table></div>
+
+<h4>Wallet</h4>
+<div class="tw"><table>
+<thead><tr><th>Command</th><th>Does</th></tr></thead>
+<tbody>
+<tr><td><code>getnewaddress ["label"]</code> · <code>getbalance</code></td><td>The basics</td></tr>
+<tr><td><code>listunspent [minconf]</code></td><td>Your UTXOs. Note it omits locked outputs</td></tr>
+<tr><td><code>lockunspent &lt;unlock&gt; [outputs] [persistent]</code></td><td>Keep coin selection away from reserved UTXOs, across restarts</td></tr>
+<tr><td><code>sendtoaddress &lt;addr&gt; &lt;amount&gt;</code></td><td>Needs a <b>full</b> unlock, not a staking-only one</td></tr>
+<tr><td><code>validateaddress &lt;addr&gt;</code></td><td>Valid, and is it mine</td></tr>
+<tr><td><code>backupwallet &lt;path&gt;</code></td><td>Do this</td></tr>
+<tr><td><code>listreceivedbyaddress &lt;minconf&gt; … true</code></td><td>Includes zero-confirmation receipts — how a service spots an incoming deposit early</td></tr>
+</tbody></table></div>
+
+<h4>EVM JSON-RPC</h4>
+<p><code>https://rpc-wtx.wattxchange.app</code> speaks Ethereum JSON-RPC —
+<code>eth_blockNumber</code>, <code>eth_call</code>, <code>eth_getBalance</code>,
+<code>eth_getTransactionReceipt</code> and friends — so ethers.js and web3.js can read WATTx contracts
+normally. It cannot sign for your key; see <a href="#evm">Smart contracts</a>.</p>
+<pre><code>curl -s https://rpc-wtx.wattxchange.app \
+  -H 'content-type: application/json' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"eth_blockNumber","params":[]}'</code></pre>
+</section>
+
+<section id="trouble">
+<h2>Troubleshooting</h2>
+
+<h4>The daemon exits immediately</h4>
+<p>Missing <code>librandomx.so</code>. Run it from its own directory with <code>LD_LIBRARY_PATH=.</code>.</p>
+
+<h4><code>getstakinginfo</code> says <code>staking: false</code></h4>
+<p>The wallet is locked, or unlocked without the staking-only flag. Run
+<code>walletpassphrase "&lt;pass&gt;" 99999999 true</code> — the trailing <code>true</code> is the whole
+point.</p>
+
+<h4>A staking node cannot send</h4>
+<p>Correct, and deliberate. A staking-only unlock signs coinstakes and nothing else. A full unlock is needed
+at send time.</p>
+
+<h4><code>getaddressbalance</code> returns "No information available"</h4>
+<p><code>addressindex=1</code> in the config does not backfill. Reindex, or use
+<code>scantxoutset</code>.</p>
+
+<h4>My indexer says it is synced but shows nothing</h4>
+<p>Its reorg path wiped the state without rewinding far enough. See <a href="#ordinals">Ordinals</a>.</p>
+
+<h4>My EIP-712 signature is rejected as a bad signature</h4>
+<p>You signed with chain id 22356. The EVM's <code>block.chainid</code> is <b>81</b>. Read the contract's
+real domain with <code>eip712Domain()</code>.</p>
+
+<h4><code>provider.getSigner()</code> throws "accounts is not iterable"</h4>
+<p>The adapter's <code>eth_accounts</code> returns null. Construct the signer explicitly against a known
+address.</p>
+
+<h4><code>tx.wait()</code> hangs or resolves on the wrong transaction</h4>
+<p>The adapter re-hashes transactions and can synthesise phantom replacements from change outputs. Confirm a
+deploy by scanning blocks for your exact creation calldata.</p>
+
+<h4>"bad address checksum" from a receipt</h4>
+<p>Receipts can carry badly checksummed addresses. Re-checksum from lowercase before use.</p>
+
+<h4>An NFT I minted cannot be transferred</h4>
+<p>It went to an Ethereum-derived address. That address is unsignable on WATTx and there is no rescue. See
+<a href="#addresses">Addresses</a> — this is the one mistake with no undo.</p>
+
+<h4>The node is stuck on a corrupt block index</h4>
+<p>One-shot <code>-reindex</code>. The chain is small; it takes seconds.</p>
+
+<h4>Merged-mining config changes do not take effect</h4>
+<p>Stopping and starting the stratum does not reload configuration. Restart the daemon.</p>
+</section>
+
+<section id="glossary">
+<h2>Glossary</h2>
+
+<div class="tw"><table>
+<thead><tr><th>Term</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><b>WTX</b></td><td>WATTx's native coin.</td></tr>
+<tr><td><b>WATT</b></td><td>The Mining Game's ERC-20 fuel and reward token on Polygon, Altcoinchain and WATTx. Distinct from WTX.</td></tr>
+<tr><td><b>X25X</b></td><td>WATTx's seven-algorithm mining framework, each algorithm with its own difficulty.</td></tr>
+<tr><td><b>AuxPoW</b></td><td>Auxiliary proof-of-work. Work done on a parent chain counted as WATTx work — merged mining.</td></tr>
+<tr><td><b>Parent chain</b></td><td>The chain you were already mining, whose blocks carry the WATTx commitment.</td></tr>
+<tr><td><b>AAL</b></td><td>Account Abstraction Layer — the UTXO output that carries an EVM call or deploy.</td></tr>
+<tr><td><b>OP_CREATE / OP_CALL</b></td><td>The script opcodes (<code>0xc1</code> / <code>0xc2</code>) that carry EVM payloads.</td></tr>
+<tr><td><b>QRC-20 / QRC-721</b></td><td>WATTx's token standards. Byte-compatible with ERC-20 / ERC-721.</td></tr>
+<tr><td><b>Coinstake</b></td><td>The special transaction a staking node produces when it wins a PoS block.</td></tr>
+<tr><td><b>Stake maturity</b></td><td>Confirmations a UTXO needs before it can stake. 500 today, halving with each reward halving.</td></tr>
+<tr><td><b>Super staker</b></td><td>A node with ≥ 20,000 WTX self-stake that accepts delegations for a fee.</td></tr>
+<tr><td><b>Delegation</b></td><td>Assigning staking rights to a super staker. Non-custodial — your coins never move.</td></tr>
+<tr><td><b>Trust tier</b></td><td>Bronze / Silver / Gold / Platinum — an uptime-earned reward multiplier from 1.0× to 2.0×.</td></tr>
+<tr><td><b>FCMP</b></td><td>Full-chain membership proofs — base-layer shielded transactions, activating at block 210,000.</td></tr>
+<tr><td><b>Stealth address</b></td><td>A one-time address derived from the recipient's public key; only they can spend it.</td></tr>
+<tr><td><b>Ordinal / inscription</b></td><td>Data written permanently into a UTXO's witness and tracked as a transferable artifact.</td></tr>
+<tr><td><b>Combined difficulty</b></td><td><code>PoW^0.6 × PoS^0.4</code> — the chain's real security number.</td></tr>
+</tbody></table></div>
+</section>
+
+<footer>
+  <p><b>WATTx</b> — docs.wattxchain.org. The <a href="https://wattxchain.org/whitepaper.html">whitepaper</a>
+  is the design rationale; this is the manual.</p>
+  <p>Network parameters here were read from <code>chainparams.cpp</code> on the mainnet build and confirmed
+  against a live node. Where a limitation, a sharp edge or a known defect exists, it is written down rather
+  than left for you to find. If this page disagrees with the chain, the chain is right — tell us and we will
+  fix the page.</p>
+  <p style="margin-top:14px">
+    <a href="https://wattxchain.org/">Home</a> ·
+    <a href="https://wattxchain.org/whitepaper.html">Whitepaper</a> ·
+    <a href="https://wtx-explorer.wattxchange.app">Explorer</a> ·
+    <a href="https://github.com/WATTxChain/WATTx/releases">Download</a> ·
+    <a href="https://secret.wattxchain.org">WATTxSecret</a> ·
+    <a href="https://bridge.wattxchange.app">Bridge</a> ·
+    <a href="https://mining-game.wattxchange.app/">Mining Game</a> ·
+    <a href="https://github.com/WATTxChain">GitHub</a>
+  </p>
+</footer>
+
+</main>
+</div>
+
+<script>
+(function(){
+  var toc = document.getElementById('toc'), burger = document.getElementById('burger');
+  burger.addEventListener('click', function(){ toc.classList.toggle('open'); });
+  toc.addEventListener('click', function(e){ if(e.target.tagName === 'A') toc.classList.remove('open'); });
+  var links = [].slice.call(toc.querySelectorAll('a[href^="#"]')), map = {};
+  links.forEach(function(a){ var el = document.getElementById(a.getAttribute('href').slice(1)); if(el) map[el.id] = a; });
+  var seen = {};
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ seen[en.target.id] = en.isIntersecting ? en.intersectionRatio : 0; });
+    var best = null, bestV = 0;
+    Object.keys(seen).forEach(function(id){ if(seen[id] > bestV){ bestV = seen[id]; best = id; } });
+    if(best){ links.forEach(function(a){ a.classList.remove('on'); }); if(map[best]) map[best].classList.add('on'); }
+  }, { rootMargin: '-72px 0px -55% 0px', threshold: [0, .1, .5, 1] });
+  Object.keys(map).forEach(function(id){ io.observe(document.getElementById(id)); });
+})();
+</script>
+</body>
+</html>
