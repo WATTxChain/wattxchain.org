@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>WATTx Wallet Swaps Roadmap</title>
+<meta name="description" content="WATTx Wallet swaps roadmap: desk, THORChain and trustless atomic swaps in one quote sheet.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --bg:#0D1117; --surface:#161B22; --surface-2:#1C232D; --line:#2A323D;
+  --ink:#E6EAF0; --ink-2:#A3ADBB; --ink-3:#7A8594;
+  --gold:#F7C948; --gold-ink:#0D1117; --gold-soft:rgba(247,201,72,.12);
+  --green:#3FB950; --green-soft:rgba(63,185,80,.14);
+  --amber:#E3A23B; --amber-soft:rgba(227,162,59,.14);
+  --red:#F85149; --red-soft:rgba(248,81,73,.13);
+  --blue:#6CA4F8; --blue-soft:rgba(108,164,248,.13);
+  --display:"Bricolage Grotesque", "Avenir Next", system-ui, sans-serif;
+  --body:"IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    color-scheme: light;
+    --bg:#F6F4EE; --surface:#FFFFFF; --surface-2:#F0EDE4; --line:#DDD8CB;
+    --ink:#161B22; --ink-2:#4A5260; --ink-3:#6B7280;
+    --gold:#9A6B00; --gold-ink:#FFFFFF; --gold-soft:rgba(154,107,0,.10);
+    --green:#1F7A34; --green-soft:rgba(31,122,52,.10);
+    --amber:#9A5A00; --amber-soft:rgba(154,90,0,.10);
+    --red:#B4231B; --red-soft:rgba(180,35,27,.09);
+    --blue:#1F5FBF; --blue-soft:rgba(31,95,191,.09);
+  }
+}
+:root[data-theme="light"]{
+  color-scheme: light;
+  --bg:#F6F4EE; --surface:#FFFFFF; --surface-2:#F0EDE4; --line:#DDD8CB;
+  --ink:#161B22; --ink-2:#4A5260; --ink-3:#6B7280;
+  --gold:#9A6B00; --gold-ink:#FFFFFF; --gold-soft:rgba(154,107,0,.10);
+  --green:#1F7A34; --green-soft:rgba(31,122,52,.10);
+  --amber:#9A5A00; --amber-soft:rgba(154,90,0,.10);
+  --red:#B4231B; --red-soft:rgba(180,35,27,.09);
+  --blue:#1F5FBF; --blue-soft:rgba(31,95,191,.09);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.6;margin:0;padding-inline:20px;padding-block:0 64px}
+.wrap{max-width:1040px;margin:0 auto}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.15}
+h1{font-size:clamp(30px,5vw,46px);font-weight:700;letter-spacing:-.02em}
+h2{font-size:24px;font-weight:700;letter-spacing:-.01em}
+h3{font-size:18px;font-weight:700}
+p{margin:0}
+.mono{font-family:var(--mono);font-size:.92em}
+.eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+
+header.top{display:grid;gap:14px;padding-block:44px 28px;border-bottom:1px solid var(--line)}
+header.top .lede{max-width:66ch;color:var(--ink-2);font-size:16.5px}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
+.meta b{color:var(--ink-2);font-weight:500}
+
+section{padding-block:40px 8px;display:grid;gap:18px}
+.sec-head{display:grid;gap:6px}
+.sec-head p{color:var(--ink-2);max-width:68ch}
+
+/* status chips */
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:.04em;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.chip::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+.live{color:var(--green);background:var(--green-soft)}
+.partial{color:var(--amber);background:var(--amber-soft)}
+.off{color:var(--ink-3);background:var(--surface-2)}
+.gap{color:var(--red);background:var(--red-soft)}
+.plan{color:var(--blue);background:var(--blue-soft)}
+
+/* rails table */
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:760px;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:12px 14px;border-bottom:1px solid var(--line)}
+th{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:500;background:var(--surface-2)}
+tr:last-child td{border-bottom:0}
+td .name{font-weight:600}
+td .sub{color:var(--ink-3);font-size:13px}
+td.stack{display:grid;gap:6px;justify-items:start}
+
+/* today strip */
+.today{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;display:grid;gap:6px;align-content:start}
+.fact .k{font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3)}
+.fact p{color:var(--ink-2);font-size:14px}
+
+/* timeline */
+.timeline{display:grid;gap:0;position:relative}
+.phase{display:grid;grid-template-columns:76px 1fr;gap:0 18px;position:relative}
+.rail{position:relative;display:flex;justify-content:center}
+.rail::after{content:"";position:absolute;top:44px;bottom:0;width:2px;background:var(--line)}
+.phase:last-child .rail::after{display:none}
+.node{width:44px;height:44px;border-radius:50%;display:grid;place-items:center;font-family:var(--display);font-weight:700;font-size:18px;background:var(--surface);border:2px solid var(--line);color:var(--ink-2);position:relative;z-index:1}
+.phase.now .node{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:20px 22px;margin-bottom:22px;display:grid;gap:14px}
+.phase.now .card{border-color:color-mix(in srgb,var(--gold) 55%,var(--line))}
+.card-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:6px 16px}
+.card-head .when{font-family:var(--mono);font-size:12.5px;color:var(--ink-3)}
+.version{font-family:var(--mono);font-size:12px;color:var(--gold);background:var(--gold-soft);padding:1px 8px;border-radius:5px;margin-left:8px;vertical-align:middle}
+.goal{color:var(--ink-2);max-width:72ch}
+.cols{display:grid;grid-template-columns:1.5fr 1fr;gap:18px}
+ul.items{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+ul.items li{position:relative;padding-left:20px;font-size:14.5px}
+ul.items li::before{content:"";position:absolute;left:3px;top:.62em;width:7px;height:7px;border:1.5px solid var(--gold);border-radius:2px}
+ul.items li b{font-weight:600}
+.side{display:grid;gap:12px;align-content:start}
+.box{border-radius:8px;padding:11px 13px;background:var(--surface-2);font-size:13.5px;display:grid;gap:4px}
+.box .k{font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-3)}
+.box.exit{background:var(--green-soft)}
+.box.exit .k{color:var(--green)}
+.box.dep .k{color:var(--amber)}
+
+/* fee stack */
+.fees{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:22px;align-items:start}
+.stackbar{display:grid;gap:6px}
+.layer{display:flex;justify-content:space-between;gap:12px;padding:12px 14px;border-radius:8px;background:var(--surface);border:1px solid var(--line);font-size:14px}
+.layer .who{font-weight:600}
+.layer .how{color:var(--ink-3);font-family:var(--mono);font-size:12.5px;text-align:right}
+.layer.ours{border-color:var(--gold);background:var(--gold-soft)}
+.layer.ours .who{color:var(--gold)}
+.fees .note{color:var(--ink-2);font-size:14.5px;display:grid;gap:10px}
+
+/* decisions + risks */
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.dec{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;display:grid;gap:8px;align-content:start}
+.dec h3{font-size:16px}
+.dec p{color:var(--ink-2);font-size:14px}
+.dec .rec{font-size:13.5px;color:var(--ink);border-top:1px dashed var(--line);padding-top:8px}
+.dec .rec b{color:var(--gold);font-family:var(--mono);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;margin-right:6px}
+.risk{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--red);border-radius:6px 10px 10px 6px;padding:13px 16px}
+.risk.med{border-left-color:var(--amber)}
+.risk .lvl{grid-row:span 2;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);padding-top:2px}
+.risk.med .lvl{color:var(--amber)}
+.risk p{color:var(--ink-2);font-size:14px}
+.risk strong{font-size:14.5px}
+
+footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink-3);font-size:13px;display:grid;gap:6px}
+
+@media (max-width:760px){
+  .cols,.fees{grid-template-columns:1fr}
+  .phase{grid-template-columns:44px 1fr;gap:0 12px}
+  .node{width:36px;height:36px;font-size:15px}
+  .rail::after{top:36px}
+  .card{padding:16px}
+  body{padding-inline:16px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .phase.now .node{box-shadow:0 0 0 0 var(--gold-soft);animation:pulse 2.6s ease-out infinite}
+  @keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 45%,transparent)}100%{box-shadow:0 0 0 14px transparent}}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <span class="eyebrow">WATTx Wallet · Android · <span class="mono">app.wattxchange.wattx_wallet</span></span>
+  <h1>Swaps on the phone, Cake Wallet style</h1>
+  <p class="lede">The plan to turn the v0.1.4 swap screen into a full in-wallet exchange. One quote sheet ranks every rail: the WATTxchange desk, THORChain, and trustless WATTxchange atomic swaps (KDF/HTLC). The 1% WATTxchange fee sits on top of each provider's own fees.</p>
+  <div class="meta">
+    <span>Drafted <b>14 Oct 2026</b></span>
+    <span>Wallet today <b>v0.1.4+5</b></span>
+    <span>Router <b>bridge.wattxchange.app/router</b></span>
+    <span>Platform fee <b>100 bps</b></span>
+  </div>
+</header>
+
+<section aria-labelledby="s-today">
+  <div class="sec-head">
+    <span class="eyebrow">Starting point</span>
+    <h2 id="s-today">What the app can do today</h2>
+  </div>
+  <div class="today">
+    <div class="fact"><span class="k">Swap screen</span><p>11 assets in the picker (WTX, WATT, BTC, ETH, LTC, DOGE, BCH, AVAX, ATOM, USDC, USDT). It gets a quote from the router and creates an order.</p></div>
+    <div class="fact"><span class="k">WTX out</span><p>The wallet signs and sends the WTX itself when you confirm. This is the only one-tap path today.</p></div>
+    <div class="fact"><span class="k">Other coins in</span><p>You get a deposit address and send from another wallet. The app holds no BTC, ETH or Polygon keys.</p></div>
+    <div class="fact"><span class="k">WATT → WTX</span><p>Hands off to the web app, because the wallet can't sign on Polygon yet.</p></div>
+  </div>
+</section>
+
+<section aria-labelledby="s-rails">
+  <div class="sec-head">
+    <span class="eyebrow">Liquidity rails</span>
+    <h2 id="s-rails">The rails behind one quote sheet</h2>
+    <p>Each rail keeps its own custody model. The quote sheet labels which rails are custodial and which are trustless, so users choose knowingly.</p>
+  </div>
+  <div class="tbl">
+    <table>
+      <thead><tr><th>Rail</th><th>Custody</th><th>Pairs</th><th>Today</th><th>In wallet</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><div class="name">WATTxchange desk</div><div class="sub mono">watt-wtx-bridge</div></td>
+          <td>Custodial OTC</td>
+          <td>WTX ⇄ WATT (Polygon), market pricing. Max 100,000 WTX per swap, 100,001 WTX committed at a time.</td>
+          <td class="stack"><span class="chip live">live</span></td>
+          <td class="stack"><span class="chip partial">WTX→WATT only</span><span class="sub">WATT→WTX goes to the web</span></td>
+        </tr>
+        <tr>
+          <td><div class="name">THORChain</div><div class="sub mono">Liquify gateway · affiliate</div></td>
+          <td>Non-custodial native L1</td>
+          <td>BTC, ETH, LTC, DOGE, BCH, AVAX, ATOM, USDC, USDT. No WTX pool.</td>
+          <td class="stack"><span class="chip live">live in router</span></td>
+          <td class="stack"><span class="chip partial">deposit + memo</span><span class="sub">needs keys for one-tap</span></td>
+        </tr>
+        <tr>
+          <td><div class="name">WATTxchange atomic swaps</div><div class="sub mono">KDF · wtx-hth-maker · kdf-relay</div></td>
+          <td>Trustless HTLC</td>
+          <td>Router KDF set: WTX, HTH, FLOP, ALT. Verified coin params also cover BTC, LTC, DOGE, BITN, BTCZ, TROLL, IXC.</td>
+          <td class="stack"><span class="chip partial">web DEX only</span><span class="sub">WTX→HTH gave no router quote on 14 Oct</span></td>
+          <td class="stack"><span class="chip gap">missing</span></td>
+        </tr>
+        <tr>
+          <td><div class="name">Altcoinchain HTLC contracts</div><div class="sub mono">AtomicSwap 0x2807…e0b4 · HTLCEscrow 0x549c…67C0</div></td>
+          <td>Trustless (EVM)</td>
+          <td>ALT and ALT-chain tokens against UTXO legs.</td>
+          <td class="stack"><span class="chip partial">deployed, web only</span></td>
+          <td class="stack"><span class="chip gap">missing</span></td>
+        </tr>
+        <tr>
+          <td><div class="name">Uniswap (Polygon)</div></td>
+          <td>Non-custodial AMM</td>
+          <td>WATT and Polygon stablecoins. Becomes the stable leg once your pool is funded.</td>
+          <td class="stack"><span class="chip live">live in router</span></td>
+          <td class="stack"><span class="chip off">needs Polygon keys</span></td>
+        </tr>
+        <tr>
+          <td><div class="name">ChangeNOW · SideShift · Swapin</div><div class="sub mono">adapters in swap-router/src/providers</div></td>
+          <td>Custodial instant exchange</td>
+          <td>Hundreds of majors, no WTX. These are Cake Wallet's own providers.</td>
+          <td class="stack"><span class="chip off">built, disabled</span></td>
+          <td class="stack"><span class="chip off">decision 1</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<section aria-labelledby="s-phases">
+  <div class="sec-head">
+    <span class="eyebrow">Phases, in build order</span>
+    <h2 id="s-phases">Roadmap</h2>
+    <p>Each phase ships a usable wallet release. Later phases depend on the keys and services the earlier ones add. Week estimates assume one developer and are targets, not commitments.</p>
+  </div>
+
+  <div class="timeline">
+    <article class="phase now">
+      <div class="rail"><div class="node">0</div></div>
+      <div class="card">
+        <div class="card-head"><h3>Fix the base</h3><span class="when">this week · Oct 2026</span></div>
+        <p class="goal">Make every pair the picker offers either return a quote or say why it can't, before adding more UI on top.</p>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Trace the missing routes.</b> WATT→WTX and WTX→HTH returned no best route from the public router on 14 Oct. Check the Polygon chain default and whether the KDF maker's book reaches the gleecdex adapter.</li>
+            <li><b>Verify the WTX coin params for KDF.</b> <span class="mono">mm2Coins.ts</span> still lists testnet bytes (pub 135 · p2sh 137 · wif 239) “until mainnet launch”. Confirm them against the live 62.8k chain the wallet uses. A wrong byte makes the swap fail without any error.</li>
+            <li><b>Router <span class="mono">/health</span>.</b> Report per-provider status so the app greys out dead rails instead of showing empty quotes.</li>
+            <li><b>Show only pairs that route.</b> Drive the picker from the router's pair list, not the hard-coded 11 coins.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>Every listed pair quotes, or the app explains why it can't.</div>
+            <div class="box dep"><span class="k">Depends on</span>Nothing new.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="rail"><div class="node">1</div></div>
+      <div class="card">
+        <div class="card-head"><h3>Cake-style swap flow <span class="version">v0.2</span></h3><span class="when">~2 weeks · late Oct</span></div>
+        <p class="goal">Match Cake Wallet's exchange flow using the rails that already work.</p>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Quote comparison sheet.</b> List every rail by amount received, with its fee lines (network, provider, WATTxchange 1%), ETA and a custody label.</li>
+            <li><b>Fixed or floating rate</b> where the rail offers it. Show a countdown to quote expiry and re-quote automatically when it lapses.</li>
+            <li><b>Deposit screen</b> for coins the wallet doesn't hold. QR code and copy buttons, the THORChain memo shown large, and a refund address you must fill in.</li>
+            <li><b>Swaps tab.</b> History with status chips (waiting, confirming, exchanging, sent, refunded) built on the existing <span class="mono">status(id)</span> and <span class="mono">recentIds()</span> calls. Local notifications on each change, kept alive by FullNodeService.</li>
+            <li><b>Limits up front.</b> Show the desk's 100,000 WTX cap and remaining inventory before the user types an amount.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>WTX→WATT works in the app end to end, and BTC→ETH works through the deposit flow.</div>
+            <div class="box dep"><span class="k">Depends on</span>Phase 0. Decision 1 adds extra rails here.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="rail"><div class="node">2</div></div>
+      <div class="card">
+        <div class="card-head"><h3>Multi-asset keys <span class="version">v0.3</span></h3><span class="when">~3 weeks · Nov</span></div>
+        <p class="goal">Cake swaps in one tap because it holds the keys for both sides. This phase gives the wallet those keys, from the seed it already has.</p>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Derive more accounts from the existing BIP39 seed.</b> BTC (BIP84), LTC, DOGE and BCH, plus one EVM account for WATT on Polygon and ETH. The app already has <span class="mono">bip39</span>/<span class="mono">bip32</span>.</li>
+            <li><b>Balances and sends</b> through Electrum servers and public RPCs, with the same fallback pattern the desk uses for Polygon.</li>
+            <li><b>One-tap THORChain.</b> The wallet builds the inbound transaction itself (OP_RETURN memo on UTXO chains, router deposit call on EVM), so no memo copy-paste.</li>
+            <li><b>WATT→WTX in the app.</b> Retires the web hand-off (<span class="mono">_webOnly</span>).</li>
+            <li><b>Backup gate.</b> Require a confirmed seed backup before the new accounts switch on, the lesson from the biometrics fix.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>BTC→ETH and WATT→WTX complete without leaving the app.</div>
+            <div class="box dep"><span class="k">Depends on</span>Phase 1. Decision 4 sets the scope.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="rail"><div class="node">3</div></div>
+      <div class="card">
+        <div class="card-head"><h3>WATTxchange atomic swaps on the phone <span class="version">v0.4</span></h3><span class="when">~4 weeks · Nov–Dec</span></div>
+        <p class="goal">Bring the trustless WATTxchange DEX into the wallet, so WTX trades against other coins without a custodian.</p>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Embed the Komodo DeFi Framework (kdf).</b> Run it on a local RPC port, the same way the app runs its full node. Decision 2 covers the SDK option.</li>
+            <li><b>Connect to the WATTxchange maker</b> (<span class="mono">wtx-hth-maker</span>) and <span class="mono">kdf-relay</span>. Start with the order book for WTX against HTH, ALT and FLOP, then add the verified BTC, LTC and DOGE.</li>
+            <li><b>Survive app kill.</b> Run kdf inside the foreground service. On restart it resumes in-flight swaps and refunds automatically after the locktime.</li>
+            <li><b>Same quote sheet.</b> Atomic swaps appear next to the desk and THORChain with a “trustless” label.</li>
+            <li><b>ALT legs</b> through the deployed Altcoinchain AtomicSwap and HTLCEscrow contracts.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>A mainnet WTX⇄LTC swap completes from a phone, and a deliberately failed swap refunds by itself.</div>
+            <div class="box dep"><span class="k">Depends on</span>Phase 0 coin-param check and Phase 2 keys for the non-WTX leg.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="rail"><div class="node">4</div></div>
+      <div class="card">
+        <div class="card-head"><h3>WTX to everything THORChain reaches</h3><span class="when">after pool funding · Nov 2026</span></div>
+        <p class="goal">One quote and one order from WTX to BTC, ETH or any THORChain asset, routed through WATT and a stablecoin.</p>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Route:</b> WTX → WATT (desk) → USDC/USDT on Polygon (your pool) → THORChain.</li>
+            <li><b>Bridge the Polygon gap.</b> As far as I know, Polygon is not a THORChain chain, so the stablecoin must move first (for example USDC over CCTP to Base or Avalanche). Verify before building. This is decision 3.</li>
+            <li><b>Multi-leg orders in the router.</b> One order id, status per leg, and a defined refund for each leg if a later one fails.</li>
+            <li><b>THORName “nucash”.</b> Once you register it, switch the affiliate from the full <span class="mono">thor1…</span> address to the short name. That frees memo bytes and lets the router drop its memo-too-long retry.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>WTX→BTC runs as one order, with the combined fees shown before confirming.</div>
+            <div class="box dep"><span class="k">Depends on</span>Your Polygon stablecoin pool, the THORName, Phase 2.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <article class="phase">
+      <div class="rail"><div class="node">5</div></div>
+      <div class="card">
+        <div class="card-head"><h3>Hardening and Play Store release</h3><span class="when">rolling, alongside 1–4</span></div>
+        <div class="cols">
+          <ul class="items">
+            <li><b>Contract review</b> of HTLCVault, AtomicSwap and AtomicSwapOrderBook before larger swaps go through them.</li>
+            <li><b>Desk inventory alerts</b> when free WTX drops below the 100,000 cap, and a slippage guard between quote and fill.</li>
+            <li><b>Failover drills.</b> Turn off each provider in turn and confirm the quote sheet degrades cleanly.</li>
+            <li><b>Release track:</b> internal → closed testing → production, signed with <span class="mono">wattx-release.jks</span>.</li>
+          </ul>
+          <div class="side">
+            <div class="box exit"><span class="k">Done when</span>Production listing is live and each rail has passed a failover drill.</div>
+          </div>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section aria-labelledby="s-fees">
+  <div class="sec-head">
+    <span class="eyebrow">Pricing</span>
+    <h2 id="s-fees">How the fee stacks</h2>
+  </div>
+  <div class="fees">
+    <div class="stackbar" aria-label="Fee layers, top is charged last">
+      <div class="layer ours"><span class="who">WATTxchange 1%</span><span class="how">platformFeeBps 100</span></div>
+      <div class="layer"><span class="who">Provider fee</span><span class="how">THORChain liquidity fee · desk spread · KDF taker fee</span></div>
+      <div class="layer"><span class="who">Network fees</span><span class="how">inbound + outbound tx</span></div>
+    </div>
+    <div class="note">
+      <p>WATTxchange takes 1% on every rail, on top of whatever the provider charges. The quote sheet shows each layer separately and ranks rails by what the user actually receives.</p>
+      <p>How the 1% is collected depends on the rail. THORChain pays it through the affiliate field in the memo. The desk takes it through <span class="mono">rate.feeBps</span> 100. Trustless atomic swaps have no middleman, so the fee needs its own collection path; that is part of decision 2.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s-dec">
+  <div class="sec-head">
+    <span class="eyebrow">Your call</span>
+    <h2 id="s-dec">Decisions to make</h2>
+  </div>
+  <div class="grid2">
+    <div class="dec">
+      <h3>1 · Turn on ChangeNOW and SideShift?</h3>
+      <p>These are Cake's own providers, and the adapters are already written. They add many non-WTX pairs. They are custodial and can hold a swap pending KYC.</p>
+      <p class="rec"><b>Suggest</b>Enable them in phase 1 for non-WTX pairs, labelled custodial.</p>
+    </div>
+    <div class="dec">
+      <h3>2 · How to embed kdf</h3>
+      <p>Bundle the kdf binary behind a local RPC, as the full node already is, or adopt Komodo's Flutter SDK. Atomic swaps also need a way to collect the 1%: a maker spread, or a dex-fee address.</p>
+      <p class="rec"><b>Suggest</b>Bundle the binary. It matches the existing node pattern, and the maker spread covers the fee.</p>
+    </div>
+    <div class="dec">
+      <h3>3 · Moving stables from Polygon to THORChain</h3>
+      <p>The WTX route lands in Polygon stablecoins, which THORChain can't take directly. Options: bridge USDC over CCTP to Base or Avalanche, or seed the pool on a chain THORChain supports.</p>
+      <p class="rec"><b>Suggest</b>Decide before funding the pool next month. Putting the pool on a THORChain chain removes a leg.</p>
+    </div>
+    <div class="dec">
+      <h3>4 · WTX wallet or multi-coin wallet</h3>
+      <p>Phase 2 is the big change in scope: the app starts holding BTC, LTC, DOGE and EVM funds, and supporting them.</p>
+      <p class="rec"><b>Suggest</b>Add the accounts, but keep WTX as the home screen and show the others only when they hold a balance.</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="s-risk">
+  <div class="sec-head">
+    <span class="eyebrow">Watch list</span>
+    <h2 id="s-risk">Risks</h2>
+  </div>
+  <div class="grid2">
+    <div class="risk"><span class="lvl">High</span><strong>Wrong KDF coin bytes</strong><p>The engine then derives the wrong addresses and the swap fails with no error. Phase 0 checks this before any mainnet atomic swap.</p></div>
+    <div class="risk"><span class="lvl">High</span><strong>Mobile OS kills a swap mid-flight</strong><p>An HTLC left unattended needs its refund claimed after the locktime. Run kdf in the foreground service and resume swaps at launch.</p></div>
+    <div class="risk med"><span class="lvl">Med</span><strong>Desk inventory is custodial</strong><p>Up to 100,001 WTX is committed at once. Alerts, caps and the ledger review flow already exist; keep them in front of users.</p></div>
+    <div class="risk med"><span class="lvl">Med</span><strong>Partial failure on multi-leg routes</strong><p>If the THORChain leg fails after the desk leg fills, the user holds WATT or stables. Each leg needs a stated refund outcome before phase 4 ships.</p></div>
+    <div class="risk med"><span class="lvl">Med</span><strong>THORChain memo length</strong><p>A long affiliate address can push a memo over the limit. The router retries without the affiliate today; the THORName fixes it for good.</p></div>
+    <div class="risk med"><span class="lvl">Med</span><strong>Hard-coded asset list drifts</strong><p>The 11 coins in <span class="mono">SwapService.coins</span> can list pairs with no route. Phase 0 makes the router the source of truth.</p></div>
+  </div>
+</section>
+
+<footer>
+  <span>Based on the code as of 14 Oct 2026: <span class="mono">~/wattx_wallet</span> v0.1.4, <span class="mono">~/swap-router</span>, <span class="mono">~/watt-wtx-bridge</span>, the WATTxchange web app's KDF and HTLC services, and live router quotes.</span>
+  <span>Week estimates are targets for one developer.</span>
+</footer>
+</div>
+</body>
+</html>
