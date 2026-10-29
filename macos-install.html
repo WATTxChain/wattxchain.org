@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How to install the WATTx full-node wallet (wattx-qt) on a Mac.">
+  <title>Install WATTx Core on Mac</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .ios-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + 48px) 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .ios-page h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.2; text-wrap: balance; }
+    .ios-page h2 { font-size: 1.3rem; }
+    .ios-page h3 { font-size: 1.05rem; }
+    .ios-page p, .ios-page li { color: var(--text); line-height: 1.65; }
+    .ios-page section { display: flex; flex-direction: column; gap: 14px; }
+    .ios-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+    .ios-lede { color: var(--text-muted) !important; font-size: 1.05rem; }
+    .ios-head { display: flex; flex-direction: column; gap: 12px; }
+    .ios-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
+    .ios-file { font-family: var(--mono); font-size: .85em; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; word-break: break-all; }
+    .ios-note { color: var(--text-muted) !important; font-size: .95rem; }
+    .ios-path { font-weight: 600; }
+    .ios-path b { color: var(--gold); padding: 0 2px; }
+    .ios-need { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+
+    .ios-steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+    .ios-steps > li { counter-increment: s; position: relative; padding: 0 0 30px 54px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .ios-steps > li::before {
+      content: counter(s); position: absolute; left: 0; top: -2px; width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gold); color: #000; font-weight: 700; display: grid; place-items: center;
+    }
+    .ios-steps > li::after { content: ""; position: absolute; left: 16px; top: 38px; bottom: 4px; width: 2px; background: var(--border); }
+    .ios-steps > li:last-child { padding-bottom: 0; }
+    .ios-steps > li:last-child::after { display: none; }
+    .ios-sub { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
+    .ios-tag { align-self: flex-start; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 2px 10px; }
+    .ios-tag.pc { background: #1E2F4A; color: #B9CDEE; }
+    .ios-tag.ph { background: #1C3324; color: #B5E0C0; }
+    .ios-tag.new { background: #3A2E10; color: #F0DC8A; }
+
+    .ios-callout { background: var(--surface); border: 1px solid var(--gold-dim); border-radius: var(--radius-sm); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .ios-trouble { border-top: 1px solid var(--border); }
+    .ios-trouble div { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+    .ios-trouble .q { font-weight: 600; }
+    .ios-page a:not(.btn) { color: var(--gold); text-underline-offset: 2px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/logo.png" alt="WATTx Logo" class="nav-logo">
+        <span class="nav-wordmark">WATTx</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Back to Home</a></li>
+        <li><a href="index.html#downloads">Downloads</a></li>
+        <li><a href="https://docs.wattxchain.org">Docs</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="ios-page">
+    <header class="ios-head">
+      <span class="ios-eyebrow">macOS · WATTx Core v0.1.7.7</span>
+      <h1>Install the WATTx wallet on your Mac</h1>
+      <p class="ios-lede">WATTx-Qt is the full-node wallet: it downloads and checks the whole WATTx chain itself, and lets you send, receive, stake and mine. It isn't signed by Apple yet, so macOS asks you to approve it once.</p>
+      <div class="ios-actions">
+        <a href="https://github.com/WATTxChain/WATTx/releases/download/v0.1.7.7/WATTx-0.1.7.7-macos-x86_64.zip" class="btn btn-primary btn-sm">Download for Mac (.zip, 25 MB)</a>
+        <a href="https://github.com/WATTxChain/WATTx/releases/tag/v0.1.7.7" target="_blank" rel="noopener">Release notes &amp; checksums</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>What you need</h2>
+      <ul class="ios-need">
+        <li>macOS 13 Ventura or newer. Check under <b>Apple menu › About This Mac</b>.</li>
+        <li>An Intel Mac, or an Apple Silicon Mac (M1–M4). Apple Silicon runs it through Rosetta, which macOS installs for you.</li>
+        <li>About 1 GB of free disk space and an internet connection.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps</h2>
+      <ol class="ios-steps">
+        <li>
+          <h3>Download and unzip</h3>
+          <p>Download the file with the button above. Open your <b>Downloads</b> folder and double-click <span class="ios-file">WATTx-0.1.7.7-macos-x86_64.zip</span> if Safari hasn't already unzipped it. You get <b>WATTx-Qt</b>.</p>
+        </li>
+        <li>
+          <h3>Move it to Applications</h3>
+          <p>Drag <b>WATTx-Qt</b> into the <b>Applications</b> folder in the Finder sidebar.</p>
+        </li>
+        <li>
+          <h3>Open it the first time</h3>
+          <p>In Applications, hold <b>Control</b> and click <b>WATTx-Qt</b> (or right-click it), choose <b>Open</b>, then click <b>Open</b> again.</p>
+          <p class="ios-note">You only need to do this once. After that it opens normally.</p>
+        </li>
+        <li>
+          <span class="ios-tag new">macOS 15 Sequoia and newer</span>
+          <h3>Allow it in System Settings</h3>
+          <p>Newer macOS versions don't offer Open in step 3. Instead:</p>
+          <ol class="ios-sub">
+            <li>Double-click <b>WATTx-Qt</b>. When macOS says it can't be opened, click <b>Done</b>.</li>
+            <li>Open <b>System Settings › Privacy &amp; Security</b> and scroll down to <b>Security</b>.</li>
+            <li>Next to “WATTx-Qt was blocked”, click <b>Open Anyway</b>, enter your Mac password, then click <b>Open Anyway</b> once more.</li>
+          </ol>
+        </li>
+        <li>
+          <span class="ios-tag pc">Apple Silicon only</span>
+          <h3>Install Rosetta if asked</h3>
+          <p>If your Mac asks to install <b>Rosetta</b>, click <b>Install</b>. It takes a minute, and WATTx-Qt opens afterwards.</p>
+        </li>
+        <li>
+          <h3>Let it sync</h3>
+          <p>On first start, keep the default data folder and let the wallet download the chain. The progress bar at the bottom shows how far it has got.</p>
+          <p class="ios-note">To close it, use <b>WATTx-Qt › Quit</b> and wait for the window to disappear. Don't force-quit while it is syncing or loading, or it may have to start the sync over.</p>
+        </li>
+        <li>
+          <h3>Protect your wallet</h3>
+          <ol class="ios-sub">
+            <li><b>Settings › Encrypt Wallet</b>: set a strong passphrase you won't forget.</li>
+            <li><b>File › Backup Wallet</b>: save a copy somewhere off this Mac, like a USB stick. Back up again after creating new addresses.</li>
+          </ol>
+        </li>
+      </ol>
+    </section>
+
+    <div class="ios-callout">
+      <h2>Where your data lives</h2>
+      <p>The chain and your wallet are stored in <span class="ios-file">~/Library/Application Support/WATTx</span>. To get there, open Finder, press <b>Shift-Command-G</b> and paste that path. Uninstalling the app does not delete this folder.</p>
+    </div>
+
+    <section>
+      <h2>If something goes wrong</h2>
+      <div class="ios-trouble">
+        <div><span class="q">“WATTx-Qt can't be opened” or “Apple could not verify…”</span><span>Use step 3, or step 4 on macOS 15 and newer.</span></div>
+        <div><span class="q">“WATTx-Qt is damaged and can't be opened”</span><span>Delete it, download the zip again, and unzip it with the Finder rather than another tool.</span></div>
+        <div><span class="q">The app doesn't open at all</span><span>Check you're on macOS 13 or newer. On Apple Silicon, make sure Rosetta installed (step 5).</span></div>
+        <div><span class="q">Sync stays at 0 connections</span><span>Check your internet connection and that a firewall isn't blocking WATTx-Qt. It connects to other nodes on port 1337.</span></div>
+      </div>
+    </section>
+
+    <section>
+      <h2>For the command line</h2>
+      <p>The node and RPC client without the wallet window are in <a href="https://github.com/WATTxChain/WATTx/releases/download/v0.1.7.7/wattx-0.1.7.7-macos-x86_64-daemon.tar.gz">wattx-0.1.7.7-macos-x86_64-daemon.tar.gz</a> (<span class="ios-file">wattxd</span> and <span class="ios-file">wattx-cli</span>). macOS blocks them the same way on first run; allow them under <b>Privacy &amp; Security</b>.</p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="WATTx" class="footer-logo">
+        <span class="footer-wordmark">WATTx</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/WATTxChain" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener">Explorer</a>
+        <a href="secret/index.html">WATTxSecret</a>
+        <a href="https://bridge.wattxchange.app" target="_blank" rel="noopener">Bridge</a>
+        <a href="https://mining-game.wattxchange.app" target="_blank" rel="noopener">Mining Game</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 WATTx Contributors. Released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
