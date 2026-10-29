@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="How to install the WATTx Wallet test build on an iPhone with Sideloadly.">
+  <title>Install WATTx Wallet on iPhone</title>
+  <link rel="icon" href="assets/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .ios-page {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: calc(var(--nav-height) + 48px) 20px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .ios-page h1 { font-size: clamp(1.8rem, 5vw, 2.4rem); line-height: 1.2; text-wrap: balance; }
+    .ios-page h2 { font-size: 1.3rem; }
+    .ios-page h3 { font-size: 1.05rem; }
+    .ios-page p, .ios-page li { color: var(--text); line-height: 1.65; }
+    .ios-page section { display: flex; flex-direction: column; gap: 14px; }
+    .ios-eyebrow { font-size: .75rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); }
+    .ios-lede { color: var(--text-muted) !important; font-size: 1.05rem; }
+    .ios-head { display: flex; flex-direction: column; gap: 12px; }
+    .ios-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-top: 8px; }
+    .ios-file { font-family: var(--mono); font-size: .85em; background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; word-break: break-all; }
+    .ios-note { color: var(--text-muted) !important; font-size: .95rem; }
+    .ios-path { font-weight: 600; }
+    .ios-path b { color: var(--gold); padding: 0 2px; }
+    .ios-need { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 6px; }
+
+    .ios-steps { list-style: none; margin: 0; padding: 0; counter-reset: s; }
+    .ios-steps > li { counter-increment: s; position: relative; padding: 0 0 30px 54px; display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+    .ios-steps > li::before {
+      content: counter(s); position: absolute; left: 0; top: -2px; width: 34px; height: 34px; border-radius: 50%;
+      background: var(--gold); color: #000; font-weight: 700; display: grid; place-items: center;
+    }
+    .ios-steps > li::after { content: ""; position: absolute; left: 16px; top: 38px; bottom: 4px; width: 2px; background: var(--border); }
+    .ios-steps > li:last-child { padding-bottom: 0; }
+    .ios-steps > li:last-child::after { display: none; }
+    .ios-sub { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 4px; }
+    .ios-tag { align-self: flex-start; font-size: .7rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; border-radius: 999px; padding: 2px 10px; }
+    .ios-tag.pc { background: #1E2F4A; color: #B9CDEE; }
+    .ios-tag.ph { background: #1C3324; color: #B5E0C0; }
+
+    .ios-callout { background: var(--surface); border: 1px solid var(--gold-dim); border-radius: var(--radius-sm); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+    .ios-trouble { border-top: 1px solid var(--border); }
+    .ios-trouble div { padding: 14px 0; border-bottom: 1px solid var(--border); display: flex; flex-direction: column; gap: 4px; }
+    .ios-trouble .q { font-weight: 600; }
+    .ios-page a:not(.btn) { color: var(--gold); text-underline-offset: 2px; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="index.html" class="nav-brand">
+        <img src="assets/logo.png" alt="WATTx Logo" class="nav-logo">
+        <span class="nav-wordmark">WATTx</span>
+      </a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html">Back to Home</a></li>
+        <li><a href="index.html#downloads">Downloads</a></li>
+        <li><a href="https://docs.wattxchain.org">Docs</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="ios-page">
+    <header class="ios-head">
+      <span class="ios-eyebrow">iPhone · Test build v0.1.4</span>
+      <h1>Install WATTx Wallet on your iPhone</h1>
+      <p class="ios-lede">The iPhone version isn't on the App Store yet, so you install it from a computer with a free tool called Sideloadly. It takes about 15 minutes the first time.</p>
+      <div class="ios-actions">
+        <a href="https://github.com/nucash-mining/WATTxWallet/releases/download/v0.1.4/WATTxWallet-v0.1.4-ios-unsigned.ipa" class="btn btn-primary btn-sm">Download the iPhone file (.ipa)</a>
+        <a href="https://github.com/nucash-mining/WATTxWallet/releases/tag/v0.1.4" target="_blank" rel="noopener">Release notes &amp; checksum</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>What you need</h2>
+      <ul class="ios-need">
+        <li>Your iPhone (iOS 13 or newer) and its charging cable</li>
+        <li>A Mac or a Windows PC</li>
+        <li>Your Apple ID email and password (the normal free one is fine)</li>
+        <li>The wallet file <span class="ios-file">WATTxWallet-v0.1.4-ios-unsigned.ipa</span>, downloaded on the computer with the button above. Save it somewhere easy to find, like the Desktop.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Steps</h2>
+      <ol class="ios-steps">
+        <li>
+          <span class="ios-tag pc">On the computer</span>
+          <h3>Install Sideloadly</h3>
+          <p>Go to <a href="https://sideloadly.io" target="_blank" rel="noopener">sideloadly.io</a>, download the version for your computer and install it.</p>
+          <p class="ios-note">On Windows only: also install <b>iTunes</b> and <b>iCloud</b> from Apple's website (apple.com), not from the Microsoft Store. Sideloadly needs them to see the iPhone.</p>
+        </li>
+        <li>
+          <span class="ios-tag ph">On the iPhone</span>
+          <h3>Plug in and trust the computer</h3>
+          <p>Connect the iPhone with the cable and unlock it. When it asks <b>“Trust This Computer?”</b>, tap <b>Trust</b> and enter your passcode.</p>
+        </li>
+        <li>
+          <span class="ios-tag pc">On the computer</span>
+          <h3>Install the wallet with Sideloadly</h3>
+          <ol class="ios-sub">
+            <li>Open Sideloadly. Your iPhone should appear in the <b>iDevice</b> box.</li>
+            <li>Type your Apple ID email in the <b>Apple account</b> box.</li>
+            <li>Drag the <span class="ios-file">.ipa</span> file onto the Sideloadly window (or click the IPA icon and pick it).</li>
+            <li>Click <b>Start</b>. Enter your Apple ID password when asked, and the 6-digit code if Apple sends one to your devices.</li>
+            <li>Wait until the bottom of the window says <b>Done</b>.</li>
+          </ol>
+          <p class="ios-note">Your password goes only to Apple. Sideloadly uses it to sign the app so it runs on your phone.</p>
+        </li>
+        <li>
+          <span class="ios-tag ph">On the iPhone</span>
+          <h3>Trust the app</h3>
+          <p class="ios-path">Settings <b>›</b> General <b>›</b> VPN &amp; Device Management</p>
+          <p>Under <b>Developer App</b>, tap your Apple ID email, then tap <b>Trust</b> and confirm.</p>
+        </li>
+        <li>
+          <span class="ios-tag ph">On the iPhone</span>
+          <h3>Turn on Developer Mode (iOS 16 and newer)</h3>
+          <p class="ios-path">Settings <b>›</b> Privacy &amp; Security <b>›</b> Developer Mode</p>
+          <p>Switch it on and tap <b>Restart</b>. After the phone restarts, tap <b>Turn On</b> and enter your passcode.</p>
+          <p class="ios-note">This setting only shows up after step 3 has put the app on the phone. On iOS 15 or older, skip this step.</p>
+        </li>
+        <li>
+          <span class="ios-tag ph">On the iPhone</span>
+          <h3>Open WATTx Wallet</h3>
+          <p>Find <b>WATTx Wallet</b> on your home screen and open it. Create a new wallet, or restore one with your recovery phrase.</p>
+        </li>
+      </ol>
+    </section>
+
+    <div class="ios-callout">
+      <h2>Every 7 days: refresh it</h2>
+      <p>Apps installed with a free Apple ID stop opening after 7 days. To fix it, plug the iPhone back into the computer and do step 3 again with the same Apple ID. Your wallet and its coins stay where they are.</p>
+      <p><b>Write down your recovery phrase</b> when you create the wallet and keep it somewhere safe. This is a test build, so only keep small amounts in it.</p>
+    </div>
+
+    <section>
+      <h2>If something goes wrong</h2>
+      <div class="ios-trouble">
+        <div><span class="q">“Untrusted Developer” when opening the app</span><span>Do step 4 (Trust the app).</span></div>
+        <div><span class="q">The app opens and closes straight away</span><span>On iOS 16 or newer, do step 5 (Developer Mode). If it has been more than 7 days, refresh it.</span></div>
+        <div><span class="q">Sideloadly doesn't show the iPhone</span><span>Unlock the phone, unplug it and plug it back in, and tap Trust if asked. On Windows, check that iTunes from apple.com is installed.</span></div>
+        <div><span class="q">Sideloadly says the Apple ID can't be used</span><span>Make sure two-factor sign-in is on for your Apple ID and type the code it sends you. A free Apple ID can have at most 3 sideloaded apps at once; delete an old one if you hit that limit.</span></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <img src="assets/logo.png" alt="WATTx" class="footer-logo">
+        <span class="footer-wordmark">WATTx</span>
+      </div>
+      <div class="footer-links">
+        <a href="https://github.com/WATTxChain" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener">Explorer</a>
+        <a href="secret/index.html">WATTxSecret</a>
+        <a href="https://bridge.wattxchange.app" target="_blank" rel="noopener">Bridge</a>
+        <a href="https://mining-game.wattxchange.app" target="_blank" rel="noopener">Mining Game</a>
+      </div>
+      <p class="footer-copy">&copy; 2026 WATTx Contributors. Released under the MIT License.</p>
+    </div>
+  </footer>
+
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => {
+      navToggle.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
