@@ -692,7 +692,7 @@
       <ul>
         <li><strong>X25X Multi-Algorithm Mining:</strong> 7 algorithms supporting ASICs, GPUs, and CPUs</li>
         <li><strong>Hybrid PoW/PoS Consensus:</strong> Dual security from both miners and stakers</li>
-        <li><strong>AuxPoW Merged Mining:</strong> Mine WATTx simultaneously with any SHA256d, Scrypt, RandomX, or kHeavyHash chain</li>
+        <li><strong>AuxPoW Merged Mining:</strong> Mine WATTx simultaneously with any SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, or kHeavyHash chain</li>
         <li><strong>Trust Tier System:</strong> Progressive validator rewards based on uptime commitment</li>
         <li><strong>EVM Smart Contracts:</strong> Full Solidity compatibility for dApps and tokens</li>
         <li><strong>Built-in Privacy:</strong> Cross-chain privacy pools, stealth addresses, and encrypted messaging</li>
@@ -804,8 +804,8 @@
             <tr><td>PoW to Hybrid PoW/PoS Transition</td><td>Block 5,000</td></tr>
             <tr><td>X25X Multi-Algorithm Activation</td><td>Block 2,000 &mdash; active</td></tr>
             <tr><td>Proof-of-Stake Difficulty Fix</td><td>Block 2,000 &mdash; active</td></tr>
-            <tr><td>AuxPoW Merged Mining Activation</td><td>Block 210,000</td></tr>
-            <tr><td>FCMP Privacy Activation</td><td>Block 210,000 (shielded coinbase 210,100)</td></tr>
+            <tr><td>AuxPoW Merged Mining Activation</td><td>Block 2,000 &mdash; active</td></tr>
+            <tr><td>FCMP++ Privacy Activation</td><td>Block 210,000 (shielded coinbase 210,100)</td></tr>
           </tbody>
         </table>
       </div>
@@ -950,7 +950,7 @@ Where:
         <li><strong>Free Security:</strong> WATTx inherits hash power from any chain sharing a supported algorithm at no marginal energy cost</li>
         <li><strong>Miner Incentive:</strong> Miners earn additional revenue without additional hardware or electricity</li>
         <li><strong>Network Effect:</strong> As more miners opt in, WATTx security scales with total hash power across all compatible chains</li>
-        <li><strong>Decentralization:</strong> No need for dedicated WATTx mining infrastructure — any miner on any chain using SHA256d, Scrypt, RandomX, or kHeavyHash can participate</li>
+        <li><strong>Decentralization:</strong> No need for dedicated WATTx mining infrastructure — any miner on any chain using SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, or kHeavyHash can participate</li>
         <li><strong>Algorithm Breadth:</strong> Seven algorithms mean WATTx can tap into the hash power of virtually every major PoW chain in existence</li>
       </ul>
 
@@ -1301,6 +1301,12 @@ A UTXO is mature when:
         <li><strong>No tracking</strong> — no cookies, no analytics, no server-side storage</li>
       </ul>
 
+      <h3 id="sec-12-4">12.4 FCMP++ Shielded Transfers</h3>
+
+      <p>FCMP++ (Full-Chain Membership Proofs) adds optional shielded transfers on the base layer. They activate at block 210,000, with shielded coinbase at block 210,100.</p>
+
+      <p>A shielded spend hides which output is spent among the entire chain's outputs, rather than among a small ring.</p>
+
       <hr>
 
       <!-- 13. Ecosystem -->
@@ -1416,7 +1422,7 @@ A UTXO is mature when:
 
       <ul class="checklist">
         <li class="check">X25X multi-algorithm framework (7 algorithms)</li>
-        <li class="check">AuxPoW merged mining (SHA256d, RandomX, Scrypt, kHeavyHash)</li>
+        <li class="check">AuxPoW merged mining (SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, kHeavyHash)</li>
         <li class="check">Dynamic stake maturity with dual-halving</li>
         <li class="check">Trust Tier validator reward system</li>
         <li class="check">Enhanced block explorer with contract interaction</li>
@@ -1514,8 +1520,8 @@ A UTXO is mature when:
             <tr><td><strong>RPC Port</strong></td><td>3889</td></tr>
             <tr><td><strong>PoW to Hybrid</strong></td><td>Block 5,000</td></tr>
             <tr><td><strong>X25X Activation</strong></td><td>Block 2,000</td></tr>
-            <tr><td><strong>AuxPoW Activation</strong></td><td>Block 210,000</td></tr>
-            <tr><td><strong>FCMP Privacy Activation</strong></td><td>Block 210,000</td></tr>
+            <tr><td><strong>AuxPoW Activation</strong></td><td>Block 2,000</td></tr>
+            <tr><td><strong>FCMP++ Privacy Activation</strong></td><td>Block 210,000 (shielded coinbase 210,100)</td></tr>
           </tbody>
         </table>
       </div>
@@ -1533,6 +1539,7 @@ A UTXO is mature when:
           </thead>
           <tbody>
             <tr><td><strong>AuxPoW</strong></td><td>Auxiliary Proof-of-Work; merged mining proof from a parent chain</td></tr>
+            <tr><td><strong>FCMP++</strong></td><td>Full-Chain Membership Proofs; optional shielded transfers that hide which output is spent among the entire chain's outputs</td></tr>
             <tr><td><strong>Block Reward</strong></td><td>New coins created with each block (currently 50 WTX)</td></tr>
             <tr><td><strong>Coinstake</strong></td><td>A PoS block's special transaction proving stake ownership</td></tr>
             <tr><td><strong>Delegator / Super Staker</strong></td><td>A node accepting staking delegations (min 20,000 WTX)</td></tr>

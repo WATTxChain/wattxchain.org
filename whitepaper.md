@@ -57,7 +57,7 @@ WATTx bridges these paradigms by implementing:
 
 - **X25X Multi-Algorithm Mining:** 7 algorithms supporting ASICs, GPUs, and CPUs
 - **Hybrid PoW/PoS Consensus:** Dual security from both miners and stakers
-- **AuxPoW Merged Mining:** Mine WATTx simultaneously with any SHA256d, Scrypt, RandomX, or kHeavyHash chain
+- **AuxPoW Merged Mining:** Mine WATTx simultaneously with any SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, or kHeavyHash chain
 - **Trust Tier System:** Progressive validator rewards based on uptime commitment
 - **EVM Smart Contracts:** Full Solidity compatibility for dApps and tokens
 - **Built-in Privacy:** Cross-chain privacy pools, stealth addresses, and encrypted messaging
@@ -147,8 +147,8 @@ WATTx is built on a QTUM Core foundation with the following enhancements:
 | PoW to Hybrid PoW/PoS Transition | Block 5,000 |
 | X25X Multi-Algorithm Activation | Block 2,000 — active |
 | Proof-of-Stake Difficulty Fix | Block 2,000 — active |
-| AuxPoW Merged Mining Activation | Block 210,000 |
-| FCMP Privacy Activation | Block 210,000 (shielded coinbase 210,100) |
+| AuxPoW Merged Mining Activation | Block 2,000 — active |
+| FCMP++ Privacy Activation | Block 210,000 (shielded coinbase 210,100) |
 
 ---
 
@@ -256,7 +256,7 @@ All seven X25X algorithms support AuxPoW merged mining from activation. Miners o
 - **Free Security:** WATTx inherits hash power from any chain sharing a supported algorithm at no marginal energy cost
 - **Miner Incentive:** Miners earn additional revenue without additional hardware or electricity
 - **Network Effect:** As more miners opt in, WATTx security scales with total hash power across all compatible chains
-- **Decentralization:** No need for dedicated WATTx mining infrastructure — any miner on any chain using SHA256d, Scrypt, RandomX, or kHeavyHash can participate
+- **Decentralization:** No need for dedicated WATTx mining infrastructure — any miner on any chain using SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, or kHeavyHash can participate
 - **Algorithm Breadth:** Seven algorithms mean WATTx can tap into the hash power of virtually every major PoW chain in existence
 
 ---
@@ -478,7 +478,7 @@ WATTx includes a full Ethereum Virtual Machine (EVM) compatible layer:
 - **QRC-721 NFTs:** ERC-721 equivalent NFT standard
 - **Contract Verification:** On-chain source code verification via the block explorer
 
-### 10.2 Contract Interaction
+### 11.2 Contract Interaction
 
 ```bash
 # Deploy a contract (from compiled bytecode)
@@ -491,7 +491,7 @@ WATTx includes a full Ethereum Virtual Machine (EVM) compatible layer:
 ./wattx-cli sendtocontract "CONTRACT_ADDR" "DATA" 0
 ```
 
-### 10.3 Gas Model
+### 11.3 Gas Model
 
 - Contracts consume gas for execution, paid in WTX
 - Gas prevents infinite loops and spam transactions
@@ -502,7 +502,7 @@ WATTx includes a full Ethereum Virtual Machine (EVM) compatible layer:
 
 ## 12. Privacy Features
 
-### 11.1 Cross-Chain Privacy Pools
+### 12.1 Cross-Chain Privacy Pools
 
 WATTx implements cross-chain privacy pools using LayerZero messaging and zero-knowledge proofs:
 
@@ -519,14 +519,14 @@ WATTx implements cross-chain privacy pools using LayerZero messaging and zero-kn
 - Cross-chain withdrawal breaks single-chain analysis
 - Incremental Merkle tree (20 levels) stores commitments efficiently
 
-### 11.2 Stealth Addresses
+### 12.2 Stealth Addresses
 
 Stealth addresses allow recipients to receive funds without revealing their public address on the blockchain:
 - Sender generates a one-time address from the recipient's public key
 - Only the recipient can detect and spend funds sent to stealth addresses
 - Each transaction appears to go to a unique, unlinked address
 
-### 11.3 WATTxSecret — Encrypted Messaging
+### 12.3 WATTxSecret — Encrypted Messaging
 
 WATTxSecret is a client-side encrypted messaging tool built into the WATTx ecosystem:
 
@@ -535,11 +535,17 @@ WATTxSecret is a client-side encrypted messaging tool built into the WATTx ecosy
 - **Zero-knowledge architecture** — no data is ever sent to a server
 - **No tracking** — no cookies, no analytics, no server-side storage
 
+### 12.4 FCMP++ Shielded Transfers
+
+FCMP++ (Full-Chain Membership Proofs) adds optional shielded transfers on the base layer. They activate at block 210,000, with shielded coinbase at block 210,100.
+
+A shielded spend hides which output is spent among the entire chain's outputs, rather than among a small ring.
+
 ---
 
 ## 13. Ecosystem
 
-### 12.1 Block Explorer
+### 13.1 Block Explorer
 
 The WATTx Block Explorer provides real-time visibility into the blockchain:
 - Block and transaction browsing
@@ -551,11 +557,11 @@ The WATTx Block Explorer provides real-time visibility into the blockchain:
 
 **Live:** [wtx-explorer.wattxchange.app](https://wtx-explorer.wattxchange.app)
 
-### 12.2 WATTxSecret
+### 13.2 WATTxSecret
 
 End-to-end encrypted self-destructing messaging, accessible at [wattxchain.org/secret](https://wattxchain.org/secret).
 
-### 12.3 Cross-Chain Bridge (Coming Soon)
+### 13.3 Cross-Chain Bridge (Coming Soon)
 
 LayerZero-powered bridge enabling seamless asset transfers between:
 - WATTx
@@ -591,7 +597,7 @@ Human-readable domain names for WATTx addresses (similar to ENS on Ethereum):
 - Map domains to wallet addresses, smart contracts, and IPFS content
 - Resolve names natively in wallets and dApps
 
-### 12.6 Official Wallets
+### 13.6 Official Wallets
 
 **Desktop Wallet (wattx-qt):**
 - Full node capability with built-in mining
@@ -617,7 +623,7 @@ Human-readable domain names for WATTx addresses (similar to ENS on Ethereum):
 
 ### Phase 2: Multi-Algorithm & Merged Mining (Completed)
 - [x] X25X multi-algorithm framework (7 algorithms)
-- [x] AuxPoW merged mining (SHA256d, RandomX, Scrypt, kHeavyHash)
+- [x] AuxPoW merged mining (SHA256d, Scrypt, Ethash, RandomX, Equihash, X11, kHeavyHash)
 - [x] Dynamic stake maturity with dual-halving
 - [x] Trust Tier validator reward system
 - [x] Enhanced block explorer with contract interaction
@@ -692,14 +698,15 @@ WATTx is not just another cryptocurrency — it is a unified platform for mining
 | RPC Port | 3889 |
 | PoW to Hybrid | Block 5,000 |
 | X25X Activation | Block 2,000 |
-| AuxPoW Activation | Block 210,000 |
-| FCMP Privacy Activation | Block 210,000 |
+| AuxPoW Activation | Block 2,000 |
+| FCMP++ Privacy Activation | Block 210,000 (shielded coinbase 210,100) |
 
 ## Appendix B: Glossary
 
 | Term | Definition |
 |------|------------|
 | **AuxPoW** | Auxiliary Proof-of-Work; merged mining proof from a parent chain |
+| **FCMP++** | Full-Chain Membership Proofs; optional shielded transfers that hide which output is spent among the entire chain's outputs |
 | **Block Reward** | New coins created with each block (currently 50 WTX) |
 | **Coinstake** | A PoS block's special transaction proving stake ownership |
 | **Delegator / Super Staker** | A node accepting staking delegations (min 20,000 WTX) |
