@@ -143,7 +143,8 @@
   <div class="links">
     <a href="https://wattxchain.org/">Home</a>
     <a href="https://wattxchain.org/whitepaper.html">Whitepaper</a>
-    <a href="https://wtx-explorer.wattxchange.app">Explorer</a>
+    <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener">Explorer</a>
+    <a href="https://wattxchange.app/#dex" target="_blank" rel="noopener">DEX</a>
     <a href="https://github.com/WATTxChain/WATTx/releases">Download</a>
     <a href="https://mining-game.wattxchange.app/">Mining Game</a>
   </div>
@@ -255,13 +256,13 @@ staking with delegation, and a trust-tier system that pays reliable validators m
 <tr><td>Block subsidy</td><td>50 WTX</td><td>Paid whole to the block's producer</td></tr>
 <tr><td>Halving interval</td><td>210,000 blocks</td><td>≈ 9.7 months at 120 s</td></tr>
 <tr><td>Maximum supply</td><td>21,000,000 WTX</td><td>50 × 210,000 × 2 — Bitcoin's geometric schedule</td></tr>
-<tr><td>Coinbase maturity</td><td>100 blocks</td><td>≈ 3.3 hours</td></tr>
+<tr><td>Coinbase maturity</td><td>1 block until 2,500, then 100</td><td>≈ 3.3 hours after height 2,500</td></tr>
 <tr><td>Stake maturity</td><td>500 blocks</td><td>Dynamic — halves with every reward halving</td></tr>
 <tr><td>Super staker minimum</td><td>20,000 WTX</td><td><code>nMinValidatorStake</code></td></tr>
 <tr><td>Offline staking</td><td>After block 100</td><td>Delegation became active once blocks matured for staking</td></tr>
 <tr><td>Smart contracts</td><td>EVM / Solidity ≤ 0.8.x</td><td>London, Shanghai, Cancun and Pectra all active from genesis</td></tr>
 <tr><td>Token standards</td><td>QRC-20, QRC-721</td><td>Byte-compatible with ERC-20 / ERC-721</td></tr>
-<tr><td>P2P port</td><td>3888</td><td></td></tr>
+<tr><td>P2P port</td><td>1337</td><td></td></tr>
 <tr><td>RPC port</td><td>3889</td><td></td></tr>
 <tr><td>Premine</td><td>None</td><td>No ICO, no founder allocation, fair launch from block 0</td></tr>
 </tbody></table></div>
@@ -393,7 +394,7 @@ rpcallowip=127.0.0.1
 
 # --- network ---
 listen=1
-port=3888
+port=1337
 
 # --- staking ---
 staking=1
@@ -1271,7 +1272,8 @@ deploy by scanning blocks for your exact creation calldata.</p>
   <p style="margin-top:14px">
     <a href="https://wattxchain.org/">Home</a> ·
     <a href="https://wattxchain.org/whitepaper.html">Whitepaper</a> ·
-    <a href="https://wtx-explorer.wattxchange.app">Explorer</a> ·
+    <a href="https://wtx-explorer.wattxchange.app" target="_blank" rel="noopener">Explorer</a> ·
+    <a href="https://wattxchange.app/#dex" target="_blank" rel="noopener">DEX</a> ·
     <a href="https://github.com/WATTxChain/WATTx/releases">Download</a> ·
     <a href="https://secret.wattxchain.org">WATTxSecret</a> ·
     <a href="https://bridge.wattxchange.app">Bridge</a> ·
