@@ -258,7 +258,7 @@ staking with delegation, and a trust-tier system that pays reliable validators m
 <tr><td>Coinbase maturity</td><td>100 blocks</td><td>≈ 3.3 hours</td></tr>
 <tr><td>Stake maturity</td><td>500 blocks</td><td>Dynamic — halves with every reward halving</td></tr>
 <tr><td>Super staker minimum</td><td>20,000 WTX</td><td><code>nMinValidatorStake</code></td></tr>
-<tr><td>Offline staking</td><td>From block 1</td><td>Delegation available since genesis</td></tr>
+<tr><td>Offline staking</td><td>After block 100</td><td>Delegation became active once blocks matured for staking</td></tr>
 <tr><td>Smart contracts</td><td>EVM / Solidity ≤ 0.8.x</td><td>London, Shanghai, Cancun and Pectra all active from genesis</td></tr>
 <tr><td>Token standards</td><td>QRC-20, QRC-721</td><td>Byte-compatible with ERC-20 / ERC-721</td></tr>
 <tr><td>P2P port</td><td>3888</td><td></td></tr>
@@ -281,14 +281,14 @@ staking with delegation, and a trust-tier system that pays reliable validators m
 <thead><tr><th>Milestone</th><th>Height</th><th>Status</th></tr></thead>
 <tbody>
 <tr><td>Genesis — pure PoW</td><td>0</td><td><span class="pill live">Active</span></td></tr>
-<tr><td>Offline staking / delegation</td><td>1</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>Offline staking / delegation</td><td>After 100</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>X25X multi-algorithm activation</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>Per-algorithm difficulty retarget</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>PoS difficulty fix (16-second stake mask, 4× convergence)</td><td>2,000</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>Coinbase maturity v2</td><td>2,500</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>PoW → hybrid PoW/PoS transition</td><td>5,000</td><td><span class="pill live">Active</span></td></tr>
-<tr><td>AuxPoW merged mining</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
-<tr><td>RandomX native activation</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
+<tr><td>AuxPoW merged mining</td><td>100</td><td><span class="pill live">Active</span></td></tr>
+<tr><td>RandomX native activation</td><td>1</td><td><span class="pill live">Active</span></td></tr>
 <tr><td>FCMP privacy</td><td>210,000</td><td><span class="pill soon">Scheduled</span></td></tr>
 <tr><td>Shielded coinbase</td><td>210,100</td><td><span class="pill soon">Scheduled</span></td></tr>
 </tbody></table></div>
@@ -333,7 +333,7 @@ BIPs are all active from genesis, so the EVM is current from block 0.</p>
 <p><a href="https://github.com/WATTxChain/WATTx/releases">Download</a> the release for your platform. The
 Linux and macOS archives contain <code>wattxd</code> (daemon), <code>wattx-cli</code> (RPC client) and
 <code>wattx-qt</code> (graphical wallet); Windows ships <code>wattx-qt.exe</code> with its DLLs. Android has
-an APK; iOS is in progress.</p>
+an APK; iOS is released.</p>
 
 <pre><code># start the daemon
 ./wattxd -daemon
@@ -454,7 +454,7 @@ staking=1
 <thead><tr><th>Wallet</th><th>Platform</th><th>Does</th></tr></thead>
 <tbody>
 <tr><td><b>wattx-qt</b></td><td>Linux, Windows, macOS</td><td>Full node, built-in miner, staking and delegation UI, contract deploy and call, built-in Solidity compiler</td></tr>
-<tr><td><b>WATTx Mobile</b></td><td>Android (iOS soon)</td><td>Light client, sending, delegation, QR</td></tr>
+<tr><td><b>WATTx Mobile</b></td><td>Android, iOS</td><td>Light client, sending, delegation, QR</td></tr>
 <tr><td><b>WATTx Wallet extension</b></td><td>Chrome (MV3)</td><td>Self-custody WTX, ordinal inscription, <code>window.wattx</code> provider for dApps, <b>and contract transactions from the browser</b></td></tr>
 <tr><td><b>Mining Game HD wallet</b></td><td>In-game</td><td>One BIP-39 seed → payout addresses for WTX, HTH, BITN, BSV and EVM</td></tr>
 </tbody></table></div>
@@ -730,7 +730,7 @@ A UTXO is mature when confirmations ≥ 500 and it has not moved in that window.
 <section id="delegation">
 <h2>Delegation and super stakers</h2>
 
-<p class="lead">Offline staking has been active since block 1. You delegate your <i>staking rights</i> to a
+<p class="lead">Offline staking delegation became active after block 100, once blocks matured for staking. You delegate your <i>staking rights</i> to a
 super staker; your coins never move and never leave your wallet.</p>
 
 <h3>As a delegator</h3>
